@@ -25,7 +25,7 @@ SECRET_KEY = '84+4wl3cry2ebhfj&y2us71(smy@yuvv5r(9p%ttgdb26oja07'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bucksamonth.herokuapp.com','127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['bucksamonth.herokuapp.com','127.0.0.1', '0.0.0.0', '*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'services',
+    'accounts', 
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,9 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -115,6 +119,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/account/login/'
+
+LOGIN_EXEMPT_URLS = (
+    r'^account/login/$', 
+    r'^account/logout/$'
+    r'^account/register/$',
+)
+
+LOGIN_REDIRECT_URL = '/account/profile/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

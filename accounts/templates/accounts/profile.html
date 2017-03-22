@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'nav.html' %}
+<div class="container">
+<h1>{{ user }}</h1>
+<p>{{ user.first_name }}</p>
+<br>
+<p><a href="/account/profile/edit/">Edit profile</a><p>
+</div>
+{% endblock content %}
