@@ -18,12 +18,12 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-            <li><a href="/account/logout/">Logout 🔓</a></li>
-            <li><a href="/account/profile/">My subscriptions 📊</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout 🔓</a></li>
+            <li><a href="{% url 'accounts:profile' %}">My subscriptions 📊</a></li>
 
             {% else %}
-            <li><a href="/account/register/">Sign Up 📝</a></li>
-            <li><a href="/account/login/">Login 🔑</a></li>
+            <li><a href="{% url 'accounts:register' %}">Sign Up 📝</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login 🔑</a></li>
 <!--             <li><a href="#">Your subscriptions 📊<span class="sr-only">(current)</span></a></li> -->
             {% endif %}
           </ul>

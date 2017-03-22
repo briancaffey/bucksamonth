@@ -6,7 +6,9 @@
 <div class="container">
 <h1>{{ user }}</h1>
 <p>{{ user.first_name }}</p>
+<p>{{ user.userprofile.description }}</p>
 <br>
+<p>{{ user.userprofile.twitter }}</p>
 <p><a href="/account/profile/edit/">Edit profile</a><p>
 </div>
 {% endblock content %}
