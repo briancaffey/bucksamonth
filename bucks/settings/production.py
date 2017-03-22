@@ -25,7 +25,7 @@ SECRET_KEY = '84+4wl3cry2ebhfj&y2us71(smy@yuvv5r(9p%ttgdb26oja07'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0']
+ALLOWED_HOSTS = ['bucksamonth.herokuapp.com', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -130,8 +130,6 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "live-static", "static-root")
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 #STATIC_ROOT = "/home/cfedeploy/webapps/cfehome_static_root/"
 
