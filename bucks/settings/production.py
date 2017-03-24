@@ -111,9 +111,13 @@ LOGIN_REDIRECT_URL = '/account/profile/'
 
 LOGIN_EXEMPT_URLS = (
     r'^account/login/$', 
-    r'^account/logout/$'
+    r'^account/logout/$',
     r'^account/register/$',
-    r'^reset-password/$/',
+    r'^account/reset-password/$',
+    r'^account/reset-password/done/$',
+    r'^account/reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+    r'^account/reset-password/complete/$',
+    r'^$', 
 )
 
 # Internationalization

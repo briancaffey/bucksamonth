@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'nav.html' %}
+<div class="container">
+<h1>{{ object.service_name }} {{ object.emoji }}</h1>
+<h3>{{ object.description_short }}</h3>
+<h4><a href="https://twitter.com/{{ object.twitter }}">{{ object.twitter }}</a></h4>
+<p>{{ object.description_long }}<p>
+<p></p>
+<br>
+<hr>
+<h2>Comments</h2>
+<p>add a comment<p>
+<form method="POST" action="/services/view/{{ object.pk }}/">
+{% csrf_token %}
+{{ form.as_p }}
+<button class="btn btn-success" type="submit">add comment</button>
+</form>
+{% for comment in comments %}
+<h2>{{ comment.emoji}}</h2>
+<p>{{ comment.text }}</p>
+<p>{{ comment.user.user.first_name}}</p>
+<p>{{ comment.votes}}</p>
+<p>on {{ comment.date_created | date:"D d M Y" }}<p>
+
+{% endfor %}
+</div>
+{% endblock %}

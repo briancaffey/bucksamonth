@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'nav.html' %}
+<div class="container">
+{% for service in services %}
+
+<h1><a href="{{ service.get_absolute_url }}">{{ service.service_name }}</a> {{ service.emoji }}</h1>
+
+<p>${{ service.bucksamonth }}</p>
+
+<p>{{ service.description_short }}</p>
+
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block page_title %}💸&nbsp;&nbsp;bucksamonth 📅{% endblock   page_title %}
+{% block page_title %}💸&nbsp;&nbsp;bucksamonth 📅{% endblock page_title %}
 
 
 {% block content %}
@@ -13,14 +13,70 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Welcome to bucksamonth</h1>
+        <h1>welcome to bucksamonth</h1>
         <p>bucksamonth helps you track, compare and explore paid subscription services for just about anything</p>
         <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">Get started &raquo;</a>
+          <a class="btn btn-lg btn-primary" href="{% url 'accounts:profile' %}" role="button">Get started &raquo;</a>
         </p>
       </div>
 
     </div> <!-- /container -->
+
+<div class="container"><a class="btn btn-success" href="{% url 'services:add_service' %}">add a service</a>
+
+
+
+<br/><br/>
+
+<div class="container">
+<div class="col-md-4" >
+<h1  style="text-align:center;">Featured</h1>
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+{% for service in services %}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="{{ service.get_absolute_url }}" aria-expanded="true" aria-controls="collapseOne">
+          {{ service.service_name }}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        {{ service.description_short }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+</div>
+
+
+<div class="col-md-4" style="text-align:center;">
+<h1>Popular</h1>
+
+</div>
+
+
+
+
+<div class="col-md-4" style="text-align:center;">
+<h1>New</h1>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
 
 
 {% endblock %}

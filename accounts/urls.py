@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from accounts.views import AddSubscriptionView
 from django.contrib.auth.views import (
 	login, logout, password_reset, password_reset_done, password_reset_confirm,
 	password_reset_complete,
@@ -8,6 +9,7 @@ from django.contrib.auth.views import (
 urlpatterns = [
 
 	url(r'^$', views.home), 
+	url(r'^add-subscription/$', AddSubscriptionView.as_view(), name='add_subscription'),
 	url(r'^login/$', login, {'template_name': 'accounts/login.html'}, name="login"),
 	url(r'^logout/$', logout, {'template_name': 'accounts/logout.html'}, name="logout"),
 	url(r'^register/$', views.register, name='register'), 

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% include 'nav.html' %}
+<div class="container">
+<h2>Add a subscription</h2>
+<form method="POST" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<button class="btn btn-success" type="submit">Add</button>
+</form>
+<br><br>
+<p>Can't find one of your subscription services? <a href="{% url 'services:add_service' %}"><b>Add it</b></a>.</p>
+</div>
+{% endblock %}

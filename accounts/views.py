@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from services.models import Subscription
+from django.views.generic import View, TemplateView
+from accounts.forms import AddSubscriptionForm
 
 def home(request): 
 	return render(request, 'accounts/account_home.html')
@@ -25,8 +28,31 @@ def register(request):
 		return render(request, 'accounts/reg_form.html', args)
 
 def view_profile(request):
-	args = {'user': request.user}
+	subscriptions = Subscription.objects.filter(user=request.user.userprofile)
+	bucksamonth = Subscription.objects.filter(user=request.user.userprofile)
+	bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
+	args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
+
 	return render(request, 'accounts/profile.html', args)
+
+
+class AddSubscriptionView(TemplateView):
+	template_name = 'accounts/add_subscription.html'
+
+	def get(self, request):
+		form = AddSubscriptionForm()
+		args = {'form': form}
+		return render(request, self.template_name, args)
+
+	def post(self, request): 
+		form = AddSubscriptionForm(request.POST)
+		if form.is_valid():
+			post = form.save(commit=False)
+			post.user = request.user.userprofile
+			post.save()
+
+			return redirect('accounts:profile')
+
 
 def edit_profile(request):
 	if request.method == 'POST':

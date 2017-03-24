@@ -7,9 +7,12 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User) 
 	description = models.CharField(max_length=100, default='')
 	twitter = models.CharField(max_length=100, default='')
+	emoji = models.CharField(max_length=10, default='')
 
 	def __str__(self):
 		return self.user.username	
+
+
 def create_profile(sender, **kwargs):
 	if kwargs['created']:
 		user_profile = UserProfile.objects.create(user=kwargs['instance'])

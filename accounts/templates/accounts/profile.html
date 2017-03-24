@@ -4,11 +4,66 @@
 
 {% include 'nav.html' %}
 <div class="container">
-<h1>{{ user }}</h1>
-<p>{{ user.first_name }}</p>
+<div class="row">
+<div class="col-md-8">
+
+<h1>{{ user }} {{ user.userprofile.emoji }}</h1>
+
+</div>
+
+<div class="col-md-4">
+
+<p><a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">Edit profile</a>
+<p><a class="btn btn-info" href="{% url 'accounts:edit' %}">Personalize</a>
+<p><a class="btn btn-success" classhref="{% url 'accounts:edit' %}">Share</a>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+
+<p>{{ user.first_name }} </p>
 <p>{{ user.userprofile.description }}</p>
 <br>
 <p>{{ user.userprofile.twitter }}</p>
-<p><a href="/account/profile/edit/">Edit profile</a><p>
+
+<h3>Hey {{ user.first_name }}, you are spending {{ bucksamonth | floatformat }} bucks a month. </h3>
+
+<h4>here's the breakdown:</h4>
+
+<table class="table">
+	<tr>
+		<td><strong>service</strong></td>
+		<td><strong>bucksamonth</strong></td>
+		<td><strong>cc nickname</strong></td>
+
+	</tr>
+	{% for item in subscriptions%}
+	<tr>
+		<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a></td>
+		<td>{{ item.bucksamonth }}</td>	
+		<td>{{ item.cc_nickname }}</td>
+
+	</tr>
+	{% endfor %}
+</table>
 </div>
+
+<div class="container">
+
+<a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add a subscription</a>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 {% endblock content %}

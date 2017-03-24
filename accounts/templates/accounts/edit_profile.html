@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
+{% block page_title %}💸&nbsp;&nbsp;bucksamonth 📅{% endblock page_title %}
+
 {% block content %}
 
-{% block page_title %}💸&nbsp;&nbsp;bucksamonth 📅{% endblock page_title %}
+
 
 {% include 'nav.html' %}
 <div class="container">
 <form method="post">
 	{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit">Submit</button>
+	<button class="btn btn-success" type="submit">Submit</button>
 </form>
 </div>
 {% endblock content %}
