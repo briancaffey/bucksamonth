@@ -10,7 +10,10 @@ class UserProfile(models.Model):
 	emoji = models.CharField(max_length=10, default='')
 
 	def __str__(self):
-		return self.user.username	
+		return self.user.username
+
+	def get_absolute_url(self):
+		return "/users/%i/" % self.id
 
 
 def create_profile(sender, **kwargs):

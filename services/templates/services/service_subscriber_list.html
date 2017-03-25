@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+{% include 'nav.html' %}
+<div class="container">
+<h1>here's everyone who is subscribed to <a href="{{ service.first.get_absolute_url }}">{{ service.first }}</a></h1>
+{% for subscriber in subscriber_list %}
+
+<h3><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user }}</a> {{ subscriber.user.emoji }}</h3>
+
+{% endfor %}
+
+</div>
+{% endblock %}

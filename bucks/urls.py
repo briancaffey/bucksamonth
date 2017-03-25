@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^services/', include('services.urls', namespace='services')),
+    url(r'^users/', include('users.urls', namespace='users'))
 ]

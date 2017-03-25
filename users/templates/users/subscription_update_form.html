@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'nav.html' %}
+{% if subscription.user.user == user.id %}
+<div class="container">
+<form class="form-control" action="" method="post">
+	{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+</div>
+{% else %}
+
+<div class="container">
+	<h4>Something went wrong. 😕</h4>
+</div>
+
+{% endif %}
+
+{% endblock %}

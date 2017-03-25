@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import View, TemplateView, DetailView, FormView
-from services.models import Service, Comment
+from django.views.generic.list import ListView
+from services.models import Service, Comment, Subscription
 from services.forms import AddServiceForm
 from .forms import AddCommentForm
 from django.urls import reverse
@@ -19,7 +20,7 @@ class HomeView(View):
 		return render(request, 'services/home.html', {'services':services})
 
 def services(request):
-	services = Service.objects.all()
+	services = Service.objects.all().order_by('-date_created')
 	return render(request, 'services/services.html', {'services':services})
 
 
@@ -52,6 +53,9 @@ class ServiceView(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(ServiceView, self).get_context_data(**kwargs)
 		context['form'] = AddCommentForm()
+		subscribers = Subscription.objects.filter(service=self.kwargs['pk'])
+		context['subscribers'] = subscribers
+		context['subscribers_count'] = subscribers.distinct().count()
 		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
 		return context
 
@@ -86,6 +90,21 @@ class ServiceDetailView(TemplateView):
 	def post(self, request, *args, **kwargs):
 		view = ServiceComment.as_view()
 		return view(request, *args, **kwargs)
+
+class ServiceSubscriberListView(TemplateView):
+	
+	template_name = 'services/service_subscriber_list.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ServiceSubscriberListView, self).get_context_data(**kwargs)
+		context['subscriber_list'] = Subscription.objects.filter(service=self.kwargs['pk']).distinct()
+		context['service'] = Service.objects.filter(id=self.kwargs['pk'])
+		return context
+
+
+
+
+
 
 
 

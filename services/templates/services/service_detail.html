@@ -11,6 +11,11 @@
 <p></p>
 <br>
 <hr>
+<h2>Subscribers (<a href="{% url 'services:service_subscribers' pk=object.id %}">{{ subscribers_count }}</a>)</h2>
+{% for subscriber in subscribers %}
+<p><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user }}</a></p>
+{% endfor %}
+<hr>
 <h2>Comments</h2>
 <p>add a comment<p>
 <form method="POST" action="/services/view/{{ object.pk }}/">
@@ -21,7 +26,7 @@
 {% for comment in comments %}
 <h2>{{ comment.emoji}}</h2>
 <p>{{ comment.text }}</p>
-<p>{{ comment.user.user.first_name}}</p>
+<p><a href="{% url 'users:view_profile' pk=comment.user.user.id %}">{{ comment.user.user.first_name}}</a></p>
 <p>{{ comment.votes}}</p>
 <p>on {{ comment.date_created | date:"D d M Y" }}<p>
 

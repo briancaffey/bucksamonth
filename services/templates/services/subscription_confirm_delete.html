@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'nav.html' %}
+
+<div class="container">
+
+	<p>your subscription has been deleted.</p>
+
+	<p><a href="{% url 'accounts:profile' %}">go back to your profile</a></p>
+
+</div>
+
+{% endblock %}

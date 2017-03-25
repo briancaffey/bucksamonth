@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import UserProfile
 from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 # Create your models here.
@@ -12,7 +13,7 @@ class Service(models.Model):
 	featured				= models.BooleanField(default=False)
 	date_created 			= models.DateTimeField(auto_now_add=True)
 	bucksamonth 			= models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
-	emoji 					= models.CharField(max_length=20, default='')
+	emoji					= models.CharField(max_length=20, default='')
 	twitter 				= models.CharField(max_length=100, default='')
 
 	def __str__(self):
@@ -34,10 +35,11 @@ class Comment(models.Model):
 		return str(self.emoji)
 
 class Subscription(models.Model):
-	service 				= models.ForeignKey(Service, on_delete=models.CASCADE)
+	service 				= models.ForeignKey(Service, on_delete=models.CASCADE, related_name='subscription_service')
 	user 					= models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="subscribed_user")
 	cc_nickname 			= models.CharField(max_length=10)
 	bucksamonth 			= models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+	date_created			= models.DateTimeField(default=date.today)
 
 	def __str__(self):
 		return str(self.service)

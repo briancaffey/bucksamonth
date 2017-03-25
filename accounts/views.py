@@ -52,6 +52,9 @@ class AddSubscriptionView(TemplateView):
 			post.save()
 
 			return redirect('accounts:profile')
+		else: 
+			return render(request, self.template_name, {"form": form})
+
 
 
 def edit_profile(request):

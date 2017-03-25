@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'nav.html' %}
+
+
+
+{% if subscription.user.user.id == user.id %}
+<div class="container">
+
+<h2>Update your subscription to {{ subscription }}</h2>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{% for field in form %}
+    <div>
+        {{ field.errors }}
+        <div>{{ field.label_tag }}</div>
+        <div>{{ field }}</div>
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+    <br>
+	{% endfor %}
+    <!-- {{ form.as_p }}  -->
+    <div class="container"><div class="row"><input type="submit" class="btn btn-success" value="Update" /> - or - <a href="{% url 'accounts:delete_subscription' pk=subscription.id %}" class="btn btn-danger">delete</a></div></div>
+</form>
+
+</div>
+{% else %}
+
+<div class="container">
+	<h4>we couldn't find that page 😕</h4>
+</div>
+{% endif %}
+
+
+{% endblock %}

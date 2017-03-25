@@ -38,7 +38,7 @@ class AddServiceForm(forms.ModelForm):
 	emoji = forms.CharField(widget=forms.TextInput(
 		attrs={
 		'class':'form-control', 
-		'placeholder': "☺️🐿🎹💡",
+		'placeholder': "control + command + spacebar for emoji menu 😉",
 		}))
 
 

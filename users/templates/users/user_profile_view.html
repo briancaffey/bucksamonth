@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'nav.html' %}
+<div class="container">
+<h1>{{ user_.username }}'s profile{% if user.id == user_.id %} <h4>(this is <a href="{% url 'accounts:profile' %}">you</a>)</h4>{% endif %}</h1>
+
+<h3>{{ user_.username }} spends {{ bucksamonth | floatformat }} bucksamonth.</h3>
+
+{{ user_p.emoji }}
+
+{{ user_p.description }}
+<br><br>
+<table style="text-align:center;" class="table">
+
+	<tr>
+		<td><b>subscription</b></td>
+
+		<td><b>🙃&nbsp;&nbsp;emoji&nbsp;🙂</b></td>
+
+		<td><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
+
+		<td><strong>start date&nbsp;🗓</strong></td>
+
+	</tr>
+
+{% for subscription in subscriptions %}
+<tr>
+	
+	<td><a href="{% url 'services:service' pk=subscription.service.id %}">{{ subscription.service }}</a></td>
+
+	<td>{{ subscription.service.emoji }}</td>
+
+	<td>{{ subscription.bucksamonth | floatformat | floatformat }}</td>
+
+	<td>{{ subscription.date_created | date:"d-m-y" }}</td>
+
+</tr>
+{% endfor %}
+</table>
+
+
+</div>
+{% endblock %}
