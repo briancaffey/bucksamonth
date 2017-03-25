@@ -22,41 +22,63 @@
 
     </div> <!-- /container -->
 
-<div class="container"><a class="btn btn-success" href="{% url 'services:add_service' %}">add a service</a>
 
-
-
-<br/><br/>
 
 <div class="container">
-<div class="col-md-4" >
-<h1  style="text-align:center;">Featured</h1>
+<div style="text-align:center;" class="col-md-4" >
+<h1>Featured</h1>
 
-
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {% for service in services %}
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="{{ service.get_absolute_url }}" aria-expanded="true" aria-controls="collapseOne">
-          {{ service.service_name }}
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-        {{ service.description_short }}
-      </div>
+
+<a style="text-decoration: none !important" role="button" data-toggle="collapse" href="#a-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="a-popout{{ forloop.counter | slugify }}"><h1>
+  {{ service.emoji }}</h1>
+</a>
+
+<div class="collapse" id="a-popout{{ forloop.counter | slugify }}">
+  <div class="well">
+    <h2>{{ service.service_name }}</h2>
+    <hr>
+    {{ service.description_short }}
+    <hr>
+    <div class="row">
+
+      <a href="{% url 'services:service' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+
+
     </div>
   </div>
-  {% endfor %}
 </div>
-
+<hr>
+{% endfor %}
 </div>
-
 
 <div class="col-md-4" style="text-align:center;">
 <h1>Popular</h1>
+
+
+
+{% for service in services %}
+
+<a  style="text-decoration: none !important" role="button" data-toggle="collapse" href="#b-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="b-popout{{ forloop.counter | slugify }}"><h1>
+  {{ service.emoji }}</h1>
+</a>
+
+<div class="collapse" id="b-popout{{ forloop.counter | slugify }}">
+  <div class="well">
+    <h2>{{ service.service_name }}</h2>
+    <hr>
+    {{ service.description_short }}
+    <hr>
+    <div class="row">
+
+      <a href="{% url 'services:service' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+
+
+    </div>
+  </div>
+</div>
+<hr>
+{% endfor %}
 
 </div>
 
@@ -66,9 +88,38 @@
 <div class="col-md-4" style="text-align:center;">
 <h1>New</h1>
 
-</div>
-</div>
 
+
+{% for service in services %}
+
+<a style="text-decoration: none !important" role="button" data-toggle="collapse" href="#c-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="c-popout{{ forloop.counter | slugify }}"><h1>
+  {{ service.emoji }}</h1>
+</a>
+
+<div class="collapse" id="c-popout{{ forloop.counter | slugify }}">
+  <div class="well">
+    <h2>{{ service.service_name }}</h2>
+    <hr>
+    {{ service.description_short }}
+    <hr>
+    <div class="row">
+
+      <a href="{% url 'services:service' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+
+
+    </div>
+  </div>
+</div>
+<hr>
+{% endfor %}
+
+
+
+
+
+
+
+</div>
 </div>
 
 
