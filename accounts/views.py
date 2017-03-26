@@ -55,8 +55,6 @@ class AddSubscriptionView(TemplateView):
 		else: 
 			return render(request, self.template_name, {"form": form})
 
-
-
 def edit_profile(request):
 	if request.method == 'POST':
 		form = EditProfileForm(request.POST, instance=request.user)
