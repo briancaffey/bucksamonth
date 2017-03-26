@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from services.models import Subscription
 from django.views.generic import View, TemplateView
 from accounts.forms import AddSubscriptionForm
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 def home(request): 
 	return render(request, 'accounts/account_home.html')
@@ -18,8 +20,11 @@ def register(request):
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
-			form.save()
-			return redirect('accounts:login')
+			new_user = form.save()
+			new_user = authenticate(username=form.cleaned_data['username'],
+									password=form.cleaned_data['password1'],)
+			login(request, new_user)
+			return redirect('accounts:profile')
 
 	else:
 		form = RegistrationForm()
