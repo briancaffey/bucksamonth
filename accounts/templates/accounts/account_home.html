@@ -5,7 +5,17 @@
 {% block content %}
 
 {% include 'nav.html' %}
+
 <div class="container">
-	<h2>Login</h2>
+	<h2>Login to bucksamonth</h2>
+	<br>
+	<form method='POST'>{% csrf_token %}
+
+	{{ form.as_p }}
+	<button class="btn btn-success" type="submit" name="button">Login</button>
+	</form>
+	<br>
+	<p><a href="{% url 'accounts:reset_password' %}">Forgot your password?</a></p>
 </div>
+
 {% endblock %}
