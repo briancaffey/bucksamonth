@@ -46,24 +46,18 @@
 
 		<td><strong>💳&nbsp;&nbsp;nickname</strong></td>
 
-		<td><strong>edit</td>
+		<td><strong>edit</strong></td>
 
 	</tr>
 	{% for item in subscriptions%}
 	<tr>
 
 		<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a></td>
-
 		<td style="text-align:center;">{{ item.service.emoji }}</td>
-
 		<td style="text-align:center;">{{ item.bucksamonth | floatformat }}</td>
-
 		<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
-
 		<td>{{ item.cc_nickname }}</td>
-
-		<td><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
-
+		<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
 	</tr>
 	{% endfor %}
 	<tr>

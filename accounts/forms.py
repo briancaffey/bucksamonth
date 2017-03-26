@@ -44,7 +44,7 @@ class EditProfileForm(UserChangeForm):
 class AddSubscriptionForm(forms.ModelForm):
 
 	service = forms.ModelChoiceField(
-		queryset=Service.objects.all(), 
+		queryset=Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name'), 
 		widget=forms.Select(attrs={
 			'class':'form-control',
 			'placeholder':'select a subscrption service',
