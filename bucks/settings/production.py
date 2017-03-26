@@ -137,7 +137,7 @@ USE_TZ = True
 
 LOGIN_URL = '/account/login/'
 
-LOGIN_REDIRECT_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/account/profile/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
