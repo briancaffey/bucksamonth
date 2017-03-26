@@ -16,7 +16,17 @@
         <h1>welcome to bucksamonth</h1>
         <p>bucksamonth helps you track, compare and explore paid subscription services for just about anything</p>
         <p>
-          <a class="btn btn-lg btn-primary" href="{% url 'accounts:profile' %}" role="button">Get started &raquo;</a>
+          <a class="btn btn-lg btn-primary" href=
+
+          "{% if user.is_authenticated %}
+
+          {% url 'accounts:profile' %}
+
+          {% else %}
+
+          {% url 'accounts:login' %}
+
+          {% endif %}" role="button">Get started &raquo;</a>
         </p>
       </div>
 
