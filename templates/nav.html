@@ -11,12 +11,12 @@
           <a class="navbar-brand" href="/">💸&nbsp;&nbsp;bucksamonth 📅</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" style="text-align:center;">
             <li><a href="/">Home 📍</a></li>
             <li><a href="{% url 'services:services' %}">Explore 🔭</a></li>
 
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" style="text-align:center;">
             {% if user.is_authenticated %}
             <li><a href="{% url 'accounts:logout' %}">Logout 🔓</a></li>
             <li><a href="{% url 'accounts:profile' %}">My subscriptions 📊</a></li>

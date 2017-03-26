@@ -10,6 +10,7 @@ from django.http import HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
 from django import forms
 from django.views import View
+from django.db.models import Count
 
 # Create your views here.
 
@@ -17,7 +18,15 @@ from django.views import View
 class HomeView(View):
 	def get(self, request, *args, **kwargs):
 		services = Service.objects.all()
-		return render(request, 'services/home.html', {'services':services})
+		featured = Service.objects.filter(featured=True)
+		popular = Service.objects.annotate(num_users=Count('subscription_service')).order_by('-num_users')[:5]
+		new = Service.objects.order_by('-date_created')[:5]
+		context = {
+			'featured':featured, 
+			'popular':popular,
+			'new':new, 
+		}
+		return render(request, 'services/home.html', context)
 
 def services(request):
 	services = Service.objects.all().order_by('-date_created')

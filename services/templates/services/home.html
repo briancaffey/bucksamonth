@@ -38,7 +38,7 @@
 <div style="text-align:center;" class="col-md-4" >
 <h1>Featured</h1>
 
-{% for service in services %}
+{% for service in featured %}
 
 <a style="text-decoration: none !important" role="button" data-toggle="collapse" href="#a-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="a-popout{{ forloop.counter | slugify }}"><h1>
   {{ service.emoji }}</h1>
@@ -67,7 +67,7 @@
 
 
 
-{% for service in services %}
+{% for service in popular %}
 
 <a  style="text-decoration: none !important" role="button" data-toggle="collapse" href="#b-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="b-popout{{ forloop.counter | slugify }}"><h1>
   {{ service.emoji }}</h1>
@@ -100,7 +100,7 @@
 
 
 
-{% for service in services %}
+{% for service in new %}
 
 <a style="text-decoration: none !important" role="button" data-toggle="collapse" href="#c-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="c-popout{{ forloop.counter | slugify }}"><h1>
   {{ service.emoji }}</h1>
