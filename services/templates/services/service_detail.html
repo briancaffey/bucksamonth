@@ -27,7 +27,13 @@
 <p>add a comment<p>
 <form method="POST" action="/services/view/{{ object.pk }}/">
 {% csrf_token %}
-{{ form.as_p }}
+{% for field in form %}
+{{ field }}
+    {% for err in field.errors %}
+    <p><div>{{ err }}</div></p>
+    {% endfor %}
+<br>
+{% endfor %}
 <button class="btn btn-success" type="submit">add comment</button>
 </form>
 {% for comment in comments %}

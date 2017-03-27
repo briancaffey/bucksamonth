@@ -87,6 +87,15 @@ class ServiceComment(SingleObjectMixin, FormView):
 		form.save()
 		return super(ServiceComment, self).form_valid(form)
 
+	def form_invalid(self, form, **kwargs):
+		context = self.get_context_data(**kwargs)
+		subscribers = Subscription.objects.filter(service=self.kwargs['pk'])
+		context['subscribers'] = subscribers
+		context['subscribers_count'] = subscribers.distinct().count()
+		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
+		context['form'] = AddCommentForm()
+		return self.render_to_response(context)
+
 	def get_success_url(self):
 		return reverse('services:service', kwargs={'pk': self.object.pk})
 	
@@ -109,11 +118,3 @@ class ServiceSubscriberListView(TemplateView):
 		context['subscriber_list'] = Subscription.objects.filter(service=self.kwargs['pk']).distinct()
 		context['service'] = Service.objects.filter(id=self.kwargs['pk'])
 		return context
-
-
-
-
-
-
-
-
