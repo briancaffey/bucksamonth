@@ -26,6 +26,11 @@ def register(request):
 			login(request, new_user)
 			return redirect('accounts:profile')
 
+		else:
+			#if form.cleaned_data['password1'] != form.cleaned_data['password2']:
+			#	not_unique = "confirmation password doesn't match"
+			return render(request, 'accounts/reg_form.html', {'form':form})
+
 	else:
 		form = RegistrationForm()
 

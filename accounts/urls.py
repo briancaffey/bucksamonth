@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
 from accounts.views import AddSubscriptionView
+from accounts.forms import MyAuthenticationForm
 from users.views import SubscriptionUpdate, SubscriptionDeleteView
 from django.contrib.auth.views import (
 	login, logout, password_reset, password_reset_done, password_reset_confirm,
@@ -13,7 +14,7 @@ urlpatterns = [
 	url(r'^add-subscription/$', AddSubscriptionView.as_view(), name='add_subscription'),
 	url(r'^subscription/(?P<pk>[0-9]+)/edit/$', SubscriptionUpdate.as_view(), name='subscription_update'),
 	url(r'^subscription/(?P<pk>[0-9]+)/delete/$', SubscriptionDeleteView.as_view(), name="delete_subscription"),
-	url(r'^login/$', login, {'template_name': 'accounts/login.html'}, name="login"),
+	url(r'^login/$', login, {'template_name': 'accounts/login.html', 'authentication_form': MyAuthenticationForm}, name="login"),
 	url(r'^logout/$', logout, {'template_name': 'accounts/logout.html'}, name="logout"),
 	url(r'^register/$', views.register, name='register'), 
 	url(r'^profile/$', views.view_profile, name='profile'), 
