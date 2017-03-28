@@ -112,6 +112,12 @@ class AddSubscriptionForm(forms.ModelForm):
 		'placeholder': "how many bucks a month?",
 		}))
 
+
+	wishlist = forms.BooleanField(widget=forms.CheckboxInput(
+		attrs={
+		
+		}))
+
 	class Meta:
 		model = Subscription
 		fields = (
@@ -119,5 +125,6 @@ class AddSubscriptionForm(forms.ModelForm):
 				'service', 
 				'cc_nickname', 
 				'bucksamonth',
+				'wishlist'
 
 				)

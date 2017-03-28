@@ -38,10 +38,12 @@ def register(request):
 		return render(request, 'accounts/reg_form.html', args)
 
 def view_profile(request):
-	subscriptions = Subscription.objects.filter(user=request.user.userprofile)
+	subscriptions = Subscription.objects.filter(user=request.user.userprofile, wishlist=False)
 	bucksamonth = Subscription.objects.filter(user=request.user.userprofile)
+	wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)
 	bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
-	args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
+	args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist}
+	#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
 
 	return render(request, 'accounts/profile.html', args)
 

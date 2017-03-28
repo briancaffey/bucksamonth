@@ -11,7 +11,7 @@
 
 {% include 'nav.html' %}
 <div class="container">
-<h1>{{ object.service_name }} {{ object.emoji }}</h1>
+<div class="row"><div class="container"><h1>{{ object.service_name }} {{ object.emoji }}</h1><a href="http://{{ object.url_name }}" class="btn btn-warning">Get {{ object.service_name }}</a></div></div>
 <h3>{{ object.description_short }}</h3>
 <h4><a href="https://twitter.com/{{ object.twitter }}">{{ object.twitter }}</a></h4>
 <p>{{ object.description_long }}<p>

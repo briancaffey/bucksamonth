@@ -17,7 +17,8 @@ class UserProfileView(TemplateView):
 		context = super(UserProfileView, self).get_context_data(**kwargs)
 		context['user_'] = User.objects.get(id=self.kwargs['pk'])
 		context['user_p'] = UserProfile.objects.get(user=context['user_'])
-		context['subscriptions'] = Subscription.objects.filter(user=context['user_p'])
+		context['subscriptions'] = Subscription.objects.filter(user=context['user_p'], wishlist=False)
+		context['wishlist'] = Subscription.objects.filter(user=context['user_p'], wishlist=True)
 		context['bucksamonth'] = sum([subscription.bucksamonth for subscription in context['subscriptions']])
 		print(context)
 		return context
@@ -30,7 +31,7 @@ class UserProfileView(TemplateView):
 
 class SubscriptionUpdate(UpdateView):
 	model = Subscription
-	fields = ['cc_nickname', 'bucksamonth', 'date_created']
+	fields = ['cc_nickname', 'bucksamonth', 'date_created', 'wishlist']
 	template_name_suffix = '_update_form'
 	success_url = '/account/profile/'
 

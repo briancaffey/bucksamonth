@@ -49,7 +49,7 @@
 		<td><strong>edit</strong></td>
 
 	</tr>
-	{% for item in subscriptions%}
+	{% for item in subscriptions %}
 	<tr>
 
 		<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a></td>
@@ -70,6 +70,40 @@
 
 	</tr>
 </table>
+<hr>
+<h4>Your wishlist ⭐️</h4>
+
+<table style="text-align:center;" class="table">
+	<tr>
+		<td><strong>service</strong></td>
+
+		<td style="text-align:center;"><strong>🙃&nbsp;&nbsp;emoji&nbsp;🙂</strong></td>
+
+		<td style="text-align:center;"><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
+
+		<td style="text-align:center;"><strong>start date&nbsp;🗓</strong></td>
+
+		<td><strong>💳&nbsp;&nbsp;nickname</strong></td>
+
+		<td><strong>edit</strong></td>
+
+	</tr>
+	{% for item in wishlist %}
+	<tr>
+
+		<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a></td>
+		<td style="text-align:center;">{{ item.service.emoji }}</td>
+		<td style="text-align:center;">{{ item.bucksamonth | floatformat }}</td>
+		<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
+		<td>{{ item.cc_nickname }}</td>
+		<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
+	</tr>
+	{% endfor %}
+
+</table>
+
+
+
 
 </div>
 
