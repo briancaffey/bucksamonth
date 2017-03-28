@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from services.models import Subscription
 from accounts.models import UserProfile
 from django.views.generic.edit import UpdateView
-
+from accounts.forms import UpdateSubscriptionForm
 from django.views.generic import DeleteView
 from django.http import Http404
 
@@ -31,7 +31,8 @@ class UserProfileView(TemplateView):
 
 class SubscriptionUpdate(UpdateView):
 	model = Subscription
-	fields = ['cc_nickname', 'bucksamonth', 'date_created', 'wishlist']
+	#fields = ['cc_nickname', 'bucksamonth', 'date_created', 'wishlist']
+	form_class = UpdateSubscriptionForm
 	template_name_suffix = '_update_form'
 	success_url = '/account/profile/'
 

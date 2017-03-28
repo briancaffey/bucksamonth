@@ -11,7 +11,7 @@
 
 {% include 'nav.html' %}
 <div class="container">
-<div class="row"><div class="container"><h1>{{ object.service_name }} {{ object.emoji }}</h1><a href="http://{{ object.url_name }}" class="btn btn-warning">Get {{ object.service_name }}</a></div></div>
+<div class="row"><div class="container"><h1>{{ object.service_name }} {{ object.emoji }} {{ object.bucksamonth | floatformat }} bucksamonth</h1><a href="http://{{ object.url_name }}" class="btn btn-warning">Get {{ object.service_name }}</a></div></div>
 <h3>{{ object.description_short }}</h3>
 <h4><a href="https://twitter.com/{{ object.twitter }}">{{ object.twitter }}</a></h4>
 <p>{{ object.description_long }}<p>
@@ -20,7 +20,7 @@
 <hr>
 <h2>Subscribers (<a href="{% url 'services:service_subscribers' pk=object.id %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
-<p><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user }}</a></p>
+<p><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user.emoji }}</a></p>
 {% endfor %}
 <hr>
 <h2>Comments</h2>

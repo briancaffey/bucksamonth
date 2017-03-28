@@ -80,13 +80,34 @@ class RegistrationForm(UserCreationForm):
 
 class EditProfileForm(UserChangeForm):
 
+	email = forms.EmailField(
+		required=True, 
+		widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "update your email address",
+		}))
+
+	first_name = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "change your first name",
+		}))
+
+	last_name = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "update your last name",
+		}))
+
+
 	class Meta:
 		model = User
 		fields = (
 				'email', 
 				'first_name',
 				'last_name',
-				'password',
+
 				)
 
 
@@ -113,7 +134,11 @@ class AddSubscriptionForm(forms.ModelForm):
 		}))
 
 
-	wishlist = forms.BooleanField(widget=forms.CheckboxInput(
+	wishlist = forms.BooleanField(
+		initial=False, 
+		required=False, 
+		widget=forms.CheckboxInput(
+
 		attrs={
 		
 		}))
@@ -126,5 +151,45 @@ class AddSubscriptionForm(forms.ModelForm):
 				'cc_nickname', 
 				'bucksamonth',
 				'wishlist'
-
 				)
+
+
+
+class UpdateSubscriptionForm(forms.ModelForm):
+
+	cc_nickname = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "which credit card is it on (nickname)",
+		}))
+
+	bucksamonth = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "how many bucks a month?",
+		}))
+
+	date_created = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "when did you start using it?",
+		}))
+
+
+	wishlist = forms.BooleanField(
+		required=False, 
+		widget=forms.CheckboxInput(
+		attrs={
+		
+		}))
+
+	class Meta:
+		model = Subscription
+		fields = (
+
+				'cc_nickname', 
+				'bucksamonth',
+				'wishlist', 
+				'date_created', 
+				)
+
