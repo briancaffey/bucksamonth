@@ -13,7 +13,10 @@ class MyAuthenticationForm(AuthenticationForm):
 		'placeholder': "enter your username",
 		}))
 
-	password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control','placeholder': "enter your password",}))
+	password = forms.CharField(widget=forms.PasswordInput(
+		attrs={
+		'class':'form-control',
+		'placeholder': "enter your password",}))
 
 
 class RegistrationForm(UserCreationForm):
@@ -80,6 +83,12 @@ class RegistrationForm(UserCreationForm):
 
 class EditProfileForm(UserChangeForm):
 
+	username = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "pick a username for your public profile",
+		}))
+
 	email = forms.EmailField(
 		required=True, 
 		widget=forms.TextInput(
@@ -104,10 +113,11 @@ class EditProfileForm(UserChangeForm):
 	class Meta:
 		model = User
 		fields = (
+				'username',
 				'email', 
 				'first_name',
 				'last_name',
-
+				'password', 
 				)
 
 
@@ -152,8 +162,6 @@ class AddSubscriptionForm(forms.ModelForm):
 				'bucksamonth',
 				'wishlist'
 				)
-
-
 
 class UpdateSubscriptionForm(forms.ModelForm):
 

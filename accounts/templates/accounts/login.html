@@ -6,7 +6,7 @@
 
 <div class="container">
 
-<h2>Login to your bucksamonth account</h2>
+<h2>Login to your bucksamonth account, or <a href="{% url 'accounts:register' %}">sign up</a> for a new account</h2>
 <br>
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
