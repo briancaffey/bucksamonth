@@ -19,6 +19,9 @@ class Service(models.Model):
 	def __str__(self):
 		return str(self.service_name)
 
+	def comments(self):
+		return Comment.objects.filter(service=self.id)
+
 	def get_absolute_url(self):
 		return "/services/view/%i/" % self.id
 

@@ -23,7 +23,7 @@
 <p><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user.emoji }}</a></p>
 {% endfor %}
 <hr>
-<h2>Comments</h2>
+<h2>Comments ({{ object.comments.count }})</h2>
 <p>add a comment<p>
 <form method="POST" action="/services/view/{{ object.pk }}/">
 {% csrf_token %}
