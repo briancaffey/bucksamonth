@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from django.views.generic import View, TemplateView, DetailView, FormView
+from django.views.generic import View, TemplateView, DetailView, FormView, DeleteView
 from django.views.generic.list import ListView
 from services.models import Service, Comment, Subscription
 from services.forms import AddServiceForm
@@ -13,7 +13,6 @@ from django.views import View
 from django.db.models import Count
 
 # Create your views here.
-
 
 class HomeView(View):
 	def get(self, request, *args, **kwargs):
@@ -58,7 +57,6 @@ class ServiceView(DetailView):
 	template_name = 'services/service_detail.html'
 	model = Service
 
-
 	def get_context_data(self, **kwargs):
 		context = super(ServiceView, self).get_context_data(**kwargs)
 		context['form'] = AddCommentForm()
@@ -66,6 +64,7 @@ class ServiceView(DetailView):
 		context['subscribers'] = subscribers
 		context['subscribers_count'] = subscribers.distinct().count()
 		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
+		context['user_info'] = Subscription.objects.filter(service=self.kwargs['pk'], user=self.request.user.userprofile).first()
 		return context
 
 
@@ -97,8 +96,21 @@ class ServiceComment(SingleObjectMixin, FormView):
 		return self.render_to_response(context)
 
 	def get_success_url(self):
-		return reverse('services:service', kwargs={'pk': self.object.pk})
-	
+		return reverse('services:service_detail', kwargs={'pk': self.object.pk})
+
+class CommentDeleteView(DeleteView):
+
+	model = Comment
+	success_url = '/accounts/profile'
+
+	def get_object(self, queryset=None):
+
+		obj = super(CommentDeleteView, self).get_object()
+		if not obj.user.user.id == self.request.user.id:
+			raise Http404
+		obj.delete()
+		return obj
+
 class ServiceDetailView(TemplateView):
 
 	def get(self, request, *arg, **kwargs):

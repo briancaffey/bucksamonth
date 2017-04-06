@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-from accounts.views import AddSubscriptionView
+from accounts.views import AddSubscriptionView, UpdateUserInfoForm
 from accounts.forms import MyAuthenticationForm
 from users.views import SubscriptionUpdate, SubscriptionDeleteView
 from django.contrib.auth.views import (
@@ -11,6 +11,7 @@ from django.contrib.auth.views import (
 urlpatterns = [
 
 	url(r'^$', views.home), 
+	url(r'^(?P<pk>[0-9]+)/info/$', UpdateUserInfoForm.as_view(), name='update_personal_info'),
 	url(r'^add-subscription/$', AddSubscriptionView.as_view(), name='add_subscription'),
 	url(r'^subscription/(?P<pk>[0-9]+)/edit/$', SubscriptionUpdate.as_view(), name='subscription_update'),
 	url(r'^subscription/(?P<pk>[0-9]+)/delete/$', SubscriptionDeleteView.as_view(), name="delete_subscription"),

@@ -10,7 +10,8 @@
 <form method="POST" action="">
 {% csrf_token %}
 {{ form.as_p }}
-<button class="btn btn-success" type="submit">Add</button>
+<button class="btn btn-success" type="submit">Add</button> - or - 
+<a href="{% url 'accounts:profile' %}" class="btn btn-danger">Cancel</a>
 </form>
 <br><br>
 <p>Subscription services added here will show up on your bucksamonth account and will also be displayed on your public bucksamonth page. <a href="#">Learn more</a>.</p>

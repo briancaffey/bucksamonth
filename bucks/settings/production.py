@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = '84+4wl3cry2ebhfj&y2us71(smy@yuvv5r(9p%ttgdb26oja07'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['bucksamonth.herokuapp.com', '127.0.0.1', '0.0.0.0', '*']
 
@@ -118,8 +118,6 @@ LOGIN_EXEMPT_URLS = (
     r'^account/reset-password/done/$',
     r'^account/reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
     r'^account/reset-password/complete/$',
-
-
 )
 
 # Internationalization

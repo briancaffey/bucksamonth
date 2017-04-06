@@ -2,16 +2,21 @@ from django.shortcuts import render, redirect
 from accounts.forms import (
 	RegistrationForm, 
 	EditProfileForm, 
+	EditPersonalInfoForm,
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from services.models import Subscription
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, FormView, UpdateView
 from accounts.forms import AddSubscriptionForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from accounts.models import UserProfile
+#from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView
+
 
 def home(request): 
 	return render(request, 'accounts/account_home.html')
@@ -66,6 +71,22 @@ class AddSubscriptionView(TemplateView):
 			return redirect('accounts:profile')
 		else: 
 			return render(request, self.template_name, {"form": form})
+
+
+class UpdateUserInfoForm(UpdateView):
+	
+
+	model = UserProfile
+	form_class = EditPersonalInfoForm
+	#fields = ['description']
+	success_url = '/account/profile/'
+
+	def get_context_data(self, **kwargs):
+		context = super(UpdateUserInfoForm, self).get_context_data(**kwargs)
+		context['subscription'] = self.object
+		return context
+
+
 
 def edit_profile(request):
 	if request.method == 'POST':

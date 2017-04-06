@@ -17,7 +17,10 @@ class UserProfileView(TemplateView):
 		context = super(UserProfileView, self).get_context_data(**kwargs)
 		context['user_'] = User.objects.get(id=self.kwargs['pk'])
 		context['user_p'] = UserProfile.objects.get(user=context['user_'])
-		context['subscriptions'] = Subscription.objects.filter(user=context['user_p'], wishlist=False)
+		context['subscriptions'] = Subscription.objects.filter(user=context['user_p'], wishlist=False, private=False)
+		private = Subscription.objects.filter(user=context['user_p'], wishlist=False, private=True)
+		private = private.count()
+		context['private'] = private
 		context['wishlist'] = Subscription.objects.filter(user=context['user_p'], wishlist=True)
 		context['bucksamonth'] = sum([subscription.bucksamonth for subscription in context['subscriptions']])
 		print(context)
@@ -55,10 +58,8 @@ class SubscriptionDeleteView(DeleteView):
 	def get_object(self, queryset=None):
 
 		obj = super(SubscriptionDeleteView, self).get_object()
-		print("OK")
 		if not obj.user.user.id == self.request.user.id:
 			raise Http404
-		print("seems ok")
 		obj.delete()
 		return obj
 

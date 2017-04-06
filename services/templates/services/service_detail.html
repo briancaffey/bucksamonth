@@ -11,7 +11,16 @@
 
 {% include 'nav.html' %}
 <div class="container">
-<div class="row"><div class="container"><h1>{{ object.service_name }} {{ object.emoji }} {{ object.bucksamonth | floatformat }} bucksamonth</h1><a href="http://{{ object.url_name }}" class="btn btn-warning">Get {{ object.service_name }}</a></div></div>
+<div class="row"><div class="container"><h1>{{ object.service_name }} {{ object.emoji }}</h1>
+
+<h5>{{ object.bucksamonth | floatformat:"0" }} bucksamonth</h5>
+
+<a href="http://{{ object.url_name }}" class="btn btn-warning">Get {{ object.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="#">Add {{ object.service_name }} to your subscriptions</a>{% endif %}
+</div>
+</div>
+<br />
+{% if user_info %}<div class="alert alert-info" style="text-align:center;">You have had <strong>{{ object.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit</a></strong></div>{% endif %}
+
 <h3>{{ object.description_short }}</h3>
 <h4><a href="https://twitter.com/{{ object.twitter }}">{{ object.twitter }}</a></h4>
 <p>{{ object.description_long }}<p>
@@ -25,7 +34,7 @@
 <hr>
 <h2>Comments ({{ object.comments.count }})</h2>
 <p>add a comment<p>
-<form method="POST" action="/services/view/{{ object.pk }}/">
+<form method="POST" action="{% url 'services:service_detail' pk=object.id %}">
 {% csrf_token %}
 {% for field in form %}
 {{ field }}
@@ -38,10 +47,10 @@
 </form>
 {% for comment in comments %}
 <h2>{{ comment.emoji}}</h2>
-<p>{{ comment.text }}</p>
-<p><a href="{% url 'users:view_profile' pk=comment.user.user.id %}">{{ comment.user.user.first_name}}</a></p>
-<p>{{ comment.votes}}</p>
-<p>on {{ comment.date_created | date:"D d M Y" }}<p>
+<p>{{ comment.text | linebreaks }}</p>
+<p>by <a href="{% url 'users:view_profile' pk=comment.user.user.id %}">{{ comment.user.user.first_name}}</a> | {{ comment.votes}} votes | on {{ comment.date_created | date:"D d M Y" }} | {% if user.userprofile == comment.user %}
+
+<a href="{% url 'services:comment_delete' pk=comment.id %}">delete</a>{% else %}Flag{% endif %}</p>
 
 {% endfor %}
 </div>

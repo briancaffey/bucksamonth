@@ -6,7 +6,7 @@
 <div class="container">
 <h1>{{ user_.username }}'s profile{% if user.id == user_.id %} <h4>(this is <a href="{% url 'accounts:profile' %}">you</a>)</h4>{% endif %}</h1>
 
-<h3>{{ user_.username }} spends {{ bucksamonth | floatformat }} bucksamonth.</h3>
+<h3>{{ user_.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth.</h3>
 
 {{ user_p.emoji }}
 
@@ -28,7 +28,7 @@
 {% for subscription in subscriptions %}
 <tr>
 	
-	<td><a href="{% url 'services:service' pk=subscription.service.id %}">{{ subscription.service }}</a></td>
+	<td><a href="{% url 'services:service_detail' pk=subscription.service.id %}">{{ subscription.service }}</a></td>
 
 	<td>{{ subscription.service.emoji }}</td>
 
@@ -37,7 +37,21 @@
 	<td>{{ subscription.date_created | date:"d-m-y" }}</td>
 
 </tr>
+
 {% endfor %}
+
+<tr>
+	
+	<td>{{ private }} private subscription{% if private > 1 %}s{% endif %} <a href="#">what's this? 🤔</a></td>
+
+	<td>🙈 🙉 🙊</td>
+
+	<td>💵💵💵</td>
+
+	<td>📅📅📅</td>
+
+</tr>
+
 </table>
 
 

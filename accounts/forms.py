@@ -3,7 +3,9 @@ from django.forms import Select
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from services.models import Subscription, Service
+from accounts.models import UserProfile
 
+import datetime
 
 class MyAuthenticationForm(AuthenticationForm):
 
@@ -38,12 +40,14 @@ class RegistrationForm(UserCreationForm):
 		attrs={
 		'class':'form-control', 
 		'placeholder': "your name (optional)",
+
 		}))
 
 	last_name = forms.CharField(widget=forms.TextInput(
 		attrs={
 		'class':'form-control', 
 		'placeholder': "your last name (optional)",
+
 		}))
 
 	password1 = forms.CharField(widget=forms.PasswordInput(
@@ -62,8 +66,8 @@ class RegistrationForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = (
-			'email', 
 			'username',
+			'email', 
 			'first_name',
 			'last_name', 
 			'password1', 
@@ -80,6 +84,46 @@ class RegistrationForm(UserCreationForm):
 			user.save()
 
 		return user
+
+
+
+class EditPersonalInfoForm(forms.ModelForm):
+
+	description = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "say something about yourself...",
+		}))
+
+	twitter = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "your twitter handle",
+		}))
+
+	emoji = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control', 
+		'placeholder': "choose your emojis",
+		}))
+
+
+
+
+	class Meta:
+		model = UserProfile
+		fields = (
+
+			'description',
+			'twitter', 
+			'emoji', 
+
+			)
+
+
+
+
+
 
 class EditProfileForm(UserChangeForm):
 
@@ -120,6 +164,8 @@ class EditProfileForm(UserChangeForm):
 				'password', 
 				)
 
+YEAR_CHOICES = tuple([2000+i for i in range(18)])
+
 
 class AddSubscriptionForm(forms.ModelForm):
 
@@ -144,6 +190,17 @@ class AddSubscriptionForm(forms.ModelForm):
 		}))
 
 
+	private = forms.BooleanField(
+		initial=False, 
+		required=False, 
+		widget=forms.CheckboxInput(
+
+		attrs={
+		
+		}))
+
+
+
 	wishlist = forms.BooleanField(
 		initial=False, 
 		required=False, 
@@ -153,6 +210,13 @@ class AddSubscriptionForm(forms.ModelForm):
 		
 		}))
 
+	date_created = forms.DateField(
+		initial=datetime.date.today,
+
+		widget=forms.SelectDateWidget(
+		
+		years=YEAR_CHOICES))
+
 	class Meta:
 		model = Subscription
 		fields = (
@@ -160,7 +224,9 @@ class AddSubscriptionForm(forms.ModelForm):
 				'service', 
 				'cc_nickname', 
 				'bucksamonth',
-				'wishlist'
+				'private', 
+				'wishlist', 
+				'date_created'
 				)
 
 class UpdateSubscriptionForm(forms.ModelForm):
@@ -177,18 +243,28 @@ class UpdateSubscriptionForm(forms.ModelForm):
 		'placeholder': "how many bucks a month?",
 		}))
 
-	date_created = forms.CharField(widget=forms.TextInput(
+	date_created = forms.DateField(
+
+		widget=forms.SelectDateWidget(
 		attrs={
-		'class':'form-control', 
-		'placeholder': "when did you start using it?",
+		},
+		years=YEAR_CHOICES))
+
+	private = forms.BooleanField(
+		initial=False, 
+		required=False, 
+		widget=forms.CheckboxInput(
+
+		attrs={
+		
 		}))
+
 
 
 	wishlist = forms.BooleanField(
 		required=False, 
 		widget=forms.CheckboxInput(
 		attrs={
-		
 		}))
 
 	class Meta:
@@ -197,6 +273,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
 
 				'cc_nickname', 
 				'bucksamonth',
+				'private',
 				'wishlist', 
 				'date_created', 
 				)

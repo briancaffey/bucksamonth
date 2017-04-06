@@ -24,7 +24,7 @@
 
           {% else %}
 
-          {% url 'accounts:login' %}
+          {% url 'accounts:register' %}
 
           {% endif %}" role="button">Get started &raquo;</a>
         </p>
@@ -52,7 +52,7 @@
     <hr>
     <div class="row">
 
-      <a href="{% url 'services:service' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+      <a href="{% url 'services:service_detail' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
 
 
     </div>
@@ -81,7 +81,7 @@
     <hr>
     <div class="row">
 
-      <a href="{% url 'services:service' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+      <a href="{% url 'services:service_detail' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
 
 
     </div>
@@ -114,7 +114,7 @@
     <hr>
     <div class="row">
 
-      <a href="{% url 'services:service' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+      <a href="{% url 'services:service_detail' pk=service.id %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
 
 
     </div>
