@@ -15,7 +15,7 @@
 <table style="text-align:center;" class="table">
 
 	<tr>
-		<td><b>subscription</b></td>
+		<td><b>subscriptions</b></td>
 
 		<td><b>🙃&nbsp;&nbsp;emoji&nbsp;🙂</b></td>
 
@@ -40,7 +40,7 @@
 
 {% endfor %}
 
-<tr>
+{% if private > 0 %}<tr>
 	
 	<td>{{ private }} private subscription{% if private > 1 %}s{% endif %} <a href="#">what's this? 🤔</a></td>
 
@@ -50,7 +50,7 @@
 
 	<td>📅📅📅</td>
 
-</tr>
+</tr>{% endif %}
 
 </table>
 

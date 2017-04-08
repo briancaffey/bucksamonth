@@ -64,7 +64,8 @@ class ServiceView(DetailView):
 		context['subscribers'] = subscribers
 		context['subscribers_count'] = subscribers.distinct().count()
 		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
-		context['user_info'] = Subscription.objects.filter(service=self.kwargs['pk'], user=self.request.user.userprofile).first()
+		if self.request.user.is_authenticated:
+			context['user_info'] = Subscription.objects.filter(service=self.kwargs['pk'], user=self.request.user.userprofile).first()
 		return context
 
 
