@@ -1,2 +1,6 @@
-body { color:#000;
-    padding-bottom: 20px; }
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+  padding-bottom:70px;	
+}
+
