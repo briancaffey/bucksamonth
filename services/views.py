@@ -16,14 +16,15 @@ from django.db.models import Count
 
 class HomeView(View):
 	def get(self, request, *args, **kwargs):
+		print(request.META['HTTP_USER_AGENT'])
 		services = Service.objects.all()
 		featured = Service.objects.filter(featured=True)
 		popular = Service.objects.annotate(num_users=Count('subscription_service')).order_by('-num_users')[:5]
 		new = Service.objects.order_by('-date_created')[:5]
 		context = {
-			'featured':featured, 
+			'featured':featured,
 			'popular':popular,
-			'new':new, 
+			'new':new,
 		}
 		return render(request, 'services/home.html', context)
 
@@ -123,7 +124,7 @@ class ServiceDetailView(TemplateView):
 		return view(request, *args, **kwargs)
 
 class ServiceSubscriberListView(TemplateView):
-	
+
 	template_name = 'services/service_subscriber_list.html'
 
 	def get_context_data(self, **kwargs):

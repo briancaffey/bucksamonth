@@ -11,7 +11,7 @@ class MyAuthenticationForm(AuthenticationForm):
 
 	username = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "enter your username",
 		}))
 
@@ -23,42 +23,42 @@ class MyAuthenticationForm(AuthenticationForm):
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(
-		required=True, 
+		required=True,
 		widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "your email",
 		}))
 
 	username = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "pick a username for your public profile",
 		}))
 
 	first_name = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "your name (optional)",
 
 		}))
 
 	last_name = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "your last name (optional)",
 
 		}))
 
 	password1 = forms.CharField(widget=forms.PasswordInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "choose a password",
 		}))
 
 	password2 = forms.CharField(widget=forms.PasswordInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "type it again",
 		}))
 
@@ -67,11 +67,11 @@ class RegistrationForm(UserCreationForm):
 		model = User
 		fields = (
 			'username',
-			'email', 
+			'email',
 			'first_name',
-			'last_name', 
-			'password1', 
-			'password2', 
+			'last_name',
+			'password1',
+			'password2',
 			)
 
 	def save(self, commit=True):
@@ -80,7 +80,7 @@ class RegistrationForm(UserCreationForm):
 		user.last_name = self.cleaned_data['last_name']
 		user.email = self.cleaned_data['email']
 
-		if commit: 
+		if commit:
 			user.save()
 
 		return user
@@ -91,19 +91,19 @@ class EditPersonalInfoForm(forms.ModelForm):
 
 	description = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "say something about yourself...",
 		}))
 
 	twitter = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "your twitter handle",
 		}))
 
 	emoji = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "choose your emojis",
 		}))
 
@@ -115,8 +115,8 @@ class EditPersonalInfoForm(forms.ModelForm):
 		fields = (
 
 			'description',
-			'twitter', 
-			'emoji', 
+			'twitter',
+			'emoji',
 
 			)
 
@@ -129,27 +129,27 @@ class EditProfileForm(UserChangeForm):
 
 	username = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "pick a username for your public profile",
 		}))
 
 	email = forms.EmailField(
-		required=True, 
+		required=True,
 		widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "update your email address",
 		}))
 
 	first_name = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "change your first name",
 		}))
 
 	last_name = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "update your last name",
 		}))
 
@@ -158,10 +158,10 @@ class EditProfileForm(UserChangeForm):
 		model = User
 		fields = (
 				'username',
-				'email', 
+				'email',
 				'first_name',
 				'last_name',
-				'password', 
+				'password',
 				)
 
 YEAR_CHOICES = tuple([2000+i for i in range(18)])
@@ -170,7 +170,7 @@ YEAR_CHOICES = tuple([2000+i for i in range(18)])
 class AddSubscriptionForm(forms.ModelForm):
 
 	service = forms.ModelChoiceField(
-		queryset=Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name'), 
+		queryset=Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name'),
 		widget=forms.Select(attrs={
 			'class':'form-control',
 			'placeholder':'select a subscrption service',
@@ -179,53 +179,53 @@ class AddSubscriptionForm(forms.ModelForm):
 
 	cc_nickname = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "which credit card is it on (nickname)",
 		}))
 
 	bucksamonth = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "how many bucks a month?",
 		}))
 
 
 	private = forms.BooleanField(
-		initial=False, 
-		required=False, 
+		initial=False,
+		required=False,
 		widget=forms.CheckboxInput(
 
 		attrs={
-		
+
 		}))
 
 
 
 	wishlist = forms.BooleanField(
-		initial=False, 
-		required=False, 
+		initial=False,
+		required=False,
 		widget=forms.CheckboxInput(
 
 		attrs={
-		
+
 		}))
 
 	date_created = forms.DateField(
 		initial=datetime.date.today,
 
 		widget=forms.SelectDateWidget(
-		
+
 		years=YEAR_CHOICES))
 
 	class Meta:
 		model = Subscription
 		fields = (
 
-				'service', 
-				'cc_nickname', 
+				'service',
+				'cc_nickname',
 				'bucksamonth',
-				'private', 
-				'wishlist', 
+				'private',
+				'wishlist',
 				'date_created'
 				)
 
@@ -233,13 +233,13 @@ class UpdateSubscriptionForm(forms.ModelForm):
 
 	cc_nickname = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "which credit card is it on (nickname)",
 		}))
 
 	bucksamonth = forms.CharField(widget=forms.TextInput(
 		attrs={
-		'class':'form-control', 
+		'class':'form-control',
 		'placeholder': "how many bucks a month?",
 		}))
 
@@ -251,18 +251,18 @@ class UpdateSubscriptionForm(forms.ModelForm):
 		years=YEAR_CHOICES))
 
 	private = forms.BooleanField(
-		initial=False, 
-		required=False, 
+		initial=False,
+		required=False,
 		widget=forms.CheckboxInput(
 
 		attrs={
-		
+
 		}))
 
 
 
 	wishlist = forms.BooleanField(
-		required=False, 
+		required=False,
 		widget=forms.CheckboxInput(
 		attrs={
 		}))
@@ -271,10 +271,9 @@ class UpdateSubscriptionForm(forms.ModelForm):
 		model = Subscription
 		fields = (
 
-				'cc_nickname', 
+				'cc_nickname',
 				'bucksamonth',
 				'private',
-				'wishlist', 
-				'date_created', 
+				'wishlist',
+				'date_created',
 				)
-

@@ -17,7 +17,7 @@
 		<!-- Optional theme -->
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
-	<!-- 	
+	<!--
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -37,26 +37,23 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  
+
 
 
   <!-- Footer -->
-  <br><br>
-  <div class="container">
-  <footer  class="footer">
-
-    <p class="text-muted">&#169; 2017 💸&nbsp;&nbsp;<a href="#">bucksamonth</a>&nbsp;📅 &nbsp;&nbsp; <a href="#">Legal</a> ⚖ &nbsp;&nbsp; <a href="#">Contact</a>&nbsp;📧</p>
-    
-  </footer>
-
-</div>
+  {% block footer %}{% include 'footer.html' %}{% endblock %}
 
 
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+  $('[data-toggle="tooltip"]').tooltip();
 });
+
+  $('#heart').hover( function(){
+    $(this).html('<a style="text-decoration:none;" href="#">❤️</a>')
+  })
+
 </script>
 
 

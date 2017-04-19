@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from accounts.forms import (
-	RegistrationForm, 
-	EditProfileForm, 
+	RegistrationForm,
+	EditProfileForm,
 	EditPersonalInfoForm,
 )
 from django.contrib.auth.models import User
@@ -18,7 +18,7 @@ from accounts.models import UserProfile
 from django.views.generic.edit import UpdateView
 
 
-def home(request): 
+def home(request):
 	return render(request, 'accounts/account_home.html')
 
 def register(request):
@@ -61,7 +61,7 @@ class AddSubscriptionView(TemplateView):
 		args = {'form': form}
 		return render(request, self.template_name, args)
 
-	def post(self, request): 
+	def post(self, request):
 		form = AddSubscriptionForm(request.POST)
 		if form.is_valid():
 			post = form.save(commit=False)
@@ -69,12 +69,12 @@ class AddSubscriptionView(TemplateView):
 			post.save()
 
 			return redirect('accounts:profile')
-		else: 
+		else:
 			return render(request, self.template_name, {"form": form})
 
 
 class UpdateUserInfoForm(UpdateView):
-	
+
 
 	model = UserProfile
 	form_class = EditPersonalInfoForm
@@ -98,7 +98,7 @@ def edit_profile(request):
 
 	else:
 		form = EditProfileForm(instance=request.user)
-		args = {'form':form} 
+		args = {'form':form}
 		return render(request, 'accounts/edit_profile.html', args)
 
 def change_password(request):
