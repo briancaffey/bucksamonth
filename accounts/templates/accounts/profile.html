@@ -5,21 +5,41 @@
 {% include 'nav.html' %}
 <div class="container">
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-6 well">
 
-<h1>{{ user.first_name }} {{ user.userprofile.emoji }}</h1>
-
-<br>
-<p><a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
+<p style="font-size:4.5em; text-align:center;">{{ user.userprofile.emoji }}</p>
+<p style="font-size:2em; text-align:center;">{{ user.first_name }} </p>
+<blockquote>
+<h4 class="text-muted">{{ user.userprofile.description }}</h4>
+</blockquote>
 </div>
 
-<div class="col-md-4">
-<div style='text-align:right;' class="row">
-<a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile</a>
-<a class="btn btn-info" href="{% url 'accounts:update_personal_info' pk=user.userprofile.id %}">personalize</a>
-<a class="btn btn-success" href="{% url 'accounts:edit' %}">share</a><br /><br />
-<a class="btn btn-info" href="{% url 'users:view_profile' pk=user.id %}">public profile</a>
-<a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new</a>
+<div class="col-md-6">
+<div style='text-align:center;'>
+
+
+<a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
+<a class="btn btn-info" href="{% url 'accounts:update_personal_info' pk=user.userprofile.id %}">personalize ⭐️</a>
+<a class="btn btn-success" href="{% url 'accounts:edit' %}">share 📤</a>
+<a class="btn btn-warning" href="{% url 'users:view_profile' pk=user.id %}">public profile 👤</a>
+<!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
+<a class="btn btn-purple" href="#">Settings ⚙</a>
+<br /><br />
+
+<div class="col-md-6">
+	<h4>bucksamonth activity</h4>
+	<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
+	<p>spends <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucksamonth</p>
+	<p>member since 🗓 March 8, 2017</p>
+</div>
+<div class="col-md-6">
+
+<h4>social links</h4>
+<p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
+<p>website 🌎🕸 &nbsp;&nbsp;<a href="#">website.com</a></p>
+</div>
+
+
 </div>
 </div>
 </div>
@@ -27,8 +47,7 @@
 
 <div class="container">
 
-<p></p>
-<p>{{ user.userprofile.description }}</p>
+
 
 
 <h3>Hey {{ user.first_name }}, you are spending {{ bucksamonth | floatformat:"0" }} bucks a month. </h3>
@@ -52,7 +71,6 @@
 	</tr>
 	{% for item in subscriptions %}
 	<tr>
-
 		<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="PRIVATE">🙈</a>{% endif %}</td>
 		<td style="text-align:center;">{{ item.service.emoji }}</td>
 		<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
@@ -100,8 +118,23 @@
 		<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
 	</tr>
 	{% endfor %}
-
 </table>
+	<h4>Recent Comments 💬</h4>
+	<br />
+	{% for comment in comments %}
+
+		<p>A comment on <a style="font-size:1.25em;" href="{% url 'services:service_detail' pk=comment.service.pk %}">{{comment.service }} | <span>{{comment.service.emoji }}</span></a></p>
+		<blockquote>
+		<p style="font-size:2em;">{{comment.emoji }}</p>
+		<p>{{comment.text }}</p>
+		<small> on {{ comment.date_created }}</small>
+	</blockquote>
+		<hr>
+
+
+	{% endfor %}
+
+
 
 
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 from accounts.models import UserProfile
-from services.models import Subscription
+from services.models import Subscription, Comment
+
 
 from accounts.forms import (
 	RegistrationForm,
@@ -21,6 +22,8 @@ from django.views.generic.edit import UpdateView
 
 from django.contrib import messages
 
+class FAQ(TemplateView):
+	template_name = 'FAQ.html'
 
 def home(request):
 	return render(request, 'accounts/account_home.html')
@@ -51,7 +54,8 @@ def view_profile(request):
 	bucksamonth = Subscription.objects.filter(user=request.user.userprofile)
 	wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)
 	bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
-	args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist}
+	comments = Comment.objects.filter(user=request.user.userprofile)
+	args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist, 'comments':comments}
 	#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
 
 	return render(request, 'accounts/profile.html', args)

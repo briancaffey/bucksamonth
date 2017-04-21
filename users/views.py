@@ -4,6 +4,7 @@ from django.http import Http404
 from django.contrib.auth.models import User
 from services.models import Subscription
 from accounts.models import UserProfile
+from services.models import Comment
 
 from accounts.forms import UpdateSubscriptionForm
 
@@ -22,6 +23,8 @@ class UserProfileView(TemplateView):
 		context['subscriptions'] = Subscription.objects.filter(user=context['user_p'], wishlist=False, private=False)
 		private = Subscription.objects.filter(user=context['user_p'], wishlist=False, private=True)
 		private = private.count()
+		comments = Comment.objects.filter(context['user_p'])
+		context['comments'] = comments
 		context['private'] = private
 		context['wishlist'] = Subscription.objects.filter(user=context['user_p'], wishlist=True)
 		context['bucksamonth'] = sum([subscription.bucksamonth for subscription in context['subscriptions']])
