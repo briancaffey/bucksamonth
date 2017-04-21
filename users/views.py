@@ -1,16 +1,18 @@
 from django.shortcuts import render
-from django.views.generic import View, TemplateView, DetailView
+from django.http import Http404
+
 from django.contrib.auth.models import User
 from services.models import Subscription
 from accounts.models import UserProfile
-from django.views.generic.edit import UpdateView
-from accounts.forms import UpdateSubscriptionForm
-from django.views.generic import DeleteView
-from django.http import Http404
 
-# Create your views here.
+from accounts.forms import UpdateSubscriptionForm
+
+from django.views.generic import View, TemplateView, DetailView, DeleteView
+from django.views.generic.edit import UpdateView
+
+
 class UserProfileView(TemplateView):
-	
+
 	template_name = 'users/user_profile_view.html' #'users/user_profile_view.html'
 
 	def get_context_data(self, **kwargs):
@@ -62,6 +64,3 @@ class SubscriptionDeleteView(DeleteView):
 			raise Http404
 		obj.delete()
 		return obj
-
-
-

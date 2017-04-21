@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'services',
-    'accounts', 
+    'accounts',
     'users',
+    'categories',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = '/account/profile/'
 
 LOGIN_EXEMPT_URLS = (
-    r'^account/login/$', 
+    r'^account/login/$',
     r'^account/logout/$',
     r'^account/register/$',
     r'^account/reset-password/$',

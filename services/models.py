@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from datetime import date
+from categories.models import Category
 
 # Create your models here.
 # Create your models here.
@@ -10,8 +11,9 @@ class Service(models.Model):
 	url_name 				= models.CharField(max_length=200)
 	description_long		= models.CharField(max_length=500, default='')
 	description_short		= models.CharField(max_length=140, default='')
+	category				= models.ManyToManyField(Category, blank=True)
 	featured				= models.BooleanField(default=False)
-	date_created 			= models.DateField(auto_now_add=True)
+	date_created 			= models.DateField(auto_now=True)
 	bucksamonth 			= models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
 	emoji					= models.CharField(max_length=20, default='')
 	twitter 				= models.CharField(max_length=100, default='')
@@ -51,5 +53,3 @@ class Subscription(models.Model):
 
 	def __str__(self):
 		return str(self.service)
-
-	

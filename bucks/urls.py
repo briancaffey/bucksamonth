@@ -20,6 +20,7 @@ from services.views import HomeView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^services/', include('services.urls', namespace='services')),
     url(r'^users/', include('users.urls', namespace='users'))

@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'services',
-    'accounts', 
+    'accounts',
     'users',
+    'categories',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +124,7 @@ USE_TZ = True
 LOGIN_URL = '/account/login/'
 
 LOGIN_EXEMPT_URLS = (
-    r'^account/login/$', 
+    r'^account/login/$',
     r'^account/logout/$',
     r'^account/register/$',
     r'^account/reset-password/$',

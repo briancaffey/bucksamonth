@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'nav.html' %}
+<div class="container">
+<h1>All Categories 🗂🗃🗄</h1>
+<hr>
+
+{% for category in categories %}
+{% cycle '<div class="row">' '' ''  %}
+<div style="text-align:center;" class="col-md-4">
+    <h2><a href="{% url 'categories:category_view' slug=category.slug %}">{{ category.category }} ({{ category.service_set.count }})</a></h2><h2>{{ category.emoji }}</h2>
+</div>
+{% cycle '' '' '</div>' %}
+{% endfor %}
+
+</div>
+{% endblock %}

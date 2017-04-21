@@ -4,7 +4,7 @@
 
 
 {% block content %}
- 
+
 {% include 'nav.html' %}
 
 
@@ -32,6 +32,18 @@
 
     </div> <!-- /container -->
 
+<div class="container">
+<div style="text-align:center;"><h2>Browse by Category 🗂🗃🗄</h2></div>
+  {% for category in categories %}
+  {% cycle '<div class="row">' '' ''  %}
+  <div style="text-align:center; text-decoration:none !important" class="col-md-4">
+      <h2 style="text-align:center; text-decoration:none !important"><a href="{% url 'categories:category_view' slug=category.slug %}">{{ category.category }} ({{ category.service_set.count }})</a></h2><h2><a href="{% url 'categories:category_view' slug=category.slug %}">{{ category.emoji }}</a></h2><hr>
+  </div>
+  {% cycle '' '' '</div>' %}
+  {% endfor %}
+
+<div style="text-align:center;"><h3><a href="{% url 'categories:all_categories' %}">Browse all {{ cat_count }} categories 🗂🗃🗄</a></h3></div>
+</div>
 
 
 <div class="container">

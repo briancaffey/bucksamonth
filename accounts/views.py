@@ -1,21 +1,25 @@
 from django.shortcuts import render, redirect
+
+from accounts.models import UserProfile
+from services.models import Subscription
+
 from accounts.forms import (
 	RegistrationForm,
 	EditProfileForm,
 	EditPersonalInfoForm,
+	AddSubscriptionForm,
 )
+
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from services.models import Subscription
-from django.views.generic import View, TemplateView, FormView, UpdateView
-from accounts.forms import AddSubscriptionForm
 from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from accounts.models import UserProfile
-#from django.views.generic.edit import UpdateView
+
+from django.views.generic import View, TemplateView, FormView, UpdateView
 from django.views.generic.edit import UpdateView
+
+from django.contrib import messages
 
 
 def home(request):
@@ -74,7 +78,6 @@ class AddSubscriptionView(TemplateView):
 
 
 class UpdateUserInfoForm(UpdateView):
-
 
 	model = UserProfile
 	form_class = EditPersonalInfoForm

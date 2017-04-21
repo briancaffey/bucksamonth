@@ -1,23 +1,30 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
+from django.http import HttpResponseForbidden
+from django.urls import reverse
+from django.db.models import Count
+from django.contrib import messages
+
+from services.models import Service, Comment, Subscription
+from categories.models import Category
+from django import forms
+from services.forms import AddServiceForm
+from accounts.forms import AddSubscriptionForm
+from .forms import AddCommentForm
+
+from django.views import View
+
 from django.views.generic import View, TemplateView, DetailView, FormView, DeleteView
 from django.views.generic.list import ListView
-from services.models import Service, Comment, Subscription
-from services.forms import AddServiceForm
-from .forms import AddCommentForm
-from django.urls import reverse
-from django.http import HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
-from django import forms
-from django.views import View
-from django.db.models import Count
-
-# Create your views here.
 
 class HomeView(View):
 	def get(self, request, *args, **kwargs):
 		print(request.META['HTTP_USER_AGENT'])
 		services = Service.objects.all()
+		categories = Category.objects.all()
+		cat_count = len(categories)
+		categories = categories[:9]
 		featured = Service.objects.filter(featured=True)
 		popular = Service.objects.annotate(num_users=Count('subscription_service')).order_by('-num_users')[:5]
 		new = Service.objects.order_by('-date_created')[:5]
@@ -25,6 +32,8 @@ class HomeView(View):
 			'featured':featured,
 			'popular':popular,
 			'new':new,
+			'categories':categories,
+			'cat_count':cat_count,
 		}
 		return render(request, 'services/home.html', context)
 
@@ -132,3 +141,34 @@ class ServiceSubscriberListView(TemplateView):
 		context['subscriber_list'] = Subscription.objects.filter(service=self.kwargs['pk']).distinct()
 		context['service'] = Service.objects.filter(id=self.kwargs['pk'])
 		return context
+
+def add_service_from_detail_view(request, pk):
+	service = Service.objects.get(pk=pk)
+	if request.user.is_authenticated():
+
+
+		initial = {
+			'service':service,
+			'bucksamonth':service.bucksamonth,
+		}
+		form = AddSubscriptionForm(request.POST or None, initial=initial)
+		print(form.is_valid())
+		if request.method=="POST":
+			print(form.errors)
+			if form.is_valid():
+				print("Working?")
+				instance = form.save(commit=False)
+				instance.user = request.user.userprofile
+				instance.save()
+				return redirect('accounts:profile')
+
+		context = {
+			'form':form,
+			'service':service,
+		}
+
+		return render(request, 'services/add_service_from_detail_view.html', context)
+
+	else:
+		messages.success(request, "Please login")
+		return redirect('accounts:login')

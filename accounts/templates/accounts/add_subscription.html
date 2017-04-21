@@ -10,7 +10,7 @@
 <form method="POST" action="">
 {% csrf_token %}
 {{ form.as_p }}
-<button class="btn btn-success" type="submit">Add</button> - or - 
+<button class="btn btn-success" type="submit">Add</button> - or -
 <a href="{% url 'accounts:profile' %}" class="btn btn-danger">Cancel</a>
 </form>
 <br><br>

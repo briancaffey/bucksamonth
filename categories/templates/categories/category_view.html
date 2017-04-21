@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'nav.html' %}
+<div class="container">
+  <p>Browse <a href="{% url 'categories:all_categories' %}">all categories</a></p>
+<h1>{{ category.category }} {{ category.emoji }}</h1>
+{% for service in services %}
+
+<h2><a href="{% url 'services:service_detail' pk=service.id %}">{{ service }}  {{ service.emoji }}</a></h2>
+
+{% endfor %}
+</div>
+{% endblock %}
