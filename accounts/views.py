@@ -25,6 +25,13 @@ from django.contrib import messages
 class faq(TemplateView):
 	template_name = 'faq.html'
 
+class developers(TemplateView):
+	template_name = 'developers.html'
+
+class business(TemplateView):
+	template_name = 'business.html'
+
+
 def home(request):
 	return render(request, 'accounts/account_home.html')
 

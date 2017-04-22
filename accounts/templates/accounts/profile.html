@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+
+
+
+
 {% block content %}
 
 {% include 'nav.html' %}
@@ -16,21 +20,21 @@
 
 <div class="col-md-6">
 <div style='text-align:center;'>
-
-
+<div class='col-xs-12 button-wrapper'>
 <a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
 <a class="btn btn-info" href="{% url 'accounts:update_personal_info' pk=user.userprofile.id %}">personalize ⭐️</a>
 <a class="btn btn-success" href="{% url 'accounts:edit' %}">share 📤</a>
 <a class="btn btn-warning" href="{% url 'users:view_profile' pk=user.id %}">public profile 👤</a>
 <!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
-<a class="btn btn-purple" href="#">Settings ⚙</a>
+<a class="btn btn-default" href="#">Settings ⚙</a>
+</div>
 <hr>
 
 
 <div class="col-md-6">
 	<h4>bucksamonth activity</h4>
 	<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
-	<p>spends <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucksamonth</p>
+	<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month</p>
 	<p>member since 🗓 March 8, 2017</p>
 	<p>account: <strong>basic</strong></p>
 	<p><a href="#">get bucksamonth premium 👑💰</a></p>
@@ -38,8 +42,11 @@
 <div class="col-md-6">
 
 <h4>social links</h4>
+<p>facebook 👩🏻📖&nbsp;&nbsp;<a href="https://facebook.com/">facebook.com</a></p>
 <p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
+<p>linkedin 🔗💼 &nbsp;&nbsp;<a href="#">linkedin.com/profile</a></p>
 <p>website 🌎🕸 &nbsp;&nbsp;<a href="#">website.com</a></p>
+<p><a href='#'>📍&nbsp;&nbsp;Washington, D.C. 🗺</a></p>
 </div>
 
 
@@ -47,8 +54,145 @@
 </div>
 </div>
 </div>
+
+<hr>
+
 
 <div class="container">
+
+
+	<div>
+
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs navbar-right" role="tablist">
+	    <li role="presentation" class="active"><a href="#subscriptions" aria-controls="subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
+	    <li role="presentation"><a href="#wishlist" aria-controls="wishlist" role="tab" data-toggle="tab">Wishlist</a></li>
+	    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+
+	  </ul>
+
+	  <!-- Tab panes -->
+	  <div class="tab-content">
+	    <div role="tabpanel" class="tab-pane active" id="subscriptions">
+				<br />
+<h4>{{ user.username }}, you are spending {{ bucksamonth | floatformat:"0" }} bucks a month 💸 </h4>
+				<table style="text-align:center;" class="table">
+					<tr style="border-top: none !important;">
+						<td class="table-top"><strong>service</strong></td>
+
+						<td class="table-top" style="text-align:center;"><strong>🙃&nbsp;&nbsp;emoji&nbsp;🙂</strong></td>
+
+						<td class="table-top" style="text-align:center;"><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
+
+						<td class="table-top" style="text-align:center;"><strong>start date&nbsp;🗓</strong></td>
+
+						<td class="table-top"><strong>💳&nbsp;&nbsp;nickname</strong></td>
+
+						<td class="table-top"><strong>edit</strong></td>
+
+					</tr>
+					{% for item in subscriptions %}
+					<tr>
+						<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="PRIVATE">🙈</a>{% endif %}</td>
+						<td style="text-align:center;">{{ item.service.emoji }}</td>
+						<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
+						<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
+						<td>{{ item.cc_nickname }}</td>
+						<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td><a href="{% url 'accounts:add_subscription' %}">➕ new</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">🤔 💭 ❓</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">💵</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">today 📆</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">🔥 💳 🔥</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">🔏</a></td>
+
+					</tr>
+				</table>
+
+
+
+
+
+			</div>
+	    <div role="tabpanel" class="tab-pane" id="wishlist">
+				<br />
+<h4>here's your wishlist 🌠 </h4>
+
+				<table style="text-align:center;" class="table">
+					<tr>
+						<td class="table-top" ><strong>service</strong></td>
+
+						<td class="table-top" style="text-align:center;"><strong>🙃&nbsp;&nbsp;emoji&nbsp;🙂</strong></td>
+
+						<td class="table-top" style="text-align:center;"><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
+
+						<td class="table-top" style="text-align:center;"><strong>start date&nbsp;🗓</strong></td>
+
+						<td class="table-top"><strong>💳&nbsp;&nbsp;nickname</strong></td>
+
+						<td class="table-top"><strong>edit</strong></td>
+
+					</tr>
+					{% for item in wishlist %}
+					<tr>
+
+						<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a></td>
+						<td style="text-align:center;">{{ item.service.emoji }}</td>
+						<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
+						<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
+						<td>{{ item.cc_nickname }}</td>
+						<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
+					</tr>
+					{% endfor %}
+				</table>
+
+			</div>
+	    <div role="tabpanel" class="tab-pane" id="comments">
+
+				<br />
+<h4>{% if comments.all.count == 0 %}
+
+you haven't made any comments yet
+	{% elif comments.all.count == 1 %}
+
+here's the one comment you have made on bucksamonth
+
+	{% elif comments.all.count > 1 %}
+
+	here are all of the {{ comments.all.count }} comments you have made on bucksamonth 💬{% endif %}</h4>
+<br />
+
+				{% for comment in comments %}
+
+					<p>A comment on <a style="font-size:1.25em;" href="{% url 'services:service_detail' pk=comment.service.pk %}">{{comment.service }} | <span>{{comment.service.emoji }}</span></a></p>
+					<blockquote>
+					<p style="font-size:2em;">{{comment.emoji }}</p>
+					<p>{{comment.text }}</p>
+					<small> on {{ comment.date_created }} | <a href="{% url 'services:comment_delete' pk=comment.pk %}">delete 🗑</a></small>
+				</blockquote>
+					<hr>
+
+
+				{% endfor %}
+
+
+
+
+
+			</div>
+
+	  </div>
+
+	</div>
+
+</div>
+
+
+
+<!-- <div class="container">
 
 
 
@@ -130,7 +274,7 @@
 		<blockquote>
 		<p style="font-size:2em;">{{comment.emoji }}</p>
 		<p>{{comment.text }}</p>
-		<small> on {{ comment.date_created }}</small>
+		<small> on {{ comment.date_created }} | <a href="{% url 'services:comment_delete' pk=comment.pk %}">delete 🗑</a></small>
 	</blockquote>
 		<hr>
 
@@ -142,11 +286,9 @@
 
 
 
-</div>
+</div> -->
 
-<div class="container">
 
-</div>
 
 
 {% endblock content %}

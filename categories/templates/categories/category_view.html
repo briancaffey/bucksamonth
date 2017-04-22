@@ -11,7 +11,7 @@
 {% for service in services %}
 {% cycle '<div class="row">' '' ''  %}
 <div style="text-align:center;" class="col-md-4">
-    <h2><a style="text-decoration:none;" href="{% url 'categories:category_view' slug=category.slug %}">{{ service.service_name }}</h2><h2>{{ service.emoji }}</a></h2>
+    <h2><a style="text-decoration:none;" href="{% url 'services:service_detail' pk=service.id %}">{{ service.service_name }}</h2><h2>{{ service.emoji }}</a></h2>
 </div>
 {% cycle '' '' '</div>' %}
 
