@@ -8,7 +8,7 @@
 <div class="col-md-6 well">
 
 <p style="font-size:4.5em; text-align:center;">{{ user.userprofile.emoji }}</p>
-<p style="font-size:2em; text-align:center;">{{ user.first_name }} </p>
+<p style="font-size:2em; text-align:center;">{{ user.username }}</p>
 <blockquote>
 <h4 class="text-muted">{{ user.userprofile.description }}</h4>
 </blockquote>
@@ -24,13 +24,16 @@
 <a class="btn btn-warning" href="{% url 'users:view_profile' pk=user.id %}">public profile 👤</a>
 <!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
 <a class="btn btn-purple" href="#">Settings ⚙</a>
-<br /><br />
+<hr>
+
 
 <div class="col-md-6">
 	<h4>bucksamonth activity</h4>
 	<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
 	<p>spends <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucksamonth</p>
 	<p>member since 🗓 March 8, 2017</p>
+	<p>account: <strong>basic</strong></p>
+	<p><a href="#">get bucksamonth premium 👑💰</a></p>
 </div>
 <div class="col-md-6">
 

@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'nav.html' %}
-<div class="container">
-  <p>Browse <a href="{% url 'categories:all_categories' %}">all categories</a></p>
-<h1>{{ category.category }} {{ category.emoji }}</h1>
-{% for service in services %}
+<div style="text-align:center;" class="container">
+  <p><a style="text-decoration:none;" href="{% url 'categories:all_categories' %}"><span style="font-size:1.5em;">all categories 🗂🗃🗄</span></a></p>
+<h1>{{ category.category }}<br />{{ category.emoji }}</h1>
 
-<h2><a href="{% url 'services:service_detail' pk=service.id %}">{{ service }}  {{ service.emoji }}</a></h2>
+
+
+
+{% for service in services %}
+{% cycle '<div class="row">' '' ''  %}
+<div style="text-align:center;" class="col-md-4">
+    <h2><a style="text-decoration:none;" href="{% url 'categories:category_view' slug=category.slug %}">{{ service.service_name }}</h2><h2>{{ service.emoji }}</a></h2>
+</div>
+{% cycle '' '' '</div>' %}
+
 
 {% endfor %}
 </div>
