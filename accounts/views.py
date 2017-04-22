@@ -22,8 +22,8 @@ from django.views.generic.edit import UpdateView
 
 from django.contrib import messages
 
-class FAQ(TemplateView):
-	template_name = '/FAQ.html'
+class faq(TemplateView):
+	template_name = 'faq.html'
 
 def home(request):
 	return render(request, 'accounts/account_home.html')
