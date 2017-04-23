@@ -21,7 +21,7 @@
   <div class="caption post-detail-item">
 
     <h3><a class="link-fancy" href="{{ object.get_absolute_url }}"><span class="link-fancy" style="font-size:2em">{{ object.emoji }}</span></a><br/><a href="{{ object.get_absolute_url }}">{{ object.title }}</a> <small>{{ object.timestamp | timesince }} ago</small></h3>
-    <p>by <a style="text-decoration:none;" href="{% url 'users:view_profile' pk=object.user.id %}">{{ object.user.username }} {{ object.user.userprofile.emoji }}</a>&nbsp;&nbsp;| 🏷&nbsp;&nbsp;<a class="label label-default label-lg">test</a></p>
+    <p>by <a style="text-decoration:none;" href="{% url 'users:view_profile' username=object.user.username %}">{{ object.user.username }} {{ object.user.userprofile.emoji }}</a>&nbsp;&nbsp;| 🏷&nbsp;&nbsp;<a class="label label-default label-lg">test</a></p>
     <!-- <p>🏷&nbsp;&nbsp;<a class="label label-default label-lg">test</a></p> -->
     <blockquote class="text-muted">{{ object.content }}</blockquote>
 

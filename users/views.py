@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 
 from django.contrib.auth.models import User
 from services.models import Subscription
@@ -13,10 +14,12 @@ from django.views.generic.edit import UpdateView
 
 
 
-def view_profile(request, pk):
-	person = get_object_or_404(UserProfile, pk=pk)
-	all_subscriptions = Subscription.objects.filter(user=person.user.id)
-	private = all_subscriptions.filter(private=True)
+def view_profile(request, username):
+	if request.user.username == username:
+		return HttpResponseRedirect(reverse('accounts:profile'))
+	person = get_object_or_404(UserProfile, user=request.user)
+	all_subscriptions = Subscription.objects.filter(user=person.user.userprofile)
+	private = len(all_subscriptions.filter(private=True))
 	subscriptions = all_subscriptions.filter(private=True, wishlist=False)
 	bucksamonth = sum([subscription.bucksamonth for subscription in all_subscriptions])
 	context = {

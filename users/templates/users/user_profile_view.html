@@ -11,7 +11,7 @@
 	<div class="col-md-6 well">
 
 	<p style="font-size:4.5em; text-align:center;">{{ person.emoji }}</p>
-	<p style="font-size:2em; text-align:center;">{{ person.username }}</p>
+	<p style="font-size:2em; text-align:center;">{{ person.user.username }}</p>
 	<blockquote>
 	<h4 class="text-muted">{{ person.description }}</h4>
 	</blockquote>
@@ -58,10 +58,9 @@
 
 
 
-	<hr><hr>
-<h1>{{ user_.username }}'s profile{% if user.id == user_.id %} <h4>(this is <a href="{% url 'accounts:profile' %}">you</a>)</h4>{% endif %}</h1>
+<hr>
 
-<h3>{{ user_.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth.</h3>
+<h3>{{ person.user.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth.</h3>
 
 {{ user_p.emoji }}
 

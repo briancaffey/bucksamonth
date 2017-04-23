@@ -45,7 +45,7 @@ $(".comment-reply-btn").click(function(event){
 <hr>
 <h2>Subscribers (<a href="{% url 'services:service_subscribers' pk=instance.id %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
-<p><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user.emoji }}</a></p>
+<p><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}</a></p>
 {% endfor %}
 <hr>
 <h2>Comments ({{ instance.comments.count }})</h2>
@@ -62,7 +62,7 @@ $(".comment-reply-btn").click(function(event){
 {% for comment in comments %}
 {% if comment.is_parent %}
 <blockquote>
-<p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=comment.user.id %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
+<p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=comment.user.username %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
 <p style="font-size:2em;">{{ comment.emoji }}</p>
 <p>{{comment.content | linebreaks }}</p>
 <small> on {{ comment.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
@@ -82,7 +82,7 @@ $(".comment-reply-btn").click(function(event){
 {% for reply in comment.children %}
 <br />
 <blockquote>
-  <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=reply.user.id %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
+  <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=reply.user.username %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
   <p style="font-size:2em;">{{ reply.emoji }}</p>
   <p>{{ reply.content }}</p>
   <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | {% if user == reply.user %}<a href="#">delete 🗑</a>{% endif %}</small>

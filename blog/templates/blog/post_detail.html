@@ -28,7 +28,7 @@ $(".comment-reply-btn").click(function(event){
 
   		{% if instance.draft %}<span style="color:red;">DRAFT</span>{% endif %}
 
-  		<p>by <a href="{% url 'users:view_profile' pk=instance.user.id %}">{{ instance.user.username }} | {{ instance.user.userprofile.emoji }}</a>&nbsp;&nbsp;<small>on {{ instance.publish }}</small></p>
+  		<p>by <a href="{% url 'users:view_profile' username=instance.user.username %}">{{ instance.user.username }} | {{ instance.user.userprofile.emoji }}</a>&nbsp;&nbsp;<small>on {{ instance.publish }}</small></p>
 
   		<div class="post-detail-item">{{ instance.content }}</div>
       <br />
@@ -57,7 +57,7 @@ $(".comment-reply-btn").click(function(event){
       {% for comment in comments %}
         {% if comment.is_parent %}
       <blockquote>
-      <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=comment.user.id %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
+      <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=comment.user.username %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
       <p style="font-size:2em;">{{ comment.emoji }}</p>
       <p>{{comment.content | linebreaks }}</p>
       <small> on {{ comment.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
@@ -77,7 +77,7 @@ $(".comment-reply-btn").click(function(event){
       {% for reply in comment.children %}
       <br />
       <blockquote>
-        <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=reply.user.id %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
+        <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=reply.user.username %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
         <p style="font-size:2em;">{{ reply.emoji }}</p>
         <p>{{ reply.content }}</p>
         <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | {% if user == reply.user %}<a href="#">Delete</a>{% endif %}</small>

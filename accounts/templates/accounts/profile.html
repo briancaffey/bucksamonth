@@ -24,7 +24,7 @@
 <a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
 <a class="btn btn-info" href="{% url 'accounts:update_personal_info' pk=user.userprofile.id %}">personalize ⭐️</a>
 <a class="btn btn-success" href="{% url 'accounts:edit' %}">share 📤</a>
-<a class="btn btn-warning" href="{% url 'users:view_profile' pk=user.id %}">public profile 👤</a>
+<a class="btn btn-warning" href="{% url 'users:view_profile' username=user.username %}">public profile 👤</a>
 <!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
 <a class="btn btn-default" href="#">Settings ⚙</a>
 </div>
@@ -170,10 +170,10 @@ here's the one comment you have made on bucksamonth
 <!-- show comments dependning on what kind of thing they are  -->
 
 <blockquote>
-<p>a comment on <span style="font-size:1em;"><a class="link-fancy" href="{{ comment.content_object.get_absolute_url }}">{{ comment.content_object }}</a></span></p>
+<p>a comment on <span style="font-size:1em;"><a class="link-fancy" href="{{ comment.content_object.get_absolute_url }}">{{ comment.content_object }} | {{ comment.content_object.emoji}}</a></span></p>
 <p style="font-size:2em;">{{ comment.emoji }}</p>
 <p>{{comment.content | linebreaks }}</p>
-<small> on {{ comment.content_object.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
+<small> on {{ comment.content_object.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;</small>
 </blockquote>
 
 

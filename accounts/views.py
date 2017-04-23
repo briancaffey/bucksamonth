@@ -62,7 +62,7 @@ def view_profile(request):
 	wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)
 	bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
 	comments = Comment.objects.filter(user=request.user)
-	
+
 	args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist, 'comments':comments}
 	#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
 
