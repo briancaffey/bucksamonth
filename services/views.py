@@ -68,8 +68,8 @@ class AddServiceView(TemplateView):
 		return render(request, self.template_name, args)
 
 
-def service_detail(request, pk):
-	instance = get_object_or_404(Service, pk=pk)
+def service_detail(request, service_slug):
+	instance = get_object_or_404(Service, service_slug=service_slug)
 	initial_data = {
 		'content_type':instance.get_content_type,
 		'object_id':instance.id
