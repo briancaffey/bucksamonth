@@ -12,22 +12,27 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav" style="text-align:center;">
-            <li><a href="/">Home 📍</a></li>
-            <li><a href="{% url 'services:services' %}">Explore 🔭</a></li>
-            <li><a href="{% url 'categories:all_categories' %}">Categories 🗂</a></li>
+            <li><a href="/">home 📍</a></li>
+            <li><a href="{% url 'services:services' %}">explore 🔭</a></li>
+            <li><a href="{% url 'categories:all_categories' %}">categories 🗂</a></li>
+            <li><a href="{% url 'blog:index' %}">blog 📝</a></li>
 
           </ul>
           <ul class="nav navbar-nav navbar-right" style="text-align:center;">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'accounts:logout' %}">Logout 🔓</a></li>
-            <li><a href="{% url 'accounts:profile' %}">My subscriptions 📊</a></li>
+            <li><a href="{% url 'accounts:logout' %}">logout 🔓</a></li>
+            <li><a href="{% url 'accounts:profile' %}">my subscriptions 📊</a></li>
 
             {% else %}
-            <li><a href="{% url 'accounts:register' %}">Sign Up 📝</a></li>
-            <li><a href="{% url 'accounts:login' %}">Login 🔑</a></li>
+            <li><a href="{% url 'accounts:register' %}">sign up 🔏</a></li>
+            <li><a href="{% url 'accounts:login' %}">login 🔑</a></li>
 <!--             <li><a href="#">Your subscriptions 📊<span class="sr-only">(current)</span></a></li> -->
             {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+
+<div class="container">
+{% include 'messages.html' %}
+</div>

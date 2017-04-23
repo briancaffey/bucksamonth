@@ -65,9 +65,9 @@
 
 	  <!-- Nav tabs -->
 	  <ul class="nav nav-tabs navbar-right" role="tablist">
-	    <li role="presentation" class="active"><a href="#subscriptions" aria-controls="subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
-	    <li role="presentation"><a href="#wishlist" aria-controls="wishlist" role="tab" data-toggle="tab">Wishlist</a></li>
-	    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+	    <li role="presentation" class="active"><a href="#subscriptions" aria-controls="subscriptions" role="tab" data-toggle="tab">subscriptions <span class="badge">{{ subscriptions.count }}</span></a></li>
+	    <li role="presentation"><a href="#wishlist" aria-controls="wishlist" role="tab" data-toggle="tab">wishlist <span class="badge">{{ wishlist.count }}</span></a></li>
+	    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">comments <span class="badge">{{ comments.count }}</span></a></li>
 
 	  </ul>
 
@@ -167,13 +167,14 @@ here's the one comment you have made on bucksamonth
 
 				{% for comment in comments %}
 
-					<p>A comment on <a style="font-size:1.25em;" href="{% url 'services:service_detail' pk=comment.service.pk %}">{{comment.service }} | <span>{{comment.service.emoji }}</span></a></p>
-					<blockquote>
-					<p style="font-size:2em;">{{comment.emoji }}</p>
-					<p>{{comment.text }}</p>
-					<small> on {{ comment.date_created }} | <a href="{% url 'services:comment_delete' pk=comment.pk %}">delete 🗑</a></small>
-				</blockquote>
-					<hr>
+<!-- show comments dependning on what kind of thing they are  -->
+
+<blockquote>
+<p>a comment on <span style="font-size:1em;"><a class="link-fancy" href="{{ comment.content_object.get_absolute_url }}">{{ comment.content_object }}</a></span></p>
+<p style="font-size:2em;">{{ comment.emoji }}</p>
+<p>{{comment.content | linebreaks }}</p>
+<small> on {{ comment.content_object.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
+</blockquote>
 
 
 				{% endfor %}
@@ -270,13 +271,7 @@ here's the one comment you have made on bucksamonth
 	<br />
 	{% for comment in comments %}
 
-		<p>A comment on <a style="font-size:1.25em;" href="{% url 'services:service_detail' pk=comment.service.pk %}">{{comment.service }} | <span>{{comment.service.emoji }}</span></a></p>
-		<blockquote>
-		<p style="font-size:2em;">{{comment.emoji }}</p>
-		<p>{{comment.text }}</p>
-		<small> on {{ comment.date_created }} | <a href="{% url 'services:comment_delete' pk=comment.pk %}">delete 🗑</a></small>
-	</blockquote>
-		<hr>
+
 
 
 	{% endfor %}

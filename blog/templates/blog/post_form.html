@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+<script>
+{% block jquery %}
+
+
+	$(".content-markdown").each(function(){
+			var content = $(this).text()
+			console.log(content)
+			var markedContent = marked(content)
+			console.log(markedContent)
+			$(this).html(markedContent)
+		});
+	$(".post-detail-item img").each(function(){
+			$(this).addClass("img-responsive");
+	});
+
+	//content
+
+
+	//title
+
+	var contentInput = $("#id_content");
+
+
+
+	function setContent(value){
+		var markedContent = value
+		$("#preview-content").html(markedContent)
+		$("#preview-content img").each(function(){
+			$(this).addClass("img-responsive")
+		})
+	}
+	setContent(contentInput.val())
+
+	contentInput.keyup(function(){
+		var newContent = $(this).val()
+		setContent(newContent)
+	})
+
+
+	var titleInput = $("#id_title");
+
+  var emojiInput = $("#id_emoji");
+
+
+	function setTitle(value) {
+		$("#preview-title").text(value)
+	}
+
+	setTitle(titleInput.val())
+
+	titleInput.keyup(function(){
+		var newContent = $(this).val()
+		setTitle(newContent)
+	})
+
+  var emojiInput = $("#id_emoji");
+
+  function setEmoji(value) {
+		$("#emoji-preview").text(value)
+	}
+
+	setEmoji(emojiInput.val())
+
+	emojiInput.keyup(function(){
+		var newContent = $(this).val()
+		setEmoji(newContent)
+	})
+
+
+
+
+
+
+{% endblock %}
+</script>
+
+
+
+{% block content %}
+{% include 'nav.html' %}
+
+<div class="container">
+
+  <div class="col-sm-6">
+  	<h1>preview</h1>
+
+
+  	<div class="content-preview">
+			<h3 style="font-size:2em" id='preview-title'></h3>
+			<h3 style="font-size:4em" id='emoji-preview'></h3>
+  	<p id='preview-content'></p>
+
+  </div>
+
+  </div>
+
+  <div class="col-sm-6">
+  		<h1>editor</h1>
+  		<form method="POST" action="" enctype='multipart/form-data'>
+  		{% csrf_token %}
+  		{{ form | crispy }}
+      <br />
+  		<input class="btn btn-success" type="submit" value="Create Post" />
+  		<a class='btn btn-danger' href="{% url 'blog:index' %}">Cancel</a>
+  		</form>
+  	</div>
+
+
+</div>
+
+{% endblock %}

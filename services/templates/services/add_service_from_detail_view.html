@@ -9,7 +9,7 @@
 <form method="POST" action=''>
 {% csrf_token %}
 {{ form.as_p }}
-<button class="btn btn-success" type="submit">Submit</button>
+<button class="btn btn-success" type="submit">submit</button>
 <a href="{% url 'accounts:profile' %}" class="btn btn-danger">Cancel</a>
 </form>
 </div>

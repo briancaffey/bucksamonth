@@ -1,5 +1,5 @@
 from django import forms
-from services.models import Service, Comment
+from services.models import Service
 
 
 class AddServiceForm(forms.ModelForm):
@@ -58,29 +58,4 @@ class AddServiceForm(forms.ModelForm):
 			'bucksamonth',
 			'emoji',
 			'twitter',
-		)
-
-
-class AddCommentForm(forms.ModelForm):
-
-
-	text = forms.CharField(widget=forms.Textarea(
-		attrs={
-		'class':'form-control',
-		'rows':'2',
-		'placeholder': "tell us about the service",
-		}))
-
-	emoji = forms.CharField(widget=forms.TextInput(
-		attrs={
-		'class':'form-control',
-		'placeholder': "emoji comment",
-		}))
-
-	class Meta:
-		model = Comment
-		fields = (
-			'emoji',
-			'text',
-
 		)

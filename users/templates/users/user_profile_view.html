@@ -4,6 +4,61 @@
 
 {% include 'nav.html' %}
 <div class="container">
+
+
+
+	<div class="row">
+	<div class="col-md-6 well">
+
+	<p style="font-size:4.5em; text-align:center;">{{ person.emoji }}</p>
+	<p style="font-size:2em; text-align:center;">{{ person.username }}</p>
+	<blockquote>
+	<h4 class="text-muted">{{ person.description }}</h4>
+	</blockquote>
+	</div>
+
+	<div class="col-md-6">
+	<div style='text-align:center;'>
+	<div class='col-xs-12 button-wrapper'>
+	<a type="link" class='btn btn-default' href="#">edit profile ✏️</a>
+	<a class="btn btn-info" href="#">personalize ⭐️</a>
+	<a class="btn btn-success" href="#">share 📤</a>
+	<a class="btn btn-warning" href="#">public profile 👤</a>
+	<!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
+	<a class="btn btn-default" href="#">Settings ⚙</a>
+	</div>
+	<hr>
+
+
+	<div class="col-md-6">
+		<h4>bucksamonth activity</h4>
+		<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
+		<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month</p>
+		<p>member since 🗓 March 8, 2017</p>
+		<p>account: <strong>basic</strong></p>
+		<p><a href="#">get bucksamonth premium 👑💰</a></p>
+	</div>
+	<div class="col-md-6">
+
+	<h4>social links</h4>
+	<p>facebook 👩🏻📖&nbsp;&nbsp;<a href="https://facebook.com/">facebook.com</a></p>
+	<p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
+	<p>linkedin 🔗💼 &nbsp;&nbsp;<a href="#">linkedin.com/profile</a></p>
+	<p>website 🌎🕸 &nbsp;&nbsp;<a href="#">website.com</a></p>
+	<p><a href='#'>📍&nbsp;&nbsp;Washington, D.C. 🗺</a></p>
+	</div>
+
+
+	</div>
+	</div>
+	</div>
+
+
+
+
+
+
+	<hr><hr>
 <h1>{{ user_.username }}'s profile{% if user.id == user_.id %} <h4>(this is <a href="{% url 'accounts:profile' %}">you</a>)</h4>{% endif %}</h1>
 
 <h3>{{ user_.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth.</h3>
@@ -27,7 +82,7 @@
 
 {% for subscription in subscriptions %}
 <tr>
-	
+
 	<td><a href="{% url 'services:service_detail' pk=subscription.service.id %}">{{ subscription.service }}</a></td>
 
 	<td>{{ subscription.service.emoji }}</td>
@@ -41,7 +96,7 @@
 {% endfor %}
 
 {% if private > 0 %}<tr>
-	
+
 	<td>{{ private }} private subscription{% if private > 1 %}s{% endif %} <a href="#">what's this? 🤔</a></td>
 
 	<td>🙈 🙉 🙊</td>

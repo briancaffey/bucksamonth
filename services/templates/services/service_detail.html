@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<script>
+{% block jquery %}
+
+$(".comment-reply-btn").click(function(event){
+  event.preventDefault();
+  $(this).parent().next(".comment-reply").fadeToggle();
+})
+
+{% endblock %}
+</script>
+
+
+
 
 {% block page_title %}
 
-{{ object.emoji }} {{ object.service_name }} | 💸&nbsp;bucksamonth 📅
+{{ instance.emoji }} {{ instance.service_name }} | 💸&nbsp;bucksamonth 📅
 
 {% endblock %}
 
@@ -11,48 +26,90 @@
 
 {% include 'nav.html' %}
 <div class="container">
-<div class="row"><div class="container"><h1>{{ object.service_name }} {{ object.emoji }}</h1>
+<div class="row"><div class="container"><h1>{{ instance.service_name }} {{ instance.emoji }}</h1>
 
-<h5>{{ object.bucksamonth | floatformat:"0" }} bucksamonth</h5>
+<h5>{{ instance.bucksamonth | floatformat:"0" }} bucksamonth</h5>
 
-<a href="http://{{ object.url_name }}" class="btn btn-warning">Get {{ object.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' pk=object.pk %}">Add {{ object.service_name }} to your subscription list</a>{% endif %}
+<a href="http://{{ instance.url_name }}" class="btn btn-warning">Get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' pk=instance.pk %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
 </div>
 </div>
 <br />
-{% if user.is_authenticated %}{% if user_info %}<div class="alert alert-info" style="text-align:center;">You have had <strong>{{ object.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit</a></strong></div>{% endif %}{% endif %}
+{% if user.is_authenticated %}{% if user_info %}<div class="alert alert-info" style="text-align:center;">You have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit</a></strong></div>{% endif %}{% endif %}
 
-<h3>{{ object.description_short }}</h3>
-<h4><a href="https://twitter.com/{{ object.twitter }}">{{ object.twitter }}</a></h4>
-{% if object.category.all.count > 0 %}<h5>Categories: {% if object.category %}{% for cat in object.category.all %}<a href="{% url 'categories:category_view' slug=cat.slug %}"><p class="label label-primary">{{ cat }}</p></a> {% endfor %}{% endif %}</h4>{% endif %}
-<p>{{ object.description_long }}<p>
+<h3>{{ instance.description_short }}</h3>
+<h4><a href="https://twitter.com/{{ instance.twitter }}">{{ instance.twitter }}</a></h4>
+{% if instance.category.all.count > 0 %}<h5>Categories: {% if instance.category %}{% for cat in instance.category.all %}<a href="{% url 'categories:category_view' slug=cat.slug %}"><p class="label label-primary">{{ cat }}</p></a> {% endfor %}{% endif %}</h4>{% endif %}
+<p>{{ instance.description_long }}<p>
 <p></p>
 <br>
 <hr>
-<h2>Subscribers (<a href="{% url 'services:service_subscribers' pk=object.id %}">{{ subscribers_count }}</a>)</h2>
+<h2>Subscribers (<a href="{% url 'services:service_subscribers' pk=instance.id %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
 <p><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user.emoji }}</a></p>
 {% endfor %}
 <hr>
-<h2>Comments ({{ object.comments.count }})</h2>
-<p>add a comment<p>
-<form method="POST" action="{% url 'services:service_detail' pk=object.id %}">
+<h2>Comments ({{ instance.comments.count }})</h2>
+<form method="POST" action="{% url 'services:service_detail' pk=instance.id %}">
 {% csrf_token %}
-{% for field in form %}
-{{ field }}
-    {% for err in field.errors %}
-    <p><div>{{ err }}</div></p>
-    {% endfor %}
-<br>
-{% endfor %}
+{{ form }}
+<br />
 <button class="btn btn-success" type="submit">add comment</button>
 </form>
-{% for comment in comments %}
-<h2>{{ comment.emoji}}</h2>
-<p>{{ comment.text | linebreaks }}</p>
-<p>by <a href="{% url 'users:view_profile' pk=comment.user.user.id %}">{{ comment.user.user.first_name}}</a> | {{ comment.votes}} votes | on {{ comment.date_created | date:"D d M Y" }} | {% if user.is_authenticated %}{% if user.userprofile == comment.user %}
+<br />
 
-<a href="{% url 'services:comment_delete' pk=comment.id %}">delete</a>{% else %}Flag{% endif %}{% endif %}</p>
+
+
+{% for comment in comments %}
+{% if comment.is_parent %}
+<blockquote>
+<p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=comment.user.id %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
+<p style="font-size:2em;">{{ comment.emoji }}</p>
+<p>{{comment.content | linebreaks }}</p>
+<small> on {{ comment.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
+
+<div class='comment-reply'>
+  <br />
+<form method="POST" action=".">{% csrf_token %}
+
+{{ form | crispy }}
+<input type="hidden" name="parent_id" value="{{ comment.id }}"></input>
+<br />
+<input type="submit" value="reply ↩️" class="btn btn-default"></input>
+</form>
+</div>
+{% endif %}
+
+{% for reply in comment.children %}
+<br />
+<blockquote>
+  <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=reply.user.id %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
+  <p style="font-size:2em;">{{ reply.emoji }}</p>
+  <p>{{ reply.content }}</p>
+  <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | {% if user == reply.user %}<a href="#">delete 🗑</a>{% endif %}</small>
+
+</blockquote>
 
 {% endfor %}
+
+
+
+
+</blockquote>
+
+
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
 </div>
 {% endblock %}

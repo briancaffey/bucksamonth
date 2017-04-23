@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+<script>
+{% block jquery %}
+
+$(".comment-reply-btn").click(function(event){
+  event.preventDefault();
+  $(this).parent().next(".comment-reply").fadeToggle();
+})
+
+{% endblock %}
+</script>
+
+
+{% block content %}
+{% include 'nav.html' %}
+
+<div class="container">
+
+  <div class="">  <!-- col-sm-6 col-sm-offset-3 -->
+  	<p><a class="btn btn-default" href="{% url 'blog:index'%}">🔙&nbsp;&nbsp;to posts</a>   <a class="btn btn-success" href="{% url 'blog:create' %}">new blog post ➕</a></p>
+  	<hr>
+    <h1><span style="font-size:2em">{{ instance.emoji }}</span><br />{{ instance.title }} </h1>
+
+
+
+  		{% if instance.draft %}<span style="color:red;">DRAFT</span>{% endif %}
+
+  		<p>by <a href="{% url 'users:view_profile' pk=instance.user.id %}">{{ instance.user.username }} | {{ instance.user.userprofile.emoji }}</a>&nbsp;&nbsp;<small>on {{ instance.publish }}</small></p>
+
+  		<div class="post-detail-item">{{ instance.content }}</div>
+      <br />
+  		{% if request.user == instance.user %}<a class="btn btn-warning" href="{% url 'blog:update' slug=instance.slug %}">update ✏️</a> <a class="btn btn-danger" href="{% url 'blog:delete' slug=instance.slug %}">delete 🗑</a>{% endif %}
+
+  		<hr>
+
+      <p style="font-size:2em;">{{ comments.count }} comment{{ comments.count | pluralize }} 💬</p>
+
+      <hr>
+
+      {% if user.is_authenticated %}
+      <div class="">
+      <form id="post-form" method="POST" action=".">
+      {% csrf_token %}
+      {{ form | crispy }}
+      <br />
+      <input type="submit" value="comment 🗣" class="btn btn-default"></input>
+      </form>
+      </div>
+      {% else %}
+      <p>Please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">sign up</a> to comment.</p>
+      {% endif %}
+      <hr>
+
+      {% for comment in comments %}
+        {% if comment.is_parent %}
+      <blockquote>
+      <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=comment.user.id %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
+      <p style="font-size:2em;">{{ comment.emoji }}</p>
+      <p>{{comment.content | linebreaks }}</p>
+      <small> on {{ comment.timestamp }} | <a href="#">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
+
+      <div class='comment-reply'>
+        <br />
+      <form method="POST" action=".">{% csrf_token %}
+
+      {{ form | crispy }}
+      <input type="hidden" name="parent_id" value="{{ comment.id }}"></input>
+      <br />
+      <input type="submit" value="reply ↩️" class="btn btn-default"></input>
+      </form>
+      </div>
+
+
+      {% for reply in comment.children %}
+      <br />
+      <blockquote>
+        <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' pk=reply.user.id %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
+        <p style="font-size:2em;">{{ reply.emoji }}</p>
+        <p>{{ reply.content }}</p>
+        <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | {% if user == reply.user %}<a href="#">Delete</a>{% endif %}</small>
+
+      </blockquote>
+
+      {% endfor %}
+
+
+
+
+    </blockquote>
+      <hr>
+      {% endif %}
+
+
+
+
+
+      {% endfor %}
+
+
+  </div>
+
+
+</div>
+
+{% endblock %}

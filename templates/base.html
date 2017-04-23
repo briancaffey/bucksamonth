@@ -44,18 +44,25 @@
   {% block footer %}{% include 'footer.html' %}{% endblock %}
 
 
-{% block jquery %}
+
 <script>
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
-});
+
 
   $('#heart').hover( function(){
     $(this).html('<a style="text-decoration:none;" href="#">❤️</a>')
   })
 
+  {% block jquery %}
+
+
+  {% endblock %}
+
+
+});
 </script>
-{% endblock %}
+
 
 
 

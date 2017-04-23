@@ -1,15 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 
 from django.contrib.auth.models import User
 from services.models import Subscription
 from accounts.models import UserProfile
-from services.models import Comment
+# from services.models import Comment
 
 from accounts.forms import UpdateSubscriptionForm
 
 from django.views.generic import View, TemplateView, DetailView, DeleteView
 from django.views.generic.edit import UpdateView
+
+
+
+def view_profile(request, pk):
+	person = get_object_or_404(UserProfile, pk=pk)
+	all_subscriptions = Subscription.objects.filter(user=person.user.id)
+	private = all_subscriptions.filter(private=True)
+	subscriptions = all_subscriptions.filter(private=True, wishlist=False)
+	bucksamonth = sum([subscription.bucksamonth for subscription in all_subscriptions])
+	context = {
+		'person':person,
+		'subscriptions':subscriptions,
+		'bucksamonth':bucksamonth,
+		'private':private,
+	}
+	return render(request, 'users/user_profile_view.html', context)
+
 
 
 class UserProfileView(TemplateView):
@@ -24,7 +41,7 @@ class UserProfileView(TemplateView):
 		private = Subscription.objects.filter(user=context['user_p'], wishlist=False, private=True)
 		private = private.count()
 
-		
+
 		context['private'] = private
 		context['wishlist'] = Subscription.objects.filter(user=context['user_p'], wishlist=True)
 		context['bucksamonth'] = sum([subscription.bucksamonth for subscription in context['subscriptions']])

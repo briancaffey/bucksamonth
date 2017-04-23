@@ -3,6 +3,8 @@ from accounts.models import UserProfile
 from django.contrib.auth.models import User
 from datetime import date
 from categories.models import Category
+from comments.models import Comment
+from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
 # Create your models here.
@@ -27,20 +29,31 @@ class Service(models.Model):
 	def get_absolute_url(self):
 		return "/services/%i/" % self.id
 
+	@property
+	def get_content_type(self):
+		instance = self
+		content_type = ContentType.objects.get_for_model(instance.__class__)
+		return content_type
 
-class Comment(models.Model):
-	service 				= models.ForeignKey(Service, on_delete=models.CASCADE)
-	user 					= models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="user_commenter")
-	text 					= models.CharField(max_length=1000)
-	date_created			= models.DateField(auto_now_add=True)
-	votes 					= models.IntegerField(default=0)
-	emoji 					= models.CharField(max_length=20, default='')
+	@property
+	def comments(self):
+		instance = self
+		qs = Comment.objects.filter_by_instance(instance)
+		return qs
 
-	class Meta:
-		ordering = ['-date_created']
-
-	def __str__(self):
-		return str(self.emoji)
+# class Comment(models.Model):
+# 	service 				= models.ForeignKey(Service, on_delete=models.CASCADE)
+# 	user 					= models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="user_commenter")
+# 	text 					= models.CharField(max_length=1000)
+# 	date_created			= models.DateField(auto_now_add=True)
+# 	votes 					= models.IntegerField(default=0)
+# 	emoji 					= models.CharField(max_length=20, default='')
+#
+# 	class Meta:
+# 		ordering = ['-date_created']
+#
+# 	def __str__(self):
+# 		return str(self.emoji)
 
 class Subscription(models.Model):
 	service 				= models.ForeignKey(Service, on_delete=models.CASCADE, related_name='subscription_service')

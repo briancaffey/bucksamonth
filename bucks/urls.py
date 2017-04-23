@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^services/', include('services.urls', namespace='services')),
     url(r'^users/', include('users.urls', namespace='users')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+
 ]

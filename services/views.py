@@ -1,16 +1,20 @@
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 from django.db.models import Count
 from django.contrib import messages
 
-from services.models import Service, Comment, Subscription
+from services.models import Service, Subscription
 from categories.models import Category
 from django import forms
 from services.forms import AddServiceForm
 from accounts.forms import AddSubscriptionForm
-from .forms import AddCommentForm
+#from .forms import AddCommentForm
+from comments.forms import CommentForm
+from comments.models import Comment
+
+from django.contrib.contenttypes.models import ContentType
 
 from django.views import View
 
@@ -63,64 +67,117 @@ class AddServiceView(TemplateView):
 		args = {'form':form,}
 		return render(request, self.template_name, args)
 
-class ServiceView(DetailView):
-	template_name = 'services/service_detail.html'
-	model = Service
 
-	def get_context_data(self, **kwargs):
-		context = super(ServiceView, self).get_context_data(**kwargs)
-		context['form'] = AddCommentForm()
-		subscribers = Subscription.objects.filter(service=self.kwargs['pk'])
-		context['subscribers'] = subscribers
-		context['subscribers_count'] = subscribers.distinct().count()
-		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
-		if self.request.user.is_authenticated:
-			context['user_info'] = Subscription.objects.filter(service=self.kwargs['pk'], user=self.request.user.userprofile).first()
-		return context
+def service_detail(request, pk):
+	instance = get_object_or_404(Service, pk=pk)
+	initial_data = {
+		'content_type':instance.get_content_type,
+		'object_id':instance.id
+	}
+	form = CommentForm(request.POST or None, initial=initial_data)
+	subscribers = Subscription.objects.filter(service=instance)
+	subscribers_count = subscribers.distinct().count()
+	comments = instance.comments
+
+	context = {
+		'instance':instance,
+		'form':form,
+		'subscribers':subscribers,
+		'subscribers_count':subscribers_count,
+		'comments':comments,
+	}
+
+	if form.is_valid():
+		c_type = form.cleaned_data.get("content_type")
+		content_type = ContentType.objects.get(model=c_type)
+		obj_id = form.cleaned_data.get('object_id')
+		content_data = form.cleaned_data.get('content')
+		comment_emoji = form.cleaned_data.get('emoji')
+		parent_obj = None
+		try:
+			parent_id = int(request.POST.get("parent_id"))
+		except:
+			parent_id = None
+
+		if parent_id:
+			parent_qs = Comment.objects.filter(id=parent_id)
+			if parent_qs.exists():
+				parent_obj = parent_qs.first()
+
+		new_comment, created = Comment.objects.get_or_create(
+			user=request.user,
+			content_type=content_type,
+			object_id=obj_id,
+			content=content_data,
+			parent=parent_obj,
+			emoji=comment_emoji,
+		)
+		messages.success(request, 'Your comment was added!')
+		return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+
+	return render(request, 'services/service_detail.html', context)
 
 
-class ServiceComment(SingleObjectMixin, FormView):
-	template_name = 'services/service_detail.html'
-	form_class = AddCommentForm
-	model = Service
 
-	def post(self, request, *args, **kwargs):
-		if not request.user.is_authenticated:
-			return HttpResponseForbidden()
-		self.object = self.get_object()
-		return super(ServiceComment, self).post(request, *args, **kwargs)
 
-	def form_valid(self, form):
-		#added in some extra bits here
-		form.instance.user = self.request.user.userprofile
-		form.instance.service = self.get_object()
-		form.save()
-		return super(ServiceComment, self).form_valid(form)
+# class ServiceView(DetailView):
+# 	template_name = 'services/service_detail.html'
+# 	model = Service
+#
+# 	def get_context_data(self, **kwargs):
+# 		context = super(ServiceView, self).get_context_data(**kwargs)
+# 		context['form'] = AddCommentForm()
+# 		subscribers = Subscription.objects.filter(service=self.kwargs['pk'])
+# 		context['subscribers'] = subscribers
+# 		context['subscribers_count'] = subscribers.distinct().count()
+# 		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
+# 		if self.request.user.is_authenticated:
+# 			context['user_info'] = Subscription.objects.filter(service=self.kwargs['pk'], user=self.request.user.userprofile).first()
+# 		return context
 
-	def form_invalid(self, form, **kwargs):
-		context = self.get_context_data(**kwargs)
-		subscribers = Subscription.objects.filter(service=self.kwargs['pk'])
-		context['subscribers'] = subscribers
-		context['subscribers_count'] = subscribers.distinct().count()
-		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
-		context['form'] = AddCommentForm()
-		return self.render_to_response(context)
 
-	def get_success_url(self):
-		return reverse('services:service_detail', kwargs={'pk': self.object.pk})
+# class ServiceComment(SingleObjectMixin, FormView):
+# 	template_name = 'services/service_detail.html'
+# 	form_class = AddCommentForm
+# 	model = Service
+#
+# 	def post(self, request, *args, **kwargs):
+# 		if not request.user.is_authenticated:
+# 			return HttpResponseForbidden()
+# 		self.object = self.get_object()
+# 		return super(ServiceComment, self).post(request, *args, **kwargs)
+#
+# 	def form_valid(self, form):
+# 		#added in some extra bits here
+# 		form.instance.user = self.request.user.userprofile
+# 		form.instance.service = self.get_object()
+# 		form.save()
+# 		return super(ServiceComment, self).form_valid(form)
+#
+# 	def form_invalid(self, form, **kwargs):
+# 		context = self.get_context_data(**kwargs)
+# 		subscribers = Subscription.objects.filter(service=self.kwargs['pk'])
+# 		context['subscribers'] = subscribers
+# 		context['subscribers_count'] = subscribers.distinct().count()
+# 		context['comments'] = Comment.objects.filter(service=self.kwargs['pk'])
+# 		context['form'] = AddCommentForm()
+# 		return self.render_to_response(context)
+#
+# 	def get_success_url(self):
+# 		return reverse('services:service_detail', kwargs={'pk': self.object.pk})
 
-class CommentDeleteView(DeleteView):
-
-	model = Comment
-	success_url = '/accounts/profile'
-
-	def get_object(self, queryset=None):
-
-		obj = super(CommentDeleteView, self).get_object()
-		if not obj.user.user.id == self.request.user.id:
-			raise Http404
-		obj.delete()
-		return obj
+# class CommentDeleteView(DeleteView):
+#
+# 	model = Comment
+# 	success_url = '/accounts/profile'
+#
+# 	def get_object(self, queryset=None):
+#
+# 		obj = super(CommentDeleteView, self).get_object()
+# 		if not obj.user.user.id == self.request.user.id:
+# 			raise Http404
+# 		obj.delete()
+# 		return obj
 
 class ServiceDetailView(TemplateView):
 
