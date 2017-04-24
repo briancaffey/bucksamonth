@@ -7,8 +7,9 @@
 
 {% if subscription.user.user.id == user.id %}
 <div class="container">
+	<div class="col-md-8 col-md-offset-2">
 
-<h2>Update your subscription to {{ subscription }}</h2>
+<h2 style="text-align:center;"><a href="{{ subscription.service.get_absolute_url }}"><span style="font-size:1.5em">{{ subscription.service.emoji }}</span></a><br />update your subscription to <a href="{{ subscription.service.get_absolute_url }}">{{ subscription }}</a></h2>
 
 <form action="" method="post">
 	{% csrf_token %}
@@ -28,11 +29,13 @@
 </form>
 
 </div>
+</div>
 {% else %}
 
 <div class="container">
 	<h4>we couldn't find that page 😕</h4>
 </div>
+
 {% endif %}
 
 

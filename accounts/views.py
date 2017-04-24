@@ -89,6 +89,31 @@ class AddSubscriptionView(TemplateView):
 			return render(request, self.template_name, {"form": form})
 
 
+def update_personal_info(request):
+	if request.user.is_authenticated():
+		user_profile = UserProfile.objects.get(user=request.user)
+		initial_data = {
+			'description':user_profile.description,
+			'twitter':user_profile.twitter,
+			'emoji':user_profile.emoji,
+		}
+		form = EditPersonalInfoForm(request.POST or None, instance=request.user.userprofile)
+		context = {
+			'form':form,
+		}
+
+		if request.method=="POST":
+			if form.is_valid():
+				instance = form.save(commit=False)
+				instance.save()
+				return redirect('accounts:profile')
+
+		return render(request, 'accounts/userprofile_form.html', context)
+
+	else:
+		messages.success(request, "you can't do that")
+		return redirect('services:home')
+
 class UpdateUserInfoForm(UpdateView):
 
 	model = UserProfile

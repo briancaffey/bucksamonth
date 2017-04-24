@@ -32,7 +32,7 @@ class Service(models.Model):
 		return Comment.objects.filter(service=self.id)
 
 	def get_absolute_url(self):
-		return "/services/%i/" % self.id
+		return "/services/%s/" % self.service_slug
 
 	@property
 	def get_content_type(self):

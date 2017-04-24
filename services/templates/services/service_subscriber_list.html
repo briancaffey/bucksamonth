@@ -4,12 +4,16 @@
 
 {% include 'nav.html' %}
 <div class="container">
-<h1>here's everyone who is subscribed to <a href="{{ service.first.get_absolute_url }}">{{ service.first }}</a></h1>
+<h1>here's everyone who is subscribed to <a href="{{ service.get_absolute_url }}">{{ service }} {{ service.emoji }}</a></h1>
+
 {% for subscriber in subscriber_list %}
-
-<h3><a href="{% url 'users:view_profile' pk=subscriber.user.user.id %}">{{ subscriber.user }}</a> {{ subscriber.user.emoji }}</h3>
-
+{% cycle '<div class="row">' '' ''  %}
+<div style="text-align:center;" class="col-md-4">
+    <h3><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user }} {{ subscriber.user.emoji }}</a></h3>
+</div>
+{% cycle '' '' '</div>' %}
 {% endfor %}
+
 
 </div>
 {% endblock %}

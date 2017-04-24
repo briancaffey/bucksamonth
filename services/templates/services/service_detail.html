@@ -30,7 +30,7 @@ $(".comment-reply-btn").click(function(event){
 
 <h5>{{ instance.bucksamonth | floatformat:"0" }} bucksamonth</h5>
 
-<a href="http://{{ instance.url_name }}" class="btn btn-warning">Get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' pk=instance.pk %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
+<a href="http://{{ instance.url_name }}" class="btn btn-warning">get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=instance.service_slug %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
 </div>
 </div>
 <br />
@@ -43,13 +43,24 @@ $(".comment-reply-btn").click(function(event){
 <p></p>
 <br>
 <hr>
-<h2>Subscribers (<a href="{% url 'services:service_subscribers' pk=instance.id %}">{{ subscribers_count }}</a>)</h2>
+<h2>Subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
-<p><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}</a></p>
+{% cycle '<div class="row">' '' ''  %}
+<div style="text-align:center;" class="col-md-4">
+<p style="font-size:2em;"><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}<br /></a></p>
+</div>
+{% cycle '' '' '</div>' %}
 {% endfor %}
+
+<br />
+
+
+
+
 <hr>
+<div class="col-md-8">
 <h2>Comments ({{ instance.comments.count }})</h2>
-<form method="POST" action="{% url 'services:service_detail' pk=instance.id %}">
+<form method="POST" action="{% url 'services:service_detail' service_slug=instance.service_slug %}">
 {% csrf_token %}
 {{ form }}
 <br />
@@ -104,7 +115,7 @@ $(".comment-reply-btn").click(function(event){
 
 {% endfor %}
 
-
+</div>
 
 
 

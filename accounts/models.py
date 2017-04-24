@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class UserProfile(models.Model):
-	user = models.OneToOneField(User) 
+	user = models.OneToOneField(User)
 	description = models.CharField(max_length=100, default='')
 	twitter = models.CharField(max_length=100, default='')
 	emoji = models.CharField(max_length=10, default='')

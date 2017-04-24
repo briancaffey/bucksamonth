@@ -4,6 +4,7 @@
 {% block content %}
 {% include 'nav.html' %}
 <div class="container">
+	<div class="col-md-8 col-md-offset-2">
 <h1>Add a subscription to your profile</h1>
 	<h3>If you can't find a service on the list, <a href="{% url 'services:add_service' %}">add it here</a> 👍</h3>
 	<br>
@@ -11,9 +12,10 @@
 {% csrf_token %}
 {{ form.as_p }}
 <button class="btn btn-success" type="submit">Add</button> - or -
-<a href="{% url 'accounts:profile' %}" class="btn btn-danger">Cancel</a>
+<a href="{% url 'accounts:profile' %}" class="btn btn-danger">cancel</a>
 </form>
 <br><br>
 <p>Subscription services added here will show up on your bucksamonth account and will also be displayed on your public bucksamonth page. <a href="#">Learn more</a>.</p>
+</div>
 </div>
 {% endblock %}

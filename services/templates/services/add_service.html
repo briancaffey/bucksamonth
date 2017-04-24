@@ -4,6 +4,7 @@
 
 {% include 'nav.html' %}
 <div class="container">
+	<div class="col-md-8 col-md-offset-2">
 	<h1>Add a new service to bucksamonth</h1>
 	</br>
 <form method="POST" action=''>
@@ -12,5 +13,6 @@
 <button class="btn btn-success" type="submit">Submit</button>
 <a href="{% url 'accounts:profile' %}" class="btn btn-danger">Cancel</a>
 </form>
+</div>
 </div>
 {% endblock %}

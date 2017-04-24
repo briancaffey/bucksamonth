@@ -19,7 +19,7 @@ $(".comment-reply-btn").click(function(event){
 
 <div class="container">
 
-  <div class="">  <!-- col-sm-6 col-sm-offset-3 -->
+  <div class="col-md-8 col-md-offset-1">  <!-- col-sm-6 col-sm-offset-3 -->
   	<p><a class="btn btn-default" href="{% url 'blog:index'%}">🔙&nbsp;&nbsp;to posts</a>   <a class="btn btn-success" href="{% url 'blog:create' %}">new blog post ➕</a></p>
   	<hr>
     <h1><span style="font-size:2em">{{ instance.emoji }}</span><br />{{ instance.title }} </h1>

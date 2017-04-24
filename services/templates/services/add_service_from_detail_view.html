@@ -4,13 +4,15 @@
 
 {% include 'nav.html' %}
 <div class="container">
-	<h1>Add {{ service }}</h1>
+	<div class="col-md-8 col-md-offset-2">
+	<h1 style="text-align:center;"><span style="font-size:1.5em;">{{ service.emoji }}</span><br />add <a href="{{ service.get_absolute_url }}">{{ service }}</a> to your subscription list ✅</h1>
 	</br>
 <form method="POST" action=''>
 {% csrf_token %}
 {{ form.as_p }}
-<button class="btn btn-success" type="submit">submit</button>
-<a href="{% url 'accounts:profile' %}" class="btn btn-danger">Cancel</a>
+<button class="btn btn-success" type="submit">submit</button> - or - 
+<a href="{% url 'accounts:profile' %}" class="btn btn-danger">cancel</a>
 </form>
+</div>
 </div>
 {% endblock %}

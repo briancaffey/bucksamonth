@@ -45,6 +45,19 @@ def services(request):
 	services = Service.objects.all().order_by('-date_created')
 	return render(request, 'services/services.html', {'services':services})
 
+def add_service_view(request):
+
+	form = AddServiceForm(request.POST or None)
+	context = {
+		'form':form,
+	}
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return redirect(reverse('services:add_service_from_detail_view', kwargs={'service_slug':instance.service_slug,}))
+
+	return render(request, 'services/add_service.html', context)
 
 class AddServiceView(TemplateView):
 	template_name = 'services/add_service.html'
@@ -77,6 +90,7 @@ def service_detail(request, service_slug):
 	form = CommentForm(request.POST or None, initial=initial_data)
 	subscribers = Subscription.objects.filter(service=instance)
 	subscribers_count = subscribers.distinct().count()
+	user_info = Subscription.objects.filter(service=instance, user=request.user.userprofile).first()
 	comments = instance.comments
 
 	context = {
@@ -85,6 +99,7 @@ def service_detail(request, service_slug):
 		'subscribers':subscribers,
 		'subscribers_count':subscribers_count,
 		'comments':comments,
+		'user_info':user_info,
 	}
 
 	if form.is_valid():
@@ -189,6 +204,17 @@ class ServiceDetailView(TemplateView):
 		view = ServiceComment.as_view()
 		return view(request, *args, **kwargs)
 
+def service_subscribers(request, service_slug):
+	service = Service.objects.get(service_slug=service_slug)
+	subscriber_list = Subscription.objects.filter(service=service)
+
+	context = {
+		'subscriber_list':subscriber_list,
+		'service':service,
+	}
+
+	return render(request, 'services/service_subscriber_list.html', context)
+
 class ServiceSubscriberListView(TemplateView):
 
 	template_name = 'services/service_subscriber_list.html'
@@ -199,17 +225,16 @@ class ServiceSubscriberListView(TemplateView):
 		context['service'] = Service.objects.filter(id=self.kwargs['pk'])
 		return context
 
-def add_service_from_detail_view(request, pk):
-	service = Service.objects.get(pk=pk)
+def add_service_from_detail_view(request, service_slug):
+	service = Service.objects.get(service_slug=service_slug)
 	if request.user.is_authenticated():
-
 
 		initial = {
 			'service':service,
 			'bucksamonth':service.bucksamonth,
 		}
 		form = AddSubscriptionForm(request.POST or None, initial=initial)
-		print(form.is_valid())
+
 		if request.method=="POST":
 			print(form.errors)
 			if form.is_valid():

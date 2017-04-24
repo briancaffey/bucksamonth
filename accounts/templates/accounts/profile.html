@@ -22,11 +22,11 @@
 <div style='text-align:center;'>
 <div class='col-xs-12 button-wrapper'>
 <a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
-<a class="btn btn-info" href="{% url 'accounts:update_personal_info' pk=user.userprofile.id %}">personalize ⭐️</a>
-<a class="btn btn-success" href="{% url 'accounts:edit' %}">share 📤</a>
+<a class="btn btn-info" href="{% url 'accounts:update_personal_info' %}">personalize ⭐️</a>
+<a class="btn btn-success" href="#share">share 📤</a>
 <a class="btn btn-warning" href="{% url 'users:view_profile' username=user.username %}">public profile 👤</a>
 <!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
-<a class="btn btn-default" href="#">Settings ⚙</a>
+<a class="btn btn-default" href="#">settings ⚙</a>
 </div>
 <hr>
 
@@ -93,7 +93,7 @@
 					</tr>
 					{% for item in subscriptions %}
 					<tr>
-						<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="PRIVATE">🙈</a>{% endif %}</td>
+						<td><a href="{% url 'services:service_detail' service_slug=item.service.service_slug %}">{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="PRIVATE">🙈</a>{% endif %}</td>
 						<td style="text-align:center;">{{ item.service.emoji }}</td>
 						<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
 						<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
