@@ -30,7 +30,7 @@ $(".comment-reply-btn").click(function(event){
 
   		<p>by <a href="{% url 'users:view_profile' username=instance.user.username %}">{{ instance.user.username }} | {{ instance.user.userprofile.emoji }}</a>&nbsp;&nbsp;<small>on {{ instance.publish }}</small></p>
 
-  		<div class="post-detail-item">{{ instance.content }}</div>
+  		<div class="post-detail-item">{{ instance.content | safe }}</div>
       <br />
   		{% if request.user == instance.user %}<a class="btn btn-warning" href="{% url 'blog:update' slug=instance.slug %}">update ✏️</a> <a class="btn btn-danger" href="{% url 'blog:delete' slug=instance.slug %}">delete 🗑</a>{% endif %}
 

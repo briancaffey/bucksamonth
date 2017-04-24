@@ -34,7 +34,7 @@ $(".comment-reply-btn").click(function(event){
 </div>
 </div>
 <br />
-{% if user.is_authenticated %}{% if user_info %}<div class="alert alert-info" style="text-align:center;">You have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit</a></strong></div>{% endif %}{% endif %}
+{% if user.is_authenticated %}{% if user_info %}<div class="alert alert-info" style="text-align:center;">You have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>{% endif %}{% endif %}
 
 <h3>{{ instance.description_short }}</h3>
 <h4><a href="https://twitter.com/{{ instance.twitter }}">{{ instance.twitter }}</a></h4>
@@ -60,13 +60,19 @@ $(".comment-reply-btn").click(function(event){
 <hr>
 <div class="col-md-8">
 <h2>Comments ({{ instance.comments.count }})</h2>
+{% if user.is_authenticated %}
 <form method="POST" action="{% url 'services:service_detail' service_slug=instance.service_slug %}">
 {% csrf_token %}
 {{ form }}
 <br />
 <button class="btn btn-success" type="submit">add comment</button>
 </form>
-<br />
+{% else %}
+<span>
+please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">register</a> to leave a comment
+</span>
+{% endif %}
+<br /><br />
 
 
 

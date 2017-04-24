@@ -90,7 +90,6 @@ def service_detail(request, service_slug):
 	form = CommentForm(request.POST or None, initial=initial_data)
 	subscribers = Subscription.objects.filter(service=instance)
 	subscribers_count = subscribers.distinct().count()
-	user_info = Subscription.objects.filter(service=instance, user=request.user.userprofile).first()
 	comments = instance.comments
 
 	context = {
@@ -99,8 +98,10 @@ def service_detail(request, service_slug):
 		'subscribers':subscribers,
 		'subscribers_count':subscribers_count,
 		'comments':comments,
-		'user_info':user_info,
 	}
+	if request.user.is_authenticated():
+		user_info = Subscription.objects.filter(service=instance, user=request.user.userprofile).first()
+		context['user_info'] = user_info
 
 	if form.is_valid():
 		c_type = form.cleaned_data.get("content_type")
