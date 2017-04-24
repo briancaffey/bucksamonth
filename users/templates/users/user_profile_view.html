@@ -82,7 +82,7 @@
 {% for subscription in subscriptions %}
 <tr>
 
-	<td><a href="{% url 'services:service_detail' pk=subscription.service.id %}">{{ subscription.service }}</a></td>
+	<td><a href="{% url 'services:service_detail' service_slug=subscription.service.service_slug %}">{{ subscription.service }}</a></td>
 
 	<td>{{ subscription.service.emoji }}</td>
 
