@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load urlify %}
 
 
 
@@ -23,7 +23,11 @@
 <div class='col-xs-12 button-wrapper'>
 <a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
 <a class="btn btn-info" href="{% url 'accounts:update_personal_info' %}">personalize ⭐️</a>
-<a class="btn btn-success" href="#share">share 📤</a>
+<a type="button" class="btn btn-success" href="#logout" data-toggle="modal" data-target="#myModal-share">share 📤</a>
+<!-- share link modal -->
+
+{% include 'accounts/share_links.html' %}
+
 <!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
 <a class="btn btn-default" href="#">settings ⚙</a>
 </div>

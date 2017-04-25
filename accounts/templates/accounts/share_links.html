@@ -1,0 +1,44 @@
+    <!-- Logout Modal -->
+
+{% load urlify %}
+
+    <div class="modal fade" id="myModal-share" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="text-align:center;" class="modal-title">share your bucksamonth profile on social media</h4>
+          </div>
+          <div style="text-align:center; font-size:2em;" class="modal-body">
+
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}">👩🏻📖 facebook</a><br />
+
+            		<a href="https://twitter.com/home?status={{ request.get_host }}{{ user.userprofile.description | truncatechars:30 | urlify }}%20{{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}">🐦🗣 twitter</a><br />
+
+
+            		<a href="https://plus.google.com/share?url={{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}">🔎➕ google plus </a><br />
+
+
+            		<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}&title={{ user.username | urlify }}&summary={{ user.userprofile.description | truncatechars:50 | urlify }}&source={{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}">
+            		🔗💼 linkedin</a><br />
+
+
+            		<a href="http://www.reddit.com/submit?url={{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}&title={{ user.userprofile.description | urlify }}">👽👓 reddit</a>
+
+
+
+
+
+
+
+          </div>
+          <!-- <div class="modal-footer">
+            <a class="btn btn-warning" href="{% url 'accounts:logout' %}">Logout</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div> -->
+        </div>
+
+      </div>
+    </div>
