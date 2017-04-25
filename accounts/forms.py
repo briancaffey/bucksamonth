@@ -4,21 +4,64 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from services.models import Subscription, Service
 from accounts.models import UserProfile
-
+from django.contrib.auth import authenticate, login
 import datetime
+
+class UserLoginForm(forms.Form):
+	username = forms.CharField(
+		label='',
+		widget=forms.TextInput(
+			attrs={
+			'class':'form-control',
+			'placeholder': "enter your username",
+	}))
+	
+	password = forms.CharField(
+		label='',
+		widget=forms.PasswordInput(
+			attrs={
+			'class':'form-control',
+			'placeholder': "enter your password",
+		}))
+
+
+	def clean(self, *args, **kwargs):
+		username = self.cleaned_data.get("username")
+		password = self.cleaned_data.get("password")
+		user = authenticate(username=username, password=password)
+		user_qs = User.objects.filter(username=username)
+		if user_qs.count() == 1:
+			user = user_qs.first()
+		if not user:
+			raise forms.ValidationError("This user does not exist")
+		if not user.check_password(password):
+			raise forms.ValidationError("Incorrect password")
+
+		if not user.is_active:
+			raise forms.ValidationError("This user is no longer active")
+
+		return super(UserLoginForm, self).clean(*args, **kwargs)
+
+
+
 
 class MyAuthenticationForm(AuthenticationForm):
 
-	username = forms.CharField(widget=forms.TextInput(
-		attrs={
-		'class':'form-control',
-		'placeholder': "enter your username",
+	username = forms.CharField(
+		label='',
+		widget=forms.TextInput(
+			attrs={
+			'class':'form-control',
+			'placeholder': "enter your username",
 		}))
 
-	password = forms.CharField(widget=forms.PasswordInput(
-		attrs={
-		'class':'form-control',
-		'placeholder': "enter your password",}))
+	password = forms.CharField(
+		label='',
+		widget=forms.PasswordInput(
+			attrs={
+			'class':'form-control',
+			'placeholder': "enter your password",
+		}))
 
 
 class RegistrationForm(UserCreationForm):
@@ -89,6 +132,9 @@ class RegistrationForm(UserCreationForm):
 
 class EditPersonalInfoForm(forms.ModelForm):
 
+	#setup = forms.BooleanField(widget=forms.HiddenInput)
+	setup = forms.BooleanField(required=False, widget=forms.HiddenInput)
+
 	description = forms.CharField(widget=forms.TextInput(
 		attrs={
 		'class':'form-control',
@@ -117,6 +163,7 @@ class EditPersonalInfoForm(forms.ModelForm):
 			'description',
 			'twitter',
 			'emoji',
+			'setup',
 
 			)
 

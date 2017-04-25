@@ -8,6 +8,7 @@ class UserProfile(models.Model):
 	description = models.CharField(max_length=100, default='')
 	twitter = models.CharField(max_length=100, default='')
 	emoji = models.CharField(max_length=10, default='')
+	setup = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.user.username

@@ -14,6 +14,9 @@ from accounts.forms import AddSubscriptionForm
 from comments.forms import CommentForm
 from comments.models import Comment
 
+
+from django.contrib.auth.decorators import login_required
+
 from django.contrib.contenttypes.models import ContentType
 
 from django.views import View
@@ -226,6 +229,7 @@ class ServiceSubscriberListView(TemplateView):
 		context['service'] = Service.objects.filter(id=self.kwargs['pk'])
 		return context
 
+@login_required
 def add_service_from_detail_view(request, service_slug):
 	service = Service.objects.get(service_slug=service_slug)
 	if request.user.is_authenticated():

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% include 'nav.html' %}
+
+
+<div class="container">
+<div class="col-md-8 col-md-offset-2">
+<h2>almost done! setup your profile</h2>
+
+
+<form type="" method="post">
+	{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" class="btn btn-success" value="Save"></input> - or -
+<a class="btn btn-danger" href="{% url 'accounts:profile' %}">Cancel</a>
+</form>
+</div>
+</div>
+
+{% endblock %}

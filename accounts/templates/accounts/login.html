@@ -9,7 +9,7 @@
 <h2>Login to your bucksamonth account, or <a href="{% url 'accounts:register' %}">sign up</a> for a new account</h2>
 <br>
 
-{% if form.errors %}
+{% if authentication_form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
@@ -22,14 +22,35 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'accounts:login' %}">
+<!-- <p>{{ authentication_form.username }}</p>
+<p>{{ authentication_form.password }}</p> -->
+
+
+<!-- <form method="post" action="{% url 'accounts:login' %}">
 {% csrf_token %}
-<p>{{ form.username }}</p>
-<p>{{ form.password }}</p>
+<p>{{ authentication_form }}</p>
+
 
 <input class="btn btn-success" type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
+
+<br />
+
+<br />
+<br /> -->
+
+<form method="POST" action=".">
+{% csrf_token %}
+<p>{{ form.username }}</p>
+<p>{{ form.password }}</p>
+<input type="hidden" name="next" value="{{ request.GET.next }}" />
+<input class="btn btn-success" type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+
+
 </div>
 </div>
 {% endblock %}

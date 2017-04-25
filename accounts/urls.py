@@ -9,13 +9,15 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
-
+	url(r'^setup/$', views.setup, name='setup'),
 	url(r'^profile/edit/$', views.update_personal_info, name='update_personal_info'),
 	#url(r'^(?P<pk>[0-9]+)/info/$', UpdateUserInfoForm.as_view(), name='update_personal_info'),
 	url(r'^add-subscription/$', AddSubscriptionView.as_view(), name='add_subscription'),
 	url(r'^subscription/(?P<pk>[0-9]+)/edit/$', SubscriptionUpdate.as_view(), name='subscription_update'),
 	url(r'^subscription/(?P<pk>[0-9]+)/delete/$', SubscriptionDeleteView.as_view(), name="delete_subscription"),
-	url(r'^login/$', login, {'template_name': 'accounts/login.html', 'authentication_form': MyAuthenticationForm}, name="login"),
+	url(r'^login/$', views.login_view, name="login"),
+
+	#url(r'^login/$', login, {'template_name': 'accounts/login.html', 'authentication_form': MyAuthenticationForm}, name="login"),
 	url(r'^logout/$', logout, {'template_name': 'accounts/logout.html'}, name="logout"),
 	url(r'^register/$', views.register, name='register'),
 	url(r'^profile/$', views.view_profile, name='profile'),

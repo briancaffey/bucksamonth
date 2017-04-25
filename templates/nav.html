@@ -20,7 +20,8 @@
           </ul>
           <ul class="nav navbar-nav navbar-right" style="text-align:center;">
             {% if user.is_authenticated %}
-            <li><a href="{% url 'accounts:logout' %}">logout 🔓</a></li>
+            <li><a type="button" href="#logout" data-toggle="modal" data-target="#myModal-logout">logout 🔓</a></li>
+            <!-- <li><a href="{% url 'accounts:logout' %}">logout 🔓</a></li> -->
             <li><a href="{% url 'accounts:profile' %}">my subscriptions 📊</a></li>
 
             {% else %}
@@ -36,3 +37,30 @@
 <div class="container">
 {% include 'messages.html' %}
 </div>
+
+
+
+
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="myModal-logout" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="text-align:center;" class="modal-title">are you sure you want to logout?</h4>
+          </div>
+          <div style="text-align:center;" class="modal-body">
+            <a  class="btn btn-danger" href="{% url 'accounts:logout' %}">logout 🔓</a>
+            <!-- <p>You can log back in at any time.</p> -->
+          </div>
+          <!-- <div class="modal-footer">
+            <a class="btn btn-warning" href="{% url 'accounts:logout' %}">Logout</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div> -->
+        </div>
+
+      </div>
+    </div>

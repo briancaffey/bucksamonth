@@ -4,11 +4,15 @@ from accounts.models import UserProfile
 from services.models import Subscription, Comment
 
 
+
+
 from accounts.forms import (
 	RegistrationForm,
 	EditProfileForm,
 	EditPersonalInfoForm,
 	AddSubscriptionForm,
+	MyAuthenticationForm,
+	UserLoginForm,
 )
 
 from django.contrib.auth.models import User
@@ -32,10 +36,36 @@ class business(TemplateView):
 	template_name = 'business.html'
 
 
+
+
 def home(request):
 	return render(request, 'accounts/account_home.html')
 
+def setup(request):
+	instance = UserProfile.objects.get(user=request.user)
+	form = EditPersonalInfoForm(request.POST or None, instance=instance)
+	context = {
+		'form':form,
+	}
+
+	if request.user.is_authenticated() and request.user.userprofile.setup == False:
+
+		if form.is_valid():
+			print("OK")
+			instance = form.save(commit=False)
+			instance.setup = True
+			instance.save()
+			return redirect('accounts:profile')
+		return render(request, 'accounts/userprofile_setup_form.html', context)
+	else:
+		return redirect('home')
+
+
 def register(request):
+
+	if request.user.is_authenticated():
+		redirect('accounts:profile')
+
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
@@ -43,7 +73,7 @@ def register(request):
 			new_user = authenticate(username=form.cleaned_data['username'],
 									password=form.cleaned_data['password1'],)
 			login(request, new_user)
-			return redirect('accounts:profile')
+			return redirect('accounts:setup')
 
 		else:
 			#if form.cleaned_data['password1'] != form.cleaned_data['password2']:
@@ -56,18 +86,63 @@ def register(request):
 		args = {'form': form}
 		return render(request, 'accounts/reg_form.html', args)
 
+def login_view(request):
+
+	next = request.GET.get('next')
+	form = UserLoginForm(request.POST or None)
+	print(request.GET)
+	print(next)
+	if form.is_valid():
+		username = form.cleaned_data.get('username')
+		password = form.cleaned_data.get('password')
+		user = authenticate(username=username, password=password)
+		login(request, user)
+		messages.success(request, 'Welcome back, ' + str(request.user) + '!')
+		print(next)
+		if next:
+			print(next)
+			return redirect(next.next)
+		return redirect('accounts:profile')
+
+	return render(request, 'accounts/login.html', {'form':form})
+
+
+
+
+# def login_(request):
+#
+# 	form = UserLoginForm(request.POST or None)
+# 	print("testing1")
+# 	print(form.is_valid())
+# 	if request.method == "POST":
+# 		form = MyAuthenticationForm(request.POST)
+# 		if form.is_valid():
+# 			login_form = form.save(commit = False)
+# 			print(login_form)
+#
+# 			logged_in_user = authenticate(username=form.cleaned_data.get('username'),
+# 									password=form.cleaned_data.get('password'))
+# 			login(request, logged_in_user)
+# 			return redirect('accounts:profile')
+# 	context = {
+# 			'form': form,
+# 	}
+# 	return render(request, 'accounts/login.html', context)
+
 def view_profile(request):
-	subscriptions = Subscription.objects.filter(user=request.user.userprofile, wishlist=False)
-	bucksamonth = Subscription.objects.filter(user=request.user.userprofile)
-	wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)
-	bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
-	comments = Comment.objects.filter(user=request.user)
+	if request.user.userprofile.setup == True:
+		print("here")
+		subscriptions = Subscription.objects.filter(user=request.user.userprofile, wishlist=False)
+		bucksamonth = Subscription.objects.filter(user=request.user.userprofile)
+		wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)
+		bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
+		comments = Comment.objects.filter(user=request.user)
 
-	args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist, 'comments':comments}
-	#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
+		args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist, 'comments':comments}
+		#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
+		return render(request, 'accounts/profile.html', args)
 
-	return render(request, 'accounts/profile.html', args)
-
+	return redirect('accounts:setup')
 
 class AddSubscriptionView(TemplateView):
 	template_name = 'accounts/add_subscription.html'
@@ -92,11 +167,6 @@ class AddSubscriptionView(TemplateView):
 def update_personal_info(request):
 	if request.user.is_authenticated():
 		user_profile = UserProfile.objects.get(user=request.user)
-		initial_data = {
-			'description':user_profile.description,
-			'twitter':user_profile.twitter,
-			'emoji':user_profile.emoji,
-		}
 		form = EditPersonalInfoForm(request.POST or None, instance=request.user.userprofile)
 		context = {
 			'form':form,
@@ -105,6 +175,7 @@ def update_personal_info(request):
 		if request.method=="POST":
 			if form.is_valid():
 				instance = form.save(commit=False)
+				instance.setup = True
 				instance.save()
 				return redirect('accounts:profile')
 
