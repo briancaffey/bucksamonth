@@ -30,7 +30,7 @@ $(".comment-reply-btn").click(function(event){
 
 <h5>{{ instance.bucksamonth | floatformat:"0" }} bucksamonth</h5>
 
-<a href="http://{{ instance.url_name }}" class="btn btn-warning">get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=instance.service_slug %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
+<a href="{{ instance.url_name }}" class="btn btn-warning">get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=instance.service_slug %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
 </div>
 </div>
 <br />

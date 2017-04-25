@@ -20,6 +20,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right" style="text-align:center;">
             {% if user.is_authenticated %}
+            <li><a href="#">🔔</a></li>
             <li><a type="button" href="#logout" data-toggle="modal" data-target="#myModal-logout">logout 🔓</a></li>
             <!-- <li><a href="{% url 'accounts:logout' %}">logout 🔓</a></li> -->
             <li><a href="{% url 'accounts:profile' %}">my subscriptions 📊</a></li>

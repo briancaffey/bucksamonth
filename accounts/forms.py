@@ -15,7 +15,7 @@ class UserLoginForm(forms.Form):
 			'class':'form-control',
 			'placeholder': "enter your username",
 	}))
-	
+
 	password = forms.CharField(
 		label='',
 		widget=forms.PasswordInput(

@@ -20,12 +20,15 @@
 	<div class="col-md-6">
 	<div style='text-align:center;'>
 	<div class='col-xs-12 button-wrapper'>
+	<a class="btn btn-primary" href="#">follow 👀</a>
+	<a type="button" class="btn btn-success" href="#share" data-toggle="modal" data-target="#myModal-share">share 📤</a>
+	{% include 'users/user_profile_share_links.html' %}
+	<a class="btn btn-info" href="#">send message 📫</a>
 
-	<a class="btn btn-info" href="#">message 📫</a>
-	<a class="btn btn-success" href="#">share 📤</a>
-	<a class="btn btn-warning" href="#">something 😕</a>
+
+
 	<!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
-	<a class="btn btn-default" href="#">settings ⚙</a>
+
 	</div>
 	<hr>
 
