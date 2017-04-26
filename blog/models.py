@@ -8,6 +8,10 @@ from django.utils import timezone
 # from django.utils.safestring import mark_safe
 from comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
+
+
+from taggit.managers import TaggableManager
+
 # Create your models here.
 
 # from .utils import get_read_time
@@ -34,6 +38,7 @@ class Post(models.Model):
 	# 	height_field      = "height_field",
 	# 	null              =True,
 	# 	blank             =True)
+    tags = TaggableManager()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='post_likes')
     content = models.TextField()
     draft = models.BooleanField(default=False)
@@ -68,6 +73,8 @@ class Post(models.Model):
         instance = self
         content_type = ContentType.objects.get_for_model(instance.__class__)
         return content_type
+
+    
 
     def __str__(self):
         return self.title

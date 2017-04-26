@@ -19,7 +19,7 @@ from services.views import HomeView
 from accounts.views import faq, developers, business
 
 urlpatterns = [
-    url(r'^faq/$', faq.as_view(), name='FAQ'),
+    url(r'^faq/$', faq, name='FAQ'),
     url(r'^developers/$', developers.as_view(), name='developers'),
     url(r'^business/$', business.as_view(), name='business'),
     url(r'^admin/', admin.site.urls),

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load taggit_templatetags2_tags %}
+{% block content %}
+{% include 'nav.html' %}
+
+<div class="container">
+
+
+<div class="col-md-8">
+  <h2>all tags 🏷</h2>
+{% get_taglist as tags for 'blog' %}
+{% for tag in tags %}
+
+<a class="label label-primary">{{ tag }}</a>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,13 +1,14 @@
 from django import forms
 
 # from pagedown.widgets import PagedownWidget
-
+from taggit.forms import TagWidget
 from .models import Post
 import datetime
 
 YEAR_CHOICES = tuple([2000+i for i in range(22)])
 
 class PostForm(forms.ModelForm):
+
 
     title = forms.CharField(
         label='',
@@ -62,4 +63,10 @@ class PostForm(forms.ModelForm):
             'content',
             'draft',
             'publish',
+            'tags'
         ]
+        widgets = {
+            'tags': TagWidget(attrs={
+                'class':'form-control',
+            })
+        }

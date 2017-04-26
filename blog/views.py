@@ -5,6 +5,7 @@ from .models import Post
 from comments.models import Comment
 from .forms import PostForm
 from comments.forms import CommentForm
+from taggit.models import Tag
 
 from django.utils.text import slugify
 
@@ -83,6 +84,8 @@ def create(request):
 		instance.user = request.user
 		print(form.cleaned_data.get('title'))
 		instance.save()
+		form.save_m2m()
+
 		#message success
 		messages.success(request, 'Successfully Created!')
 		return redirect('blog:index') #HttpResponseRedirect(instance.get_absolute_url())
@@ -94,6 +97,22 @@ def create(request):
 	}
 	return render(request, "blog/post_form.html", context)
 
+def all_tags(request):
+    return render(request, 'blog/all_tags.html', {})
+
+def tag_view(request, slug):
+    tag = Tag.objects.get(slug=slug)
+    posts = Post.objects.filter(tags__name__in=[tag])
+    count = len(posts)
+    context = {
+        'tag':tag,
+        'posts': posts,
+        'count':count
+    }
+
+    return render(request, 'blog/tag_view.html', context)
+
+
 
 def update(request, slug):
 	instance = get_object_or_404(Post, slug=slug)
@@ -102,12 +121,16 @@ def update(request, slug):
 		return HttpResponseRedirect(instance.get_absolute_url())
 
 	form = PostForm(request.POST or None, instance=instance)
+
+
 	if form.is_valid():
 		instance.user = request.user
 		instance.slug = slugify(instance.title)
 		instance = form.save(commit=False)
 
 		instance.save()
+		form.save_m2m()
+
 		messages.success(request, 'Your post has been updated!')
 		return HttpResponseRedirect(instance.get_absolute_url())
 	context = {

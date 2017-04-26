@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from accounts.models import UserProfile
 from services.models import Subscription, Comment
 
+from django.conf import settings
+from django.core.mail import send_mail
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER
 
-
+from django.views.decorators.csrf import csrf_protect
 
 from accounts.forms import (
 	RegistrationForm,
@@ -26,8 +29,10 @@ from django.views.generic.edit import UpdateView
 
 from django.contrib import messages
 
-class faq(TemplateView):
-	template_name = 'faq.html'
+
+def faq(request):
+	print(request.get_host())
+	return render(request, 'faq.html', {})
 
 class developers(TemplateView):
 	template_name = 'developers.html'
@@ -36,12 +41,16 @@ class business(TemplateView):
 	template_name = 'business.html'
 
 
-
+def confirm_email(request):
+	return render(request, 'accounts/confirm_email.html', {})
 
 def home(request):
 	return render(request, 'accounts/account_home.html')
 
 def setup(request):
+
+	if not request.user.userprofile.email_valid:
+		return redirect('accounts:confirm_email')
 	instance = UserProfile.objects.get(user=request.user)
 	form = EditPersonalInfoForm(request.POST or None, instance=instance)
 	context = {
@@ -61,6 +70,9 @@ def setup(request):
 		return redirect('home')
 
 
+
+
+@csrf_protect
 def register(request):
 
 	if request.user.is_authenticated():
@@ -73,7 +85,26 @@ def register(request):
 			new_user = authenticate(username=form.cleaned_data['username'],
 									password=form.cleaned_data['password1'],)
 			login(request, new_user)
-			return redirect('accounts:setup')
+			email_ = form.cleaned_data.get('email')
+			print(new_user.userprofile.uid)
+			base_link = request.get_host()
+			print(base_link)
+			link = new_user.userprofile.get_confirm_link()
+			print(link)
+			confirm_link = base_link + link
+			print(confirm_link)
+
+
+			send_mail(		'Thanks for signing up for my bucksamonth!',
+							'Hi, thanks.',
+							EMAIL_HOST_USER,
+							[email_],
+							html_message=	"Hi, you (or possibly someone else) signed up for bucksamonth with " + new_user.email + "\
+											<br /><br />Please click this link if you wish to join my newsletter:<br />\
+											" + str(confirm_link) + "<br /><br />\
+											If you don't want to join my newsletter please ignore this email.<br />"
+											)
+			return redirect('accounts:confirm_email')
 
 		else:
 			#if form.cleaned_data['password1'] != form.cleaned_data['password2']:
@@ -106,7 +137,13 @@ def login_view(request):
 
 	return render(request, 'accounts/login.html', {'form':form})
 
-
+@login_required
+def email_confirmed(request, uid):
+	user_ = get_object_or_404(UserProfile, uid=uid)
+	user_.email_valid = True
+	user_.save()
+	messages.success(request, "thanks for confirming your email address")
+	return redirect('accounts:setup')
 
 
 # def login_(request):

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'categories',
     'blog',
     'comments',
+    'taggit',
+    'taggit_templatetags2',
 ]
 
 MIDDLEWARE = [

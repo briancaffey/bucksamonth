@@ -10,6 +10,8 @@ from django.contrib.auth.views import (
 
 urlpatterns = [
 	url(r'^setup/$', views.setup, name='setup'),
+	url(r'^please-confirm-email/$', views.confirm_email, name='confirm_email'),
+	url(r'^confirm-email/(?P<uid>.+)/$', views.email_confirmed, name="email_confirmed"),
 	url(r'^profile/edit/$', views.update_personal_info, name='update_personal_info'),
 	#url(r'^(?P<pk>[0-9]+)/info/$', UpdateUserInfoForm.as_view(), name='update_personal_info'),
 	url(r'^add-subscription/$', AddSubscriptionView.as_view(), name='add_subscription'),
