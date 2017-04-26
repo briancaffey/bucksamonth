@@ -21,7 +21,7 @@ def view_profile(request, username):
 	person = person.userprofile
 	all_subscriptions = Subscription.objects.filter(user=person.user.userprofile)
 	private = len(all_subscriptions.filter(private=True))
-	subscriptions = all_subscriptions.filter(private=True, wishlist=False)
+	subscriptions = all_subscriptions.filter(private=False, wishlist=False)
 	bucksamonth = sum([subscription.bucksamonth for subscription in all_subscriptions])
 	context = {
 		'person':person,
