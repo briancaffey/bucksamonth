@@ -12,6 +12,7 @@ class UserProfile(models.Model):
 	setup = models.BooleanField(default=False)
 	uid = models.CharField(default=uuid.uuid4, max_length=40)
 	email_valid = models.BooleanField(default=False)
+	followers = models.ManyToManyField('self')
 
 	def __str__(self):
 		return self.user.username

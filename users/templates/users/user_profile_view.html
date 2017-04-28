@@ -125,7 +125,14 @@
 {% endfor %}
 
 
-<h4>{{ person.user.username }} has # followers</h4>
+<h4>{{ person.user.username }} has {{ person.followers.count }} followers</h4>
+
+
+{% for follower in person.followers.all %}
+
+<p><a href="{% url 'users:view_profile' username=follower.user.username %}">{{ follower }} {{ follower.emoji }}</a></p>
+
+{% endfor %}
 
 
 </div>

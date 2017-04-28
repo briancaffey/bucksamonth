@@ -26,9 +26,10 @@ def add_or_remove_friends(request, username, verb):
 
     if verb == "add":
         print("adding")
-        
+        new_friend.followers.add(owner)
         Friend.make_friend(owner, new_friend)
         print("done")
     else:
+        new_friend.followers.remove(owner)
         Friend.remove_friend(owner, new_friend)
     return redirect(new_friend.get_absolute_url())
