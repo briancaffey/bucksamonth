@@ -76,26 +76,22 @@
 <table style="text-align:center;" class="table">
 
 	<tr>
-		<td><b>subscriptions</b></td>
+		<td style="vertical-align: middle; font-size:1.5em;"><b>service</b></td>
 
-		<td><b>🙃&nbsp;&nbsp;emoji&nbsp;🙂</b></td>
+		<td style="vertical-align: middle; font-size:1.5em;"><strong>💸</strong></td>
 
-		<td><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
-
-		<td><strong>start date&nbsp;🗓</strong></td>
+		<td style="vertical-align: middle; font-size:1.5em;"><strong>🗓</strong></td>
 
 	</tr>
 
 {% for subscription in subscriptions %}
 <tr>
 
-	<td class="text-center"><a href="{% url 'services:service_detail' service_slug=subscription.service.service_slug %}">{{ subscription.service }}</a></td>
+	<td class="text-center"><a style="text-decoration:none;" href="{% url 'services:service_detail' service_slug=subscription.service.service_slug %}"><span style="font-size:1.5em;">{{ subscription.service.emoji }}<br />{{ subscription.service }}</span></a></td>
 
-	<td class="text-center">{{ subscription.service.emoji }}</td>
+	<td style="vertical-align: middle; font-size:1.25em;" class="text-center">{{ subscription.bucksamonth | floatformat | floatformat }}</td>
 
-	<td class="text-center">{{ subscription.bucksamonth | floatformat | floatformat }}</td>
-
-	<td>{{ subscription.date_created | date:"d-m-y" }}</td>
+	<td style="vertical-align: middle; font-size:1.25em;">{{ subscription.date_created | date:"d-m-y" }}</td>
 
 </tr>
 
@@ -103,13 +99,11 @@
 
 {% if private > 0 %}<tr>
 
-	<td>{{ private }} private subscription{% if private > 1 %}s{% endif %} <a href="{% url 'FAQ' %}#private">what's this? 🤔</a></td>
+	<td style="vertical-align: middle; font-size:1.5em;"><a style="text-decoration:none;" data-toggle="tooltip" href="{% url 'FAQ' %}#private" title="{{ private }} private subscription{{ private | pluralize }}">🙈<br />{{ private }} private</a></td>
 
-	<td>🙈 🙉 🙊</td>
+	<td style="vertical-align: middle; font-size:1.5em;">💵</td>
 
-	<td>💵💵💵</td>
-
-	<td>📅📅📅</td>
+	<td style="vertical-align: middle; font-size:1.5em;">📅</td>
 
 </tr>{% endif %}
 

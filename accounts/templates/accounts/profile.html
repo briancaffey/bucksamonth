@@ -23,7 +23,7 @@
 <div class='col-xs-12 button-wrapper'>
 <a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
 <a class="btn btn-info" href="{% url 'accounts:update_personal_info' %}">personalize ⭐️</a>
-<a type="button" class="btn btn-success" href="#logout" data-toggle="modal" data-target="#myModal-share">share 📤</a>
+<a type="button" class="btn btn-success" href="#share" data-toggle="modal" data-target="#myModal-share">share 📤</a>
 <!-- share link modal -->
 
 {% include 'accounts/share_links.html' %}
@@ -139,21 +139,20 @@
 					<tr style="border-top: none !important;">
 						<td class="table-top"><strong>service</strong></td>
 
-						<td class="table-top" style="text-align:center;"><strong>🙃&nbsp;&nbsp;emoji&nbsp;🙂</strong></td>
 
-						<td class="table-top" style="text-align:center;"><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
 
-						<td class="table-top" style="text-align:center;"><strong>start date&nbsp;🗓</strong></td>
+						<td class="table-top" style="text-align:center;"><strong>💸</strong></td>
 
-						<td class="table-top"><strong>💳&nbsp;&nbsp;nickname</strong></td>
+						<td class="table-top" style="text-align:center;"><strong><a data-toggle="tooltip" title="start date">🗓</a></strong></td>
 
-						<td class="table-top"><strong>edit</strong></td>
+						<td class="table-top"><strong>cc&nbsp;💳</strong></td>
+
+						<td class="table-top"><strong>🔏</strong></td>
 
 					</tr>
 					{% for item in subscriptions %}
 					<tr>
-						<td><a href="{% url 'services:service_detail' service_slug=item.service.service_slug %}">{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="PRIVATE">🙈</a>{% endif %}</td>
-						<td style="text-align:center;">{{ item.service.emoji }}</td>
+						<td><a href="{% url 'services:service_detail' service_slug=item.service.service_slug %}"><span style="font-size:1.5em;">{{ item.service.emoji }}</span><br />{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="private">🙈</a>{% endif %}</td>
 						<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
 						<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
 						<td>{{ item.cc_nickname }}</td>
@@ -162,10 +161,9 @@
 					{% endfor %}
 					<tr>
 						<td><a href="{% url 'accounts:add_subscription' %}">➕ new</a></td>
-						<td><a href="{% url 'accounts:add_subscription' %}">🤔 💭 ❓</a></td>
 						<td><a href="{% url 'accounts:add_subscription' %}">💵</a></td>
-						<td><a href="{% url 'accounts:add_subscription' %}">today 📆</a></td>
-						<td><a href="{% url 'accounts:add_subscription' %}">🔥 💳 🔥</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">📆</a></td>
+						<td><a href="{% url 'accounts:add_subscription' %}">🔥</a></td>
 						<td><a href="{% url 'accounts:add_subscription' %}">🔏</a></td>
 
 					</tr>
