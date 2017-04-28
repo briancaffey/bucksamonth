@@ -114,26 +114,42 @@
 </tr>{% endif %}
 
 </table>
+<br /><br />
+<div class="container">
+{% for friend_ in friends %}
+{% cycle '<div class="row">' '' ''  %}
+	<div style="text-align:center; text-decoration:none !important" class="col-md-4">
+<p style="font-size:2em; text-align:center; text-decoration:none !important;"><a style="text-decoration:none" href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_.emoji }}<br />{{ friend_ }}</a></p>
+</div>
+{% cycle '' '' '</div>' %}
+{% endfor %}
 
-<h3>friends</h3>
+<div class="row">
 <h4>{{ person.user.username }} is following {{ follower_count }} user{{ follower_count | pluralize }}</h4>
 
 {% for friend_ in user_friends %}
-
-<p><a href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_ }} {{ friend_.emoji }}</a></p>
-
+{% cycle '<div class="row">' '' ''  %}
+<div style="text-align:center; text-decoration:none !important" class="col-md-4">
+<p style="font-size:2em; text-align:center; text-decoration:none !important;"><a style="text-decoration:none" href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_.emoji }}<br />{{ friend_ }}</a></p>
+</div>
+{% cycle '' '' '</div>' %}
 {% endfor %}
+</div>
 
-
+<hr>
+<div class="container">
+<div class="row">
 <h4>{{ person.user.username }} has {{ person.followers.count }} followers</h4>
 
-
 {% for follower in person.followers.all %}
-
-<p><a href="{% url 'users:view_profile' username=follower.user.username %}">{{ follower }} {{ follower.emoji }}</a></p>
-
+{% cycle '<div class="row">' '' ''  %}
+	<div style="text-align:center; text-decoration:none !important" class="col-md-4">
+<p style="font-size:2em; text-align:center; text-decoration:none !important;"><a style="text-decoration:none" href="{% url 'users:view_profile' username=follower.user.username %}">{{ follower.emoji }}<br />{{ follower }}</a></p>
+</div>
+{% cycle '' '' '</div>' %}
 {% endfor %}
-
-
+</div>
+</div>
+</div>
 </div>
 {% endblock %}
