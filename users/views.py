@@ -58,7 +58,7 @@ def view_profile(request, username):
 			friend = False
 
 	context['friend'] = friend
-	
+
 
 
 	return render(request, 'users/user_profile_view.html', context)
