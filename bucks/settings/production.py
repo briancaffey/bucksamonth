@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'comments',
     'taggit',
     'taggit_templatetags2',
+    'friends',
 ]
 
 MIDDLEWARE = [

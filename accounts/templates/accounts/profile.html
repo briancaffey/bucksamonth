@@ -247,6 +247,24 @@ here's the one comment you have made on bucksamonth
 
 	</div>
 
+
+<h2>friends</h2>
+
+<h3>you are following {{ follower_count }} user{{ follower_count | pluralize }}</h3>
+
+	{% for friend_ in friends %}
+
+
+
+	<p><a href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_ }} {{ friend_.emoji }}</a></p>
+
+	{% endfor %}
+
+<h3># followers are following you</h3>
+
+
+
+
 </div>
 
 

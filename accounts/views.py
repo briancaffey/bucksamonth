@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from accounts.models import UserProfile
 from services.models import Subscription, Comment
+from friends.models import Friend
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -167,6 +168,7 @@ def email_confirmed(request, uid):
 # 	return render(request, 'accounts/login.html', context)
 
 def view_profile(request):
+
 	if request.user.userprofile.setup == True:
 		print("here")
 		subscriptions = Subscription.objects.filter(user=request.user.userprofile, wishlist=False)
@@ -174,8 +176,18 @@ def view_profile(request):
 		wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)
 		bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
 		comments = Comment.objects.filter(user=request.user)
+		friend_object, created = Friend.objects.get_or_create(current_user=request.user.userprofile)
 
-		args = {'user':request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth, 'wishlist':wishlist, 'comments':comments}
+		friends = [friend for friend in friend_object.users.all() if friend != request.user.userprofile]
+		follower_count = len(friends)
+		args = {'user':request.user,
+				'subscriptions':subscriptions,
+				'bucksamonth':bucksamonth,
+				'wishlist':wishlist,
+				'comments':comments,
+				'friends':friends,
+				'follower_count':follower_count,
+		}
 		#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
 		return render(request, 'accounts/profile.html', args)
 

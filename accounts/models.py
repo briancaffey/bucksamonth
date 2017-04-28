@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 		return self.user.username
 
 	def get_absolute_url(self):
-		return "/users/%i/" % self.id
+		return "/users/%s/" % self.user.username
 
 	def get_confirm_link(self):
 		return "/account/confirm-email/%s" % self.uid

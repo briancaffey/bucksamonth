@@ -20,8 +20,12 @@
 	<div class="col-md-6">
 	<div style='text-align:center;'>
 	<div class='col-xs-12 button-wrapper'>
-	<a class="btn btn-primary" href="#">follow 👀</a>
-	<a type="button" class="btn btn-success" href="#share" data-toggle="modal" data-target="#myModal-share">share 📤</a>
+	{% if not friend %}
+	<a class="btn btn-primary" href="{% url 'users:add_or_remove_friends' username=person.user.username verb='add' %}">follow 👀</a>
+	{% else %}
+<a class="btn btn-primary" href="{% url 'users:add_or_remove_friends' username=person.user.username verb='remove' %}">following 👀</a>
+	{% endif %}
+		<a type="button" class="btn btn-success" href="#share" data-toggle="modal" data-target="#myModal-share">share 📤</a>
 <!-- modal for share links -->
 	{% include 'users/user_profile_share_links.html' %}
 	<a class="btn btn-info" href="#">send message 📫</a>
@@ -63,7 +67,7 @@
 
 <hr>
 
-<h3>{{ person.user.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth.</h3>
+<h3>{{ person.user.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth</h3>
 
 {{ user_p.emoji }}
 
@@ -85,11 +89,11 @@
 {% for subscription in subscriptions %}
 <tr>
 
-	<td><a href="{% url 'services:service_detail' service_slug=subscription.service.service_slug %}">{{ subscription.service }}</a></td>
+	<td class="text-center"><a href="{% url 'services:service_detail' service_slug=subscription.service.service_slug %}">{{ subscription.service }}</a></td>
 
-	<td>{{ subscription.service.emoji }}</td>
+	<td class="text-center">{{ subscription.service.emoji }}</td>
 
-	<td>{{ subscription.bucksamonth | floatformat | floatformat }}</td>
+	<td class="text-center">{{ subscription.bucksamonth | floatformat | floatformat }}</td>
 
 	<td>{{ subscription.date_created | date:"d-m-y" }}</td>
 
@@ -110,6 +114,18 @@
 </tr>{% endif %}
 
 </table>
+
+<h3>friends</h3>
+<h4>{{ person.user.username }} is following {{ follower_count }} user{{ follower_count | pluralize }}</h4>
+
+{% for friend_ in user_friends %}
+
+<p><a href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_ }} {{ friend_.emoji }}</a></p>
+
+{% endfor %}
+
+
+<h4>{{ person.user.username }} has # followers</h4>
 
 
 </div>
