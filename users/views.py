@@ -28,39 +28,39 @@ def view_profile(request, username):
 	private = len(all_subscriptions.filter(private=True))
 	subscriptions = all_subscriptions.filter(private=False, wishlist=False)
 	bucksamonth = sum([subscription.bucksamonth for subscription in all_subscriptions])
-	#get logged_in_user friend model
-	friend_object, created = Friend.objects.get_or_create(current_user=request.user.userprofile)
 
-	#get friend mode for person
-
-	#get friends of person we are looking at
 	person_friend_object, person_created = Friend.objects.get_or_create(current_user=person)
-	user_friends = [friend for friend in person_friend_object.users.all()] # if friend != request.user.userprofile
-
-	friends = [friend for friend in friend_object.users.all()] # if friend != request.user.userprofile
+	user_friends = [friend for friend in person_friend_object.users.all()] #if friend != request.user.userprofile
 	follower_count = len(user_friends)
-	print("followers")
-	print(follower_count)
-	#boolean variable to toggle add/remove friend button
-	print(person)
-	print("friends")
-	print(friends)
-	if person in friends:
-		friend = True
-	else:
-		friend = False
 
-	print(friend)
+	#get logged_in_user friend model -- this was causing errors for anonymous users
+
+	#initialize this variable for anonymous users
+	friend = False
+
 	context = {
 		'person':person,
 		'subscriptions':subscriptions,
 		'bucksamonth':bucksamonth,
 		'private':private,
 		'friend':friend,
-		'friends':friends,
 		'follower_count':follower_count,
 		'user_friends':user_friends,
 	}
+
+
+	if request.user.is_authenticated():
+		friend_object, created = Friend.objects.get_or_create(current_user=request.user.userprofile)
+		friends = [friend for friend in friend_object.users.all()] # if friend != request.user.userprofile
+		if person in friends:
+			friend = True
+		else:
+			friend = False
+
+	context['friend'] = friend
+	
+
+
 	return render(request, 'users/user_profile_view.html', context)
 
 
