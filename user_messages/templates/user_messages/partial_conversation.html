@@ -1,0 +1,11 @@
+<div class="list-group">
+{% for conversation in conversations %}
+  <a href="{% url 'accounts:messages' username=conversation.user.username %}" class="list-group-item{% if active == conversation.user.username %} list-group-item-success{% endif %}">
+    {{ conversation.user.username }} <span class="pull-right">{{ conversation.user.userprofile.emoji }}</span>
+    {% if conversation.unread > 0 %}
+      <span class="badge pull-right">{{ conversation.unread }}</span>
+    {% endif %}
+  </a>
+
+{% endfor %}
+</div>

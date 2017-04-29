@@ -1,0 +1,15 @@
+
+<div class="list-group-item">
+  <h3>{{ message.from_user.userprofile.emoji }}</h3>
+  <div>
+    <h5>
+      <small class="pull-right">
+        {{ message.date|date:'N d G:i' }}
+      </small>
+      <a href="{% url 'users:view_profile' username=message.from_user.username %}">
+        {{ message.from_user.profile.username }}
+      </a>
+    </h5>
+    {{ message.message }}
+  </div>
+</div>

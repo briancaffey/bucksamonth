@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'nav.html' %}
+<div class="container">
+
+<h1 style="text-align:center;">{% if name %}messages from {{ name }}<br />{{ name.userprofile.emoji }}&nbsp;➡️&nbsp;📃📬{% else %}your messages<br />📃📬{% endif %}</h1>
+    <div style="text-align:center;"><a style="text-align:center;" class="btn btn-success" href="{% url 'accounts:new_message' %}">new message ✍️</a></div><br />
+  <div class="row">
+
+<div class="col-md-3">
+
+    {% include 'user_messages/partial_conversation.html' with conversations=conversations active=active %}
+
+
+</div>
+
+
+<div class="col-md-9">
+    {% for message in messages_ %}
+    <div class="list-group">
+      {% include 'user_messages/partial_message.html' with message=message %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endblock %}

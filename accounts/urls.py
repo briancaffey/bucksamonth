@@ -1,5 +1,10 @@
 from django.conf.urls import url
 from . import views
+from user_messages.views import (
+	inbox,
+	new_message,
+	messages,
+)
 from accounts.views import AddSubscriptionView, UpdateUserInfoForm
 from accounts.forms import MyAuthenticationForm
 from users.views import SubscriptionUpdate, SubscriptionDeleteView
@@ -9,6 +14,12 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
+
+
+	url(r'^messages/conversation/(?P<username>.+)/', messages, name="messages" ),
+	url(r'^messages/new/$', new_message, name='new_message'),
+	url(r'^messages/$', inbox, name='inbox'),
+
 	url(r'^setup/$', views.setup, name='setup'),
 	url(r'^please-confirm-email/$', views.confirm_email, name='confirm_email'),
 	url(r'^confirm-email/(?P<uid>.+)/$', views.email_confirmed, name="email_confirmed"),
