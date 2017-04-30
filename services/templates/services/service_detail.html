@@ -59,7 +59,7 @@ $(".comment-reply-btn").click(function(event){
   </span>
     {% if instance.category.all.count > 0 %}
     <br /><br />
-    <span style="font-size:1.5em;">{% for category in instance.category.all %}<p><a href="{% url 'categories:category_view' slug=category.slug %}" class="btn btn-default">🗂&nbsp;&nbsp;{{ category }}&nbsp;{{ category.emoji }}</a></p>&nbsp;&nbsp;{% endfor %}</span>
+    <span style="font-size:1.5em;">{% for category in instance.category.all %}<a href="{% url 'categories:category_view' slug=category.slug %}" class="btn btn-default">🗂&nbsp;&nbsp;{{ category }}&nbsp;{{ category.emoji }}</a>&nbsp;&nbsp;{% endfor %}</span>
     {% endif %}
 
 
