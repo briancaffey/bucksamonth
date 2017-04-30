@@ -26,3 +26,18 @@ a {
 .link-fancy {
   text-decoration: none;
 }
+
+
+.nav-tabs > li {
+    float:none;
+    display:inline-block;
+    zoom:1;
+}
+
+.nav-tabs {
+    text-align:center;
+}
+
+.navbar {
+    border-bottom: 20px;
+}
