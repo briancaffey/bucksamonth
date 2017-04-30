@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'taggit_templatetags2',
     'friends',
     'user_messages',
+    'tags',
+
 ]
 
 MIDDLEWARE = [

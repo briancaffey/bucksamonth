@@ -91,7 +91,7 @@ def service_detail(request, service_slug):
 		'object_id':instance.id
 	}
 	form = CommentForm(request.POST or None, initial=initial_data)
-	subscribers = Subscription.objects.filter(service=instance)
+	subscribers = Subscription.objects.filter(service=instance, private=False, wishlist=False)
 	subscribers_count = subscribers.distinct().count()
 	comments = instance.comments
 
@@ -210,7 +210,7 @@ class ServiceDetailView(TemplateView):
 
 def service_subscribers(request, service_slug):
 	service = Service.objects.get(service_slug=service_slug)
-	subscriber_list = Subscription.objects.filter(service=service)
+	subscriber_list = Subscription.objects.filter(service=service, private=False, wishlist=False)
 
 	context = {
 		'subscriber_list':subscriber_list,

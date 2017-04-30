@@ -26,3 +26,8 @@ a {
 .link-fancy {
   text-decoration: none;
 }
+
+
+.timeline-Footer {
+  display:none;
+}

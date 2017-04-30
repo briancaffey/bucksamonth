@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
 
 from django.db.models.signals import pre_save
+from taggit.managers import TaggableManager
 
 # Create your models here.
 # Create your models here.
@@ -24,6 +25,7 @@ class Service(models.Model):
 	bucksamonth 			= models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
 	emoji					= models.CharField(max_length=20, default='')
 	twitter 				= models.CharField(max_length=100, default='')
+	tags 					= TaggableManager()
 
 	def __str__(self):
 		return str(self.service_name)

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load taggit_templatetags2_tags %}
+{% block content %}
+{% include 'nav.html' %}
+<div class="container">
+  <p style="text-align:center; font-size:1.25em"><a class="btn btn-default" href="{% url 'tags:all_tags' %}">🔙&nbsp;&nbsp;all tags&nbsp;&nbsp;🏷🏷🏷</a></p>
+<h1 style="text-align:center;">🏷🏷🏷<br />services tagged with <a class="label label-default">{{ tag_name }}</a></h1>
+
+
+
+
+
+{% for item in qs %}
+{% cycle '<div class="row">' '' ''  %}
+  <div style="text-align:center;" class="col-md-4">
+<h3><a href="{% url 'services:service_detail' service_slug=item.service_slug %}">{{ item.emoji }}<br />{{ item }}</a></h3>
+</div>
+{% cycle '' '' '</div>' %}
+{% endfor %}
+
+
+</div>
+{% endblock %}

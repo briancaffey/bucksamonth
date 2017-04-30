@@ -170,7 +170,6 @@ def email_confirmed(request, uid):
 def view_profile(request):
 
 	if request.user.userprofile.setup == True:
-		print("here")
 		subscriptions = Subscription.objects.filter(user=request.user.userprofile, wishlist=False)
 		bucksamonth = Subscription.objects.filter(user=request.user.userprofile)
 		wishlist = Subscription.objects.filter(user=request.user.userprofile, wishlist=True)

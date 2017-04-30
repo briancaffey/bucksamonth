@@ -82,13 +82,11 @@
 {% for service in popular %}
 
 <a  style="text-decoration: none !important" role="button" data-toggle="collapse" href="#b-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="b-popout{{ forloop.counter | slugify }}"><h1>
-  {{ service.emoji }}</h1>
+  {{ service.emoji }}<br /><span style="font-size:.75em">{{ service.service_name }}</span></h1>
 </a>
 
 <div class="collapse" id="b-popout{{ forloop.counter | slugify }}">
   <div class="well">
-    <h2>{{ service.service_name }}</h2>
-    <hr>
     {{ service.description_short }}
     <hr>
     <div class="row">
@@ -148,6 +146,7 @@
 </div>
 
 <div class="row">
+  <div class="col-md-12">
 <div style="text-align:center;"><h2><span style="font-size:1.5em">📸🖼</span><br />instagram</h2></div>
 <div class="col-md-4" style="text-align:center;">
 
@@ -173,6 +172,7 @@
 </div>
 </div>
 
+</div>
 
 
 

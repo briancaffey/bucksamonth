@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load taggit_templatetags2_tags %}
 
 <script>
 {% block jquery %}
@@ -26,28 +27,68 @@ $(".comment-reply-btn").click(function(event){
 
 {% include 'nav.html' %}
 <div class="container">
-<div class="row"><div class="container"><h1>{{ instance.service_name }} {{ instance.emoji }}</h1>
+  <div class="row">
+  <div class="col-md-6 well">
+
+  <p style="font-size:4.5em; text-align:center;">{{ instance.emoji }}</p>
+  <p style="font-size:2em; text-align:center;">{{ instance.service_name }}</p>
+  <h5 style="font-size:2em; text-align:center;">{{ instance.bucksamonth | floatformat:"0" }}&nbsp;💸📅</h5>
+
+  <blockquote>
+  <h4 class="text-muted">{{ instance.description_short }}</h4>
+  </blockquote>
+  </div>
+
+  <div class="col-md-6">
+    <!-- <div class="col-md-6"> -->
+    {% if instance.tags.all.count > 0 %}
+    {% for tag in instance.tags.all %}<span style="font-size:1.25em; word-wrap:break-word;"><a href="{% url 'tags:service_tag_view' tag_name=tag.slug %}" class="label label-default">🏷&nbsp;&nbsp;{{ tag }}</a></span>  {% endfor %}
+    {% endif %}
+
+    <br /><br />
+
+
+    <p style="font-size:1.25em;">{{ instance.description_long }}</p>
+
+    <p><a href="{{ instance.url_name }}" class="btn btn-warning">get {{ instance.service_name }}&nbsp;↗️</a></p>
+
+    {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=instance.service_slug %}">add {{ instance.service_name }} to your subscription list&nbsp;✅</a>{% endif %}
+    <br /><br />
+    {% if instance.category.all.count > 0 %}
+    <span style="font-size:1.5em;">🗂🗃🗄&nbsp;&nbsp;{% for category in instance.category.all %}<a href="{% url 'categories:category_view' slug=category.slug %}" class="btn btn-default">{{ category }}</a>&nbsp;&nbsp;{% endfor %}</span>
+    {% endif %}
+
+
+
+</div>
+<!-- <div class="col-md-6">
+  <a class="twitter-timeline"
+      href="https://twitter.com/google"
+      data-tweet-limit="1">
+Tweets boijy @twittername</a>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div> -->
+  <!-- </div> -->
+</div>
+
+
+
+
+<!-- <div class="row"><div class="container"><h1></h1>
 
 <h5>{{ instance.bucksamonth | floatformat:"0" }} bucksamonth</h5>
 
 <a href="{{ instance.url_name }}" class="btn btn-warning">get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=instance.service_slug %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
 </div>
-</div>
-<br />
-{% if user.is_authenticated %}{% if user_info %}<div class="alert alert-info" style="text-align:center;">You have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>{% endif %}{% endif %}
+</div> -->
+{% if user.is_authenticated %}{% if user_info %}<div class="alert alert-info" style="text-align:center;">you have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>{% endif %}{% endif %}
 
-<h3>{{ instance.description_short }}</h3>
-<h4><a href="https://twitter.com/{{ instance.twitter }}">{{ instance.twitter }}</a></h4>
-{% if instance.category.all.count > 0 %}<h5>Categories: {% if instance.category %}{% for cat in instance.category.all %}<a href="{% url 'categories:category_view' slug=cat.slug %}"><p class="label label-primary">{{ cat }}</p></a> {% endfor %}{% endif %}</h4>{% endif %}
-<p>{{ instance.description_long }}<p>
-<p></p>
-<br>
 <hr>
-<h2>Subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>
+<h2>subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
 {% cycle '<div class="row">' '' ''  %}
 <div style="text-align:center;" class="col-md-4">
-<p style="font-size:2em;"><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}<br /></a></p>
+<h2><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}<br />{{ subscriber.user.user.username }}</a></h2>
 </div>
 {% cycle '' '' '</div>' %}
 {% endfor %}
@@ -58,8 +99,9 @@ $(".comment-reply-btn").click(function(event){
 
 
 <hr>
+<div class="row">
 <div class="col-md-8">
-<h2>Comments ({{ instance.comments.count }})</h2>
+<h2>{{ instance.comments.count }} comment{{ instance.comments.count | pluralize }} 💬</h2>
 {% if user.is_authenticated %}
 <form method="POST" action="{% url 'services:service_detail' service_slug=instance.service_slug %}">
 {% csrf_token %}
@@ -125,7 +167,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 
 
 
-
+</div>
 
 
 </div>

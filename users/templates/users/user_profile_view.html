@@ -29,32 +29,62 @@
 <!-- modal for share links -->
 	{% include 'users/user_profile_share_links.html' %}
 	<a class="btn btn-info" href="#">send message 📫</a>
-
-
-
-
 	</div>
+
 	<hr>
 
+<div class="row col-md-8 col-md-offset-4">
 
-	<div class="col-md-6">
-		<h4>bucksamonth activity</h4>
-		<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
-		<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month</p>
-		<p>member since 🗓 March 8, 2017</p>
-		<p>account: <strong>basic</strong></p>
-		<p><a href="#">👑&nbsp;&nbsp;get bucksamonth premium 💰</a></p>
-	</div>
-	<div class="col-md-6">
+	<ul style="text-align:center;" class="nav nav-tabs navbar" role="tablist">
+		<li style="text-align:center;" role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><span class="badge"></span> info ℹ️</a></li>
+		<li style="text-align:center;" role="presentation"><a href="#social" aria-controls="social" role="tab" data-toggle="tab"><span class="badge"></span>social 🔗</a></li>
+</ul>
+</div>
 
-	<h4>social links</h4>
+
+
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane active" id="info">
+		<div class="col-md-12">
+
+			<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
+			<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month</p>
+			<p>member since 🗓 March 8, 2017</p>
+			<p>account: <strong>basic</strong></p>
+			<p><a href="#">👑&nbsp;&nbsp;get buciksamonth premium 💰</a></p>
+		</div>
+
+
+</div>
+
+<div role="tabpanel" class="tab-pane" id="social">
+	<div class="col-md-12">
+
+
+		<p>facebook 👩🏻📖&nbsp;&nbsp;<a href="https://facebook.com/">facebook.com</a></p>
+		<p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
+		<p>linkedin 🔗💼 &nbsp;&nbsp;<a href="#">linkedin.com/profile</a></p>
+		<p>website 🌎🕸 &nbsp;&nbsp;<a href="#">website.com</a></p>
+		<p><a href='#'>📍&nbsp;&nbsp;Washington, D.C. 🗺</a></p>
+		</div>
+
+</div>
+
+
+</div>
+
+<!--
+<div class="col-md-6">
+
+
 	<p>facebook 👩🏻📖&nbsp;&nbsp;<a href="https://facebook.com/">facebook.com</a></p>
 	<p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
 	<p>linkedin 🔗💼 &nbsp;&nbsp;<a href="#">linkedin.com/profile</a></p>
 	<p>website 🌎🕸 &nbsp;&nbsp;<a href="#">website.com</a></p>
 	<p><a href='#'>📍&nbsp;&nbsp;Washington, D.C. 🗺</a></p>
 	</div>
-
+ -->
 
 	</div>
 	</div>
@@ -64,15 +94,11 @@
 
 
 
-
-<hr>
-
-<h3>{{ person.user.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth</h3>
-
-{{ user_p.emoji }}
-
-{{ user_p.description }}
-<br><br>
+<div class="row">
+	<div class="col-md-12">
+<div class="col-md-8 col-md-offset-2">
+	<h3 style="text-align:center;">{{ person.user.username }} spends {{ bucksamonth | floatformat:"0" }} bucksamonth</h3>
+<br />
 <table style="text-align:center;" class="table">
 
 	<tr>
@@ -108,6 +134,9 @@
 </tr>{% endif %}
 
 </table>
+</div>
+</div>
+
 <br /><br />
 <div class="container">
 {% for friend_ in friends %}
@@ -120,7 +149,7 @@
 
 <div class="row">
 <h4>{{ person.user.username }} is following {{ follower_count }} user{{ follower_count | pluralize }}</h4>
-
+	<br />
 {% for friend_ in user_friends %}
 {% cycle '<div class="row">' '' ''  %}
 <div style="text-align:center; text-decoration:none !important" class="col-md-4">
@@ -134,7 +163,7 @@
 <div class="container">
 <div class="row">
 <h4>{{ person.user.username }} has {{ person.followers.count }} followers</h4>
-
+	<br />
 {% for follower in person.followers.all %}
 {% cycle '<div class="row">' '' ''  %}
 	<div style="text-align:center; text-decoration:none !important" class="col-md-4">

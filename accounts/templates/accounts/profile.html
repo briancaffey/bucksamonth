@@ -12,7 +12,8 @@
 <div class="col-md-6 well">
 
 <p style="font-size:4.5em; text-align:center;">{{ user.userprofile.emoji }}</p>
-<p style="font-size:2em; text-align:center;">{{ user.username }}</p>
+<p style="font-size:2em; text-align:center;">👤 {{ user.username }}</p>
+<p style="font-size:1.25em; text-align:center;"><strong>{{ subscriptions.all.count }} 📊&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;<strong>${{ bucksamonth | floatformat:"0" }} 💸&nbsp;📅</strong></p>
 <blockquote>
 <h4 class="text-muted">{{ user.userprofile.description }}</h4>
 </blockquote>
@@ -23,20 +24,20 @@
 <div class='button-wrapper'>
 <a type="link" class='btn btn-default' href="{% url 'accounts:edit' %}">edit profile ✏️</a>
 <a type="link" class="btn btn-info" href="{% url 'accounts:update_personal_info' %}">personalize ⭐️</a>
-<a type="link" class="btn btn-info" href="{% url 'accounts:inbox' %}">messages 📬</a>
+<a type="link" class="btn btn-warning" href="{% url 'accounts:inbox' %}">messages 📬</a>
 <a class="btn btn-success" href="#share" data-toggle="modal" data-target="#myModal-share">share 📤</a>
 <!-- share link modal -->
 
 {% include 'accounts/share_links.html' %}
 
 <!-- <a class="btn btn-success" href="{% url 'accounts:add_subscription' %}">add new ➕</a> -->
-<a class="btn btn-default" href="#">settings ⚙</a>
+<a class="btn btn-default" href="#">⚙&nbsp;</a>
 </div>
 <hr>
 
 
 <div class="col-md-6">
-	<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
+	<p><strong>{{ subscriptions.all.count }} 📊</strong> subscriptions</p>
 	<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month</p>
 	<p>member since 🗓 March 8, 2017</p>
 	<p>account: <strong>basic</strong></p>
@@ -135,31 +136,31 @@
 				<br /><br /><br /><br /> -->
 <h4>{{ user.username }}, you are spending {{ bucksamonth | floatformat:"0" }} bucks a month 💸 </h4>
 <br />
-				<table style="text-align:center;" class="table">
-					<tr style="border-top: none !important;">
+				<table style="text-decoration:none; text-align:center;" class="table">
+					<tr style="vertical-align: middle; font-size:1.25em; text-align:center; border-top: none !important;">
 						<td class="table-top"><strong>service</strong></td>
 
 
 
-						<td class="table-top" style="text-align:center;"><strong>💸</strong></td>
+						<td class="table-top" style="text-align:center;"><strong><a data-toggle="tooltip" title="bucks a month">💸&nbsp;📅</a></strong></td>
 
 						<td class="table-top" style="text-align:center;"><strong><a data-toggle="tooltip" title="start date">🗓</a></strong></td>
 
-						<td class="table-top"><strong>cc&nbsp;💳</strong></td>
+						<td class="table-top"><strong><a data-toggle="tooltip" title="credit card nickname">💳</a></strong></td>
 
-						<td class="table-top"><strong>🔏</strong></td>
+						<td class="table-top"><strong><a data-toggle="tooltip" title="edit">🔏</a></strong></td>
 
 					</tr>
 					{% for item in subscriptions %}
 					<tr>
-						<td><a href="{% url 'services:service_detail' service_slug=item.service.service_slug %}"><span style="font-size:1.5em;">{{ item.service.emoji }}</span><br />{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="private">🙈</a>{% endif %}</td>
-						<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
-						<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
-						<td>{{ item.cc_nickname }}</td>
-						<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
+						<td style="vertical-align: middle; font-size:1.25em; text-align:center;"><a href="{% url 'services:service_detail' service_slug=item.service.service_slug %}"><span style="font-size:1.5em;">{{ item.service.emoji }}</span><br />{{ item.service }}</a>{% if item.private %} <a data-toggle="tooltip" title="private">🙈</a>{% endif %}</td>
+						<td style="vertical-align: middle; font-size:1.25em; text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
+						<td style="vertical-align: middle; font-size:1.25em; text-align:center;">{{ item.date_created | date:"M 'y"  }}</td>
+						<td style="vertical-align: middle; font-size:1.25em; text-align:center;">{{ item.cc_nickname }}</td>
+						<td style="vertical-align: middle; font-size:1.25em; text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
 					</tr>
 					{% endfor %}
-					<tr>
+					<tr style="vertical-align: middle; font-size:1.25em; text-align:center;">
 						<td><a href="{% url 'accounts:add_subscription' %}">➕ new</a></td>
 						<td><a href="{% url 'accounts:add_subscription' %}">💵</a></td>
 						<td><a href="{% url 'accounts:add_subscription' %}">📆</a></td>
@@ -179,29 +180,28 @@
 <h4>here's your wishlist 🌠 </h4>
 <br />
 				<table style="text-align:center;" class="table">
-					<tr>
+					<tr style="font-size:1.25em;">
 						<td class="table-top" ><strong>service</strong></td>
 
-						<td class="table-top" style="text-align:center;"><strong>🙃&nbsp;&nbsp;emoji&nbsp;🙂</strong></td>
 
-						<td class="table-top" style="text-align:center;"><strong>💸&nbsp;&nbsp;bucksamonth 📅</strong></td>
+						<td class="table-top" style="text-align:center;"><strong>💸&nbsp;📅</strong></td>
 
-						<td class="table-top" style="text-align:center;"><strong>start date&nbsp;🗓</strong></td>
+						<td class="table-top" style="text-align:center;"><strong>🗓</strong></td>
 
-						<td class="table-top"><strong>💳&nbsp;&nbsp;nickname</strong></td>
+						<td class="table-top"><strong>💳</strong></td>
 
-						<td class="table-top"><strong>edit</strong></td>
+						<td class="table-top"><strong>🔏</strong></td>
 
 					</tr>
 					{% for item in wishlist %}
-					<tr>
+					<tr style="vertical-align: middle; font-size:1.25em;">
 
-						<td><a href="{{ item.service.get_absolute_url }}">{{ item.service }}</a></td>
-						<td style="text-align:center;">{{ item.service.emoji }}</td>
-						<td style="text-align:center;">{{ item.bucksamonth | floatformat:"0" }}</td>
-						<td style="text-align:center;">{{ item.date_created | date:"d-m-y"  }}</td>
-						<td>{{ item.cc_nickname }}</td>
-						<td style="text-align:center;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
+						<td style="font-size:1.25em; vertical-align: middle;"><a href="{{ item.service.get_absolute_url }}">{{ item.service }}<br />{{ item.service.emoji }}</a></td>
+						<!-- <td style="text-align:center;">{{ item.service.emoji }}</td> -->
+						<td style="text-align:center; vertical-align: middle;">{{ item.bucksamonth | floatformat:"0" }}</td>
+						<td style="text-align:center; vertical-align: middle;">{{ item.date_created | date:"d-m-y"  }}</td>
+						<td style="text-align:center; vertical-align: middle;">{{ item.cc_nickname }}</td>
+						<td style="text-align:center; vertical-align: middle;"><a href="{% url 'accounts:subscription_update' pk=item.id %}">🔏</a>️</td>
 					</tr>
 					{% endfor %}
 				</table>
@@ -242,7 +242,7 @@
 					{% for friend_ in friends %}
 					{% cycle '<div class="row">' '' ''  %}
 						<div style="text-align:center; text-decoration:none !important" class="col-md-4">
-					<p style="font-size:2em; text-align:center; text-decoration:none !important;"><a style="text-decoration:none" href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_.emoji }}<br />{{ friend_ }}</a></p>
+					<p style="font-size:1.5em; text-align:center; text-decoration:none !important;"><a style="text-decoration:none" href="{% url 'users:view_profile' username=friend_.user.username %}">{{ friend_.emoji }}<br />{{ friend_ }}</a></p>
 					</div>
 					{% cycle '' '' '</div>' %}
 					{% endfor %}

@@ -13,8 +13,8 @@
 <form method="post">
 	{% csrf_token %}
 	{{ form.as_p }}
-	<button class="btn btn-success" type="submit">Submit</button> - or -
-	<a class="btn btn-danger" href="{% url 'accounts:profile' %}">Cancel</a>
+	<button class="btn btn-success" type="submit">save</button> - or -
+	<a class="btn btn-danger" href="{% url 'accounts:profile' %}">cancel</a>
 </form>
 </div>
 </div>
