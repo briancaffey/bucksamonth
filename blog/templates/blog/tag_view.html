@@ -18,8 +18,9 @@
 
   <div class="caption post-detail-item">
 
-    <h3><a class="link-fancy" href="{{ object.get_absolute_url }}"><span class="link-fancy" style="font-size:2em">{{ object.emoji }}</span></a><br/><a href="{{ object.get_absolute_url }}">{{ object.title }}</a> <small>{{ object.timestamp | timesince }} ago</small></h3>
-    <p>by <a style="text-decoration:none;" href="{% url 'users:view_profile' username=object.user.username %}">{{ object.user.username }} {{ object.user.userprofile.emoji }}</a>&nbsp;&nbsp;| 🏷&nbsp;&nbsp;{% for tag in object.tags.all %}<a class="label label-default"  href="{% url 'blog:tag_view' slug=tag %}">{{ tag }}</a>&nbsp;{% endfor %}</p>
+    <h3><a class="link-fancy" href="{{ object.get_absolute_url }}"><span class="link-fancy" style="font-size:2em">{{ object.emoji }}</span></a><br/><a href="{{ object.get_absolute_url }}">{{ object.title }}</a><br /><small>{{ object.timestamp | timesince }} ago</small></h3>
+    <p>by <a style="text-decoration:none;" href="{% url 'users:view_profile' username=object.user.username %}">{{ object.user.username }} {{ object.user.userprofile.emoji }}</a></p>
+    <span style="font-size:1.25em; word-wrap:break-word;">{% for tag in object.tags.all %}<a class="label label-default"  href="{% url 'blog:tag_view' slug=tag %}">🏷&nbsp;&nbsp;{{ tag }}</a>&nbsp;{% endfor %}</p>
     <!-- <p>🏷&nbsp;&nbsp;<a class="label label-default label-lg">test</a></p> -->
     <blockquote class="text-muted">{{ object.content | safe }}</blockquote>
 
