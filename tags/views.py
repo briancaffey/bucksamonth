@@ -17,8 +17,6 @@ def service_tag_view(request, tag_name):
     return render(request, 'tags/service_tag.html', context)
 
 
-def blog_tag_view(request, tag_name):
+def blog_tag_view(request):
 
-    context = {
-        ''
-    }
+    return render(request, 'tags/blog_tags.html', {})

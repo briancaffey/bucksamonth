@@ -105,7 +105,7 @@ def create(request):
 	return render(request, "blog/post_form.html", context)
 
 def all_tags(request):
-    return render(request, 'blog/all_tags.html', {})
+    return render(request, 'tags/all_tags.html', {})
 
 def tag_view(request, slug):
     tag = Tag.objects.get(slug=slug)

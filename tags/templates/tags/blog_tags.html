@@ -6,17 +6,16 @@
 <h1 style="text-align:center;">tags<br />🏷🏷🏷</h1>
 {% get_taglist as blog_tags for 'blog' %}
 {% get_taglist as service_tags for 'services' %}
-
 <ul class="nav nav-tabs navbar-right" role="tablist">
-  <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><span class="badge">{{ service_tags.all.count }}</span> services 📊</a></li>
-  <li role="presentation"><a href="#articles" aria-controls="articles" role="tab" data-toggle="tab"><span class="badge">{{ blog_tags.all.count }}</span> articles 📝</a></li>
+  <li role="presentation" ><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><span class="badge">{{ service_tags.all.count }}</span> services 📊</a></li>
+  <li role="presentation" class="active"><a href="#articles" aria-controls="articles" role="tab" data-toggle="tab"><span class="badge">{{ blog_tags.all.count }}</span> articles 📝</a></li>
 
 </ul>
 
 
 <div class="tab-content">
   <br /><br />
-  <div role="tabpanel" class="tab-pane active" id="services">
+  <div role="tabpanel" class="tab-pane" id="services">
 
 
 {% for tag in service_tags %}
@@ -24,7 +23,7 @@
 {% endfor %}
 </div>
 
-  <div role="tabpanel" class="tab-pane" id="articles">
+  <div role="tabpanel" class="tab-pane active" id="articles">
 
 {% for tag in blog_tags %}
 <a style="font-size:1.25em; line-height:2" class="label label-default" href="{% url 'blog:tag_view' slug=tag.slug %}">{{ tag }}</a>
