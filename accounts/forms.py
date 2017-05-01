@@ -276,6 +276,73 @@ class AddSubscriptionForm(forms.ModelForm):
 				'date_created'
 				)
 
+
+class AddSubscriptionFromDetailForm(forms.ModelForm):
+
+	service = forms.ModelChoiceField(
+		queryset=Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name'),
+		widget=forms.HiddenInput
+		)
+
+	cc_nickname = forms.CharField(
+		required=False,
+		widget=forms.TextInput(
+			attrs={
+			'class':'form-control',
+			'placeholder': "which credit card is it on (nickname)",
+		}))
+
+	bucksamonth = forms.CharField(widget=forms.TextInput(
+		attrs={
+		'class':'form-control',
+		'placeholder': "how many bucks a month?",
+		}))
+
+
+	private = forms.BooleanField(
+		initial=False,
+		required=False,
+		widget=forms.CheckboxInput(
+
+		attrs={
+
+		}))
+
+
+
+	wishlist = forms.BooleanField(
+		initial=False,
+		required=False,
+		widget=forms.CheckboxInput(
+
+		attrs={
+
+		}))
+
+	date_created = forms.DateField(
+		initial=datetime.date.today,
+
+		widget=forms.SelectDateWidget(
+
+		years=YEAR_CHOICES))
+
+	class Meta:
+		model = Subscription
+		fields = (
+
+				'service',
+				'cc_nickname',
+				'bucksamonth',
+				'private',
+				'wishlist',
+				'date_created'
+				)
+
+
+
+
+
+
 class UpdateSubscriptionForm(forms.ModelForm):
 
 	cc_nickname = forms.CharField(widget=forms.TextInput(

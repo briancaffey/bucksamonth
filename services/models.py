@@ -88,7 +88,7 @@ pre_save.connect(pre_save_post_receiver, sender=Service)
 class Subscription(models.Model):
 	service 				= models.ForeignKey(Service, on_delete=models.CASCADE, related_name='subscription_service')
 	user 					= models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="subscribed_user")
-	cc_nickname 			= models.CharField(max_length=10)
+	cc_nickname 			= models.CharField(max_length=10, default='')
 	bucksamonth 			= models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
 	date_created			= models.DateField(default=date.today)
 	wishlist				= models.BooleanField(default=False)

@@ -9,7 +9,7 @@ from services.models import Service, Subscription
 from categories.models import Category
 from django import forms
 from services.forms import AddServiceForm
-from accounts.forms import AddSubscriptionForm
+from accounts.forms import AddSubscriptionForm, AddSubscriptionFromDetailForm
 #from .forms import AddCommentForm
 from comments.forms import CommentForm
 from comments.models import Comment
@@ -241,7 +241,7 @@ def add_service_from_detail_view(request, service_slug):
 			'service':service,
 			'bucksamonth':service.bucksamonth,
 		}
-		form = AddSubscriptionForm(request.POST or None, initial=initial)
+		form = AddSubscriptionFromDetailForm(request.POST or None, initial=initial)
 
 		if request.method=="POST":
 			print(form.errors)
