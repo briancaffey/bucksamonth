@@ -7,6 +7,8 @@ from .forms import PostForm
 from comments.forms import CommentForm
 from taggit.models import Tag
 
+from django.contrib.auth.models import User
+
 from django.utils.text import slugify
 
 from django.contrib.contenttypes.models import ContentType
@@ -16,8 +18,11 @@ from django.contrib import messages
 # Create your views here.
 def index(request):
     queryset_list = Post.objects.all()
+    authors = list(set([post.user for post in queryset_list]))
+
     context = {
         'object_list':queryset_list,
+        'authors':authors,
     }
 
     return render(request, 'blog/index.html', context)
@@ -25,6 +30,8 @@ def index(request):
 
 def detail(request, slug):
     instance = get_object_or_404(Post, slug=slug)
+    instance.views += 1
+    instance.save()
     initial_data = {
 		'content_type':instance.get_content_type,
 		'object_id':instance.id
@@ -111,6 +118,16 @@ def tag_view(request, slug):
     }
 
     return render(request, 'blog/tag_view.html', context)
+
+def author_view(request, username):
+    author = User.objects.get(username=username)
+
+    posts = Post.objects.filter(user=author)
+    context = {
+        'posts':posts,
+        'author':author,
+    }
+    return render(request, 'blog/author_view.html', context)
 
 
 

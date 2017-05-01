@@ -30,6 +30,7 @@ class Post(models.Model):
     title              = models.CharField(max_length=100)
     emoji              = models.CharField(max_length=50, blank=True)
     slug               = models.SlugField(unique=True)
+    views              = models.PositiveIntegerField(default=0)
 	# height_field       = models.IntegerField(default=0)
 	# width_field        = models.IntegerField(default=0)
 	# image              = models.ImageField(
@@ -74,7 +75,7 @@ class Post(models.Model):
         content_type = ContentType.objects.get_for_model(instance.__class__)
         return content_type
 
-    
+
 
     def __str__(self):
         return self.title

@@ -63,7 +63,7 @@
 <div role="tabpanel" class="tab-pane" id="social">
 	<div class="col-md-12">
 
-
+		<br />
 		<p>facebook 👩🏻📖&nbsp;&nbsp;<a href="https://facebook.com/">facebook.com</a></p>
 		<p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ user.userprofile.twitter }}">{{ user.userprofile.twitter }}</a></p>
 		<p>linkedin 🔗💼 &nbsp;&nbsp;<a href="#">linkedin.com/profile</a></p>
@@ -119,7 +119,7 @@
 
 	<td style="vertical-align: middle; font-size:1.25em;" class="text-center">{{ subscription.bucksamonth | floatformat | floatformat }}</td>
 
-	<td style="vertical-align: middle; font-size:1.25em;">{{ subscription.date_created | date:"d-m-y" }}</td>
+	<td style="vertical-align: middle; font-size:1.25em;">{{ subscription.date_created | date:"M 'y" }}</td>
 
 </tr>
 
