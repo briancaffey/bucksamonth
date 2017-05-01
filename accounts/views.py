@@ -92,18 +92,19 @@ def register(request):
 			print(base_link)
 			link = str(new_user.userprofile.get_confirm_link())
 			print(link)
-			confirm_link = base_link + link
+			confirm_link = str(base_link + link)
 			print(confirm_link)
 
 
 			send_mail(		'🙌 thanks for signing up for bucksamonth 🎉',
-							'',
+							'plain text',
 							EMAIL_HOST_USER,
 							[email_],
-							html_message=	"Hi, you (or possibly someone else) signed up for bucksamonth with " + new_user.email + "\
-											<br /><br />Please click this link if you wish to join my newsletter:<br /><br />\
-											<a href='" + confirm_link + "'>confirm email</a><br /><br />\
-											If you don't want to join my newsletter please ignore this email.<br />"
+							html_message=	'<html><body><p>Hi, you signed up for bucksamonth with ' + new_user.email + '.</p>\
+											<br /><br /><p>Please click the following link to confirm your email:</p><br />\
+											<p><a href="http://' + confirm_link + '">Confirm Email</a></p><br />\
+											<p>If you didn\'t sign up for bucksamonth, please ignore this email.</p>\
+											</html></body>'
 											)
 			return redirect('accounts:confirm_email')
 
