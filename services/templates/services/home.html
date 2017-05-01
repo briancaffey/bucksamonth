@@ -82,11 +82,13 @@
 {% for service in popular %}
 
 <a  style="text-decoration: none !important" role="button" data-toggle="collapse" href="#b-popout{{ forloop.counter | slugify }}" aria-expanded="false" aria-controls="b-popout{{ forloop.counter | slugify }}"><h1>
-  {{ service.emoji }}<br /><span style="font-size:.75em">{{ service.service_name }}</span></h1>
+  {{ service.emoji }}</h1>
 </a>
 
 <div class="collapse" id="b-popout{{ forloop.counter | slugify }}">
   <div class="well">
+    <span style="font-size:.75em">{{ service.service_name }}</span>
+    <hr>
     {{ service.description_short }}
     <hr>
     <div class="row">
@@ -178,7 +180,9 @@
   <div class="col-md-12">
     <div style="text-align:center;"><h2><span style="font-size:1.5em">👲🏼👱🏼👩🏻👮</span><br />people</h2></div>
 
+<!-- {% if 'iPhone' in request.META.HTTP_USER_AGENT %}test1{% else %}test2{% endif %}
 
+{{ request.META.HTTP_USER_AGENT }} -->
     {% for person in people %}
     {% cycle '<div class="row">' '' ''  %}
     <div style="text-align:center; text-decoration:none !important" class="col-md-4">
