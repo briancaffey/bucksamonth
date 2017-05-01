@@ -13,6 +13,7 @@ from accounts.forms import AddSubscriptionForm
 #from .forms import AddCommentForm
 from comments.forms import CommentForm
 from comments.models import Comment
+from accounts.models import UserProfile
 
 
 from django.contrib.auth.decorators import login_required
@@ -32,6 +33,7 @@ class HomeView(View):
 		categories = Category.objects.all()
 		cat_count = len(categories)
 		categories = categories[:9]
+		people = UserProfile.objects.all()[:9]
 		featured = Service.objects.filter(featured=True)
 		popular = Service.objects.annotate(num_users=Count('subscription_service')).order_by('-num_users')[:5]
 		new = Service.objects.order_by('-date_created')[:5]
@@ -41,6 +43,7 @@ class HomeView(View):
 			'new':new,
 			'categories':categories,
 			'cat_count':cat_count,
+			'people':people,
 		}
 		return render(request, 'services/home.html', context)
 
