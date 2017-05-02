@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block page_title %}💸&nbsp;&nbsp;bucksamonth 📅{% endblock page_title %}
+{% block page_title %}💸📅&nbsp;&nbsp;bucksamonth{% endblock page_title %}
 
 
 {% block content %}
@@ -37,7 +37,7 @@
   {% for category in categories %}
   {% cycle '<div class="row">' '' ''  %}
   <div style="text-align:center; text-decoration:none !important" class="col-md-4">
-      <h2 style="text-align:center; text-decoration:none !important"><a style="text-decoration:none" href="{% url 'categories:category_view' slug=category.slug %}">{{ category.category }} ({{ category.service_set.count }})</a></h2><h2><a style="text-decoration:none" href="{% url 'categories:category_view' slug=category.slug %}">{{ category.emoji }}</a></h2>
+      <h1 style="text-align:center; text-decoration:none !important"><a style="text-decoration:none" href="{% url 'categories:category_view' slug=category.slug %}">{{ category.category }} ({{ category.service_set.count }})<br />{{ category.emoji }}</a></h1>
   </div>
   {% cycle '' '' '</div>' %}
   {% endfor %}

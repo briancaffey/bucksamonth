@@ -8,7 +8,7 @@
 <div class="col-md-8">
   <p><a class="btn btn-default" href="{% url 'blog:index'%}">🔙&nbsp;&nbsp;to posts</a>
   <a class="btn btn-default" href="{% url 'tags:blog_tag_view' %}">all tags 🏷🏷🏷</a></p>
-  <h2>{{ count }} post{{ count | pluralize }} tagged with <a href="{% url 'blog:tag_view' slug=tag %}" class="label label-default">{{ tag }}</a></h2>
+  <h2>{{ count }} post{{ count | pluralize }} tagged with <a href="{% url 'blog:tag_view' slug=tag %}" class="label label-default">🏷&nbsp;&nbsp;{{ tag }}</a></h2>
 <br />
 
 {% for object in posts %}
