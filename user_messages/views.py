@@ -101,9 +101,6 @@ def messages(request, username):
         })
 
 
-def message_user_from_profile(request, username):
-    return None
-
 # @login_required
 # def new_message(request):
 #     form = MessageForm(request.POST or None, user=request.user)

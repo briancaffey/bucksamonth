@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
 
@@ -7,6 +7,7 @@ from services.models import Subscription
 from accounts.models import UserProfile
 from friends.models import Friend
 
+from user_messages.forms import ToUserMessageForm
 # from services.models import Comment
 
 from accounts.forms import UpdateSubscriptionForm
@@ -14,6 +15,25 @@ from accounts.forms import UpdateSubscriptionForm
 from django.views.generic import View, TemplateView, DetailView, DeleteView
 from django.views.generic.edit import UpdateView
 
+
+def message_user_from_profile(request, username):
+
+	user_ = User.objects.get(username=username)
+	initial = {'user_':user_}
+
+	form = ToUserMessageForm(request.POST or None, initial=initial)
+	context = {
+		'form':form,
+		'user':user_,
+	}
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.user = user_
+		instance.from_user = request.user
+		instance.message = form.cleaned_data.get('message')
+		instance.send_message(request.user, instance.user, instance.message)
+		return redirect('accounts:messages', username=user_.username)
+	return render(request, 'user_messages/new_message_to_user.html', context)
 
 
 def view_profile(request, username):

@@ -30,7 +30,7 @@
 		<a type="button" class="btn btn-success" href="#share" data-toggle="modal" data-target="#myModal-share">share 📤</a>
 <!-- modal for share links -->
 	{% include 'users/user_profile_share_links.html' %}
-	<a class="btn btn-info" href="#">message 📫</a>
+	<a class="btn btn-info" href="{% url 'users:message_user_from_profile' username=person.user.username%}">message 📫</a>
 	</div>
 
 	<hr>
