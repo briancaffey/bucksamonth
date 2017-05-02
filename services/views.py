@@ -16,6 +16,9 @@ from comments.models import Comment
 from accounts.models import UserProfile
 
 
+from django.db.models import Q
+
+
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.contenttypes.models import ContentType
@@ -48,8 +51,25 @@ class HomeView(View):
 		return render(request, 'services/home.html', context)
 
 def services(request):
+
+
 	services = Service.objects.all().order_by('-date_created')
-	return render(request, 'services/services.html', {'services':services})
+	context = {'services':services}
+	query = request.GET.get('q')
+
+	if query:
+		queryset_list = services.filter(
+			Q(service_name__icontains=query) |
+			Q(description_short__icontains=query) |
+			Q(description_long__icontains=query) |
+			Q(emoji__icontains=query) |
+			Q(tags__name__in=[query]) 
+			).distinct()
+
+		context['services'] = queryset_list
+
+
+	return render(request, 'services/services.html', context)
 
 def add_service_view(request):
 

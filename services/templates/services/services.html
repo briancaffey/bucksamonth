@@ -4,14 +4,60 @@
 
 {% include 'nav.html' %}
 <div class="container">
-{% for service in services %}
 
-<h1><a href="{{ service.get_absolute_url }}">{{ service.service_name }}</a> {{ service.emoji }}</h1>
 
-<p>${{ service.bucksamonth }}</p>
 
-<p>{{ service.description_short }}</p>
+
+
+
+
+
+<div class="row">
+<div class="col-md-12">
+  <h1 style="text-align:center;">search 🔭🌌</h1>
+
+<p>
+  <form method="GET" action="." class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+    <div class="input-group">
+    <input class="form-control" type="text" name="q" placeholder="search bucksamonth" value='{{ request.GET.q }}'/>
+    <span class="input-group-btn">
+    <input class="btn btn-default" type="submit" value="search" />
+  </span>
+  </div>
+
+
+  </div>
+
+  </form>
+
+</p>
+<br />
+
+
+</div>
+  </div>
+{% for instance in services %}
+{% cycle '<div class="row">' '' ''  %}
+
+<div style="text-align:center;" class="col-md-4">
+  <a style="display:block; text-decoration:none; font-color:black;" href="{{ instance.get_absolute_url }}">
+    <div class="col-md-11 col-md-offset-.5 well">
+      <p style="font-size:3em; text-align:center;">{{ instance.emoji }}</p>
+      <p style="font-size:2em; text-align:center;">{{ instance.service_name }}</p>
+      <h5 style="font-size:2em; text-align:center;">{{ instance.bucksamonth | floatformat:"0" }}&nbsp;💸📅</h5>
+
+      <blockquote>
+        <h4 class="text-muted">{{ instance.description_short }}</h4>
+      </blockquote>
+</div>
+</a>
+</div>
+
+{% cycle '' '' '</div>' %}
 
 {% endfor %}
+
+
 </div>
 {% endblock %}
