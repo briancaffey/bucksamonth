@@ -5,13 +5,13 @@
 
 
 <div class="col-md-6 col-md-offset-3">
-  <a class="btn btn-default" href="{% url 'accounts:inbox' %}">cancel ❌</a>
+
 <h1 style="text-align:center;">new mesage<br />✍️📃</h1>
 <form method="POST" action="">
   {% csrf_token %}
   {{ form.as_p }}
 
-  <input type="submit" value="send" class="btn btn-success">
+  <input type="submit" value="send" class="btn btn-success"> - or - <a class="btn btn-default" href="{% url 'accounts:inbox' %}">cancel ❌</a>
 </form>
 <!--
 <form class="form-horizontal" role="form" method="post">

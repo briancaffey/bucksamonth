@@ -23,7 +23,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from django.views.generic import View, TemplateView, FormView, UpdateView
 from django.views.generic.edit import UpdateView
@@ -41,7 +41,7 @@ class developers(TemplateView):
 class business(TemplateView):
 	template_name = 'business.html'
 
-
+@login_required
 def confirm_email(request):
 	return render(request, 'accounts/confirm_email.html', {})
 
@@ -101,8 +101,8 @@ def register(request):
 							EMAIL_HOST_USER,
 							[email_],
 							html_message=	'<html><body><p>Hi, you signed up for bucksamonth with ' + new_user.email + '.</p>\
-											<br /><br /><p>Please click the following link to confirm your email:</p><br />\
-											<p><a href="http://' + confirm_link + '">Confirm Email</a></p><br />\
+											<p>Please click the following link to confirm your email:</p>\
+											<p><a href="http://' + confirm_link + '">Confirm Email</a></p>\
 											<p>If you didn\'t sign up for bucksamonth, please ignore this email.</p>\
 											</html></body>'
 											)
@@ -139,6 +139,13 @@ def login_view(request):
 
 	return render(request, 'accounts/login.html', {'form':form})
 
+def logout_view(request):
+	logout(request)
+	messages.success(request, "you have successfully logged out 🔒")
+	return redirect('home')
+
+
+
 @login_required
 def email_confirmed(request, uid):
 	user_ = get_object_or_404(UserProfile, uid=uid)
@@ -168,6 +175,7 @@ def email_confirmed(request, uid):
 # 	}
 # 	return render(request, 'accounts/login.html', context)
 
+@login_required
 def view_profile(request):
 
 	if request.user.userprofile.setup == True:

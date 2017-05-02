@@ -3,8 +3,9 @@
 {% include 'nav.html' %}
 <div class="container">
 
-<h1 style="text-align:center;">{% if name %}messages from {{ name }}<br />{{ name.userprofile.emoji }}&nbsp;➡️  &nbsp;📃📬{% else %}your messages<br />📃📬{% endif %}</h1>
-    <div style="text-align:center;"><a style="text-align:center;" class="btn btn-success" href="{% url 'accounts:new_message' %}">new message ✍️</a></div><br />
+<h1 style="text-align:center;">{% if name %}📃📬<br />messages with {{ name }}<br />{{ name.userprofile.emoji }}{% else %}your messages<br />📃📬{% endif %}</h1>
+    {% if not name %}<div style="text-align:center;"><a style="text-align:center;" class="btn btn-success" href="{% url 'accounts:new_message' %}">new message ✍️</a></div><br />
+{% endif %}<br />
   <div class="row">
 
 <div class="col-md-3">
@@ -16,6 +17,16 @@
 
 
 <div class="col-md-9">
+  {% if name %}
+
+  <form method="POST" action=".">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="send" class="btn btn-success">
+    <br />
+  </form>
+<br />
+  {% endif %}
     {% for message in messages_ %}
     <div class="list-group">
       {% include 'user_messages/partial_message.html' with message=message %}

@@ -180,13 +180,13 @@ class EditProfileForm(UserChangeForm):
 		'placeholder': "pick a username for your public profile",
 		}))
 
-	email = forms.EmailField(
-		required=True,
-		widget=forms.TextInput(
-		attrs={
-		'class':'form-control',
-		'placeholder': "update your email address",
-		}))
+	# email = forms.EmailField(
+	# 	required=True,
+	# 	widget=forms.TextInput(
+	# 	attrs={
+	# 	'class':'form-control',
+	# 	'placeholder': "update your email address",
+	# 	}))
 
 	first_name = forms.CharField(widget=forms.TextInput(
 		attrs={
@@ -205,7 +205,7 @@ class EditProfileForm(UserChangeForm):
 		model = User
 		fields = (
 				'username',
-				'email',
+				# 'email',
 				'first_name',
 				'last_name',
 				'password',

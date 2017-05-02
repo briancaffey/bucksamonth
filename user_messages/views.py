@@ -4,7 +4,7 @@ from user_messages.models import UserMessage
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from .forms import MessageForm
+from .forms import MessageForm, ToUserMessageForm
 
 # Create your views here.
 
@@ -25,15 +25,15 @@ def inbox(request):
     if conversations:
         conversation = conversations[0]
         # print(conversation)
-        active_conversation = conversation['user'].username
+        #active_conversation = conversation['user'].username
         messages = UserMessage.objects.filter(  user=request.user,
-                                                conversation=conversation['user']
+                                                # conversation=conversation['user']
                                                 )
         messages.update(is_read=True)
 
-        for conversation in conversations:
-            if conversation['user'].username == active_conversation:
-                conversation['unread'] = 0
+        # for conversation in conversations:
+        #     if conversation['user'].username == active_conversation:
+        #         conversation['unread'] = 0
 
     return render(request, 'user_messages/inbox.html', {
         'messages_':messages,
@@ -60,7 +60,7 @@ def new_message(request):
         # if len(message.strip()) == 0:
         #     messages.success(request, "you can't send an empty message")
         #     return redirect('accounts:new_message')
-        return redirect('accounts:new_message')
+        return redirect('accounts:messages', username=instance.user)
     else:
         conversations = UserMessage.get_conversations(user=request.user)
         return render(request, 'user_messages/new_message.html', {'conversations':conversations,'form':form})
@@ -69,6 +69,8 @@ def new_message(request):
 
 @login_required
 def messages(request, username):
+
+    form = ToUserMessageForm(request.POST or None)
     convo = User.objects.get(username=username)
     conversations = UserMessage.get_conversations(user=request.user)
     active_conversation = username
@@ -79,20 +81,28 @@ def messages(request, username):
         if conversation['user'].username == username:
             conversation['unread'] = 0
 
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.user = convo
+        instance.from_user = request.user
+        to_user = User.objects.get(username=instance.user)
+        instance.conversation = to_user
+        instance.message = form.cleaned_data.get('message')
+
+        instance.send_message(request.user, to_user, instance.message)
+        form = ToUserMessageForm()
+
     return render(request, 'user_messages/inbox.html', {
         'messages_': messages,
         'conversations': conversations,
         'active': active_conversation,
         'name':convo,
+        'form':form,
         })
 
 
-
-
-
-
-
-
+def message_user_from_profile(request, username):
+    return None
 
 # @login_required
 # def new_message(request):

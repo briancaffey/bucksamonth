@@ -85,9 +85,12 @@ Tweets boijy @twittername</a>
 <a href="{{ instance.url_name }}" class="btn btn-warning">get {{ instance.service_name }}</a> {% if not user_info %}<a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=instance.service_slug %}">Add {{ instance.service_name }} to your subscription list</a>{% endif %}
 </div>
 </div> -->
-{% if user.is_authenticated %}{% if user_info %}
+{% if user.is_authenticated %}
+{% if user_info %}
 <br />
-<div class="alert alert-info" style="text-align:center;">you have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>{% endif %}{% endif %}
+<div class="alert alert-info" style="text-align:center;">you have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>
+{% endif %}
+{% endif %}
 
 <hr>
 <h2>subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>

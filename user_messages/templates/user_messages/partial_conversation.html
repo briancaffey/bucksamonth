@@ -1,4 +1,5 @@
 <div class="list-group">
+  <a class="list-group-item {% if not name %}list-group-item-success{% endif %}" href="{% url 'accounts:inbox' %}">all<span class="pull-right">📃📬</span>
 {% for conversation in conversations %}
   <a href="{% url 'accounts:messages' username=conversation.user.username %}" class="list-group-item{% if active == conversation.user.username %} list-group-item-success{% endif %}">
     {{ conversation.user.username }} <span class="pull-right">{{ conversation.user.userprofile.emoji }}</span>
