@@ -1,5 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+# django.db.models.get_model('app.Model')
+# from services.models import Subscription
+# from django.apps import get_model
+
+from django.db.models import Sum
+
 from django.db.models.signals import post_save
 import uuid
 
@@ -22,6 +28,17 @@ class UserProfile(models.Model):
 
 	def get_confirm_link(self):
 		return "/account/confirm-email/%s" % self.uid
+
+
+	def tally_bucksamonth(self):
+
+		from services.models import Subscription
+		# sub = get_model('services.Subscription')
+		bucksamonth = Subscription.objects.filter(user=self.user.userprofile).aggregate(Sum('bucksamonth'))
+		if bucksamonth['bucksamonth__sum']:
+			return bucksamonth['bucksamonth__sum']
+		else:
+			return 0.00
 
 
 def create_profile(sender, **kwargs):

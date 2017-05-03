@@ -1,11 +1,11 @@
 from django.db import models
 from accounts.models import UserProfile
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from datetime import date
 from categories.models import Category
 from comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
-
+from django.db.models import Sum
 from django.utils.text import slugify
 
 from django.db.models.signals import pre_save

@@ -7,6 +7,7 @@ from django.db.models.signals import pre_save
 class Category(models.Model):
     category = models.CharField(max_length=50)
     emoji = models.CharField(max_length=20, null=True, blank=True)
+    description = models.CharField(max_length=140, null=True, blank=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
     def __str__(self):
