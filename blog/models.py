@@ -7,6 +7,7 @@ from django.utils import timezone
 # from markdown_deux import markdown
 # from django.utils.safestring import mark_safe
 from comments.models import Comment
+from services.models import Service
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -31,6 +32,7 @@ class Post(models.Model):
     emoji              = models.CharField(max_length=50, blank=True)
     slug               = models.SlugField(unique=True)
     views              = models.PositiveIntegerField(default=0)
+    services           = models.ManyToManyField(Service, blank=True, related_name="post_service")
 	# height_field       = models.IntegerField(default=0)
 	# width_field        = models.IntegerField(default=0)
 	# image              = models.ImageField(

@@ -6,6 +6,9 @@
 {% block jquery %}
 
 
+	$(".selectmultiple").addClass('form-control')
+
+
 	$(".content-markdown").each(function(){
 			var content = $(this).text()
 			console.log(content)
@@ -104,8 +107,8 @@
   		{% csrf_token %}
   		{{ form | crispy }}
       <br />
-  		<input class="btn btn-success" type="submit" value="Create Post" />
-  		<a class='btn btn-danger' href="{% url 'blog:index' %}">Cancel</a>
+  		<input class="btn btn-success" type="submit" value="create post" />
+  		<a class='btn btn-default' href="{% url 'blog:index' %}">cancel ❌</a>
   		</form>
   	</div>
 

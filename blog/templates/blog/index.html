@@ -23,6 +23,9 @@
     <h3><a class="link-fancy" href="{{ object.get_absolute_url }}"><span class="link-fancy" style="font-size:2em">{{ object.emoji }}</span></a><br/><a href="{{ object.get_absolute_url }}">{{ object.title }}</a> <small>{{ object.timestamp | timesince }} ago</small></h3>
     <p>by <a style="text-decoration:none;" href="{% url 'blog:author_view' username=object.user.username %}">{{ object.user.username }} {{ object.user.userprofile.emoji }}</a></p>
     <p><span style="font-size:1.25em; word-wrap:break-word;">{% for tag in object.tags.all %}<a class="label label-default" href="{% url 'blog:tag_view' slug=tag %}">🏷&nbsp;&nbsp;{{ tag }}</a>&nbsp;{% endfor %}</span></p>
+    {% if object.services.all.count > 0 %}
+    <p><span class="button-wrapper">{% for service in object.services.all %}<a class="btn btn-default" href="{{ service.get_absolute_url }}">{{ service }} {{ service.emoji }}</a> {% endfor %}</span></p>
+    {% endif %}
     <blockquote class="text-muted">{{ object.content | safe }}</blockquote>
 
     <p><a href="{{ object.get_absolute_url }}" class="btn btn-default" role="button">read 👓</a> {% if request.user == object.user %}<a class="btn btn-warning" href="{% url 'blog:update' slug=object.slug %}">update ✏️</a>{% endif %}&nbsp;&nbsp;{{ object.comments.count }} 💬&nbsp;&nbsp;| {{ object.likes.count }} 👍&nbsp;&nbsp;| {{ object.views }} 👀

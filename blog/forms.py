@@ -1,11 +1,12 @@
 from django import forms
-
+from services.models import Service
 # from pagedown.widgets import PagedownWidget
 from taggit.forms import TagWidget
 from .models import Post
 import datetime
-
+from django.forms.widgets import CheckboxSelectMultiple
 YEAR_CHOICES = tuple([2000+i for i in range(22)])
+SERVICE_CHOICES = Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name')
 
 class PostForm(forms.ModelForm):
 
@@ -54,6 +55,15 @@ class PostForm(forms.ModelForm):
 
         years=YEAR_CHOICES)
     )
+    # services = forms.MultipleChoiceField(required=False,
+    #     widget=CheckboxSelectMultiple(attrs={'class':'form-control'}), choices=SERVICE_CHOICES)
+    #
+    # services = forms.ChoiceField(required=False, widget=forms.SelectMultiple(choices=SERVICE_CHOICES,label="PICKED")
+
+    services = forms.widgets.CheckboxSelectMultiple(
+
+        choices=SERVICE_CHOICES,
+        )
 
     class Meta:
         model = Post
@@ -63,7 +73,8 @@ class PostForm(forms.ModelForm):
             'content',
             'draft',
             'publish',
-            'tags'
+            'tags',
+            'services',
         ]
         widgets = {
             'tags': TagWidget(attrs={

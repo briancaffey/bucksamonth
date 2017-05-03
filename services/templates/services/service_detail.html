@@ -87,8 +87,10 @@ Tweets boijy @twittername</a>
 </div> -->
 {% if user.is_authenticated %}
 {% if user_info %}
+<div class="container">
 <br />
 <div class="alert alert-info" style="text-align:center;">you have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>
+</div>
 {% endif %}
 {% endif %}
 
@@ -108,6 +110,7 @@ Tweets boijy @twittername</a>
 
 
 <hr>
+<div class="container">
 <div class="row">
 <div class="col-md-8">
 <h2>{{ instance.comments.count }} comment{{ instance.comments.count | pluralize }} 💬</h2>
@@ -178,6 +181,6 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 
 </div>
 
-
+</div>
 </div>
 {% endblock %}
