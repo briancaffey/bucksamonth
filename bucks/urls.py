@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^tags/', include('tags.urls', namespace='tags')),
     url(r'^categories/', include('categories.urls', namespace='categories')),
+    url(r'^comments/', include('comments.urls', namespace='comments')),
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^services/', include('services.urls', namespace='services')),
     url(r'^users/', include('users.urls', namespace='users')),

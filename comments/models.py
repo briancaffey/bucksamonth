@@ -25,6 +25,7 @@ class Comment(models.Model):
 	content_object     = GenericForeignKey('content_type', 'object_id')
 	parent 	           = models.ForeignKey("self", null=True, blank=True)
 	content            = models.TextField()
+	flag			   = models.PositiveIntegerField(default=0)
 	emoji			   = models.CharField(max_length=20, blank=True)
 	timestamp          = models.DateTimeField(auto_now_add=True)
 
