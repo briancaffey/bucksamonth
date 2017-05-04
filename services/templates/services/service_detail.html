@@ -26,7 +26,7 @@ $(".comment-reply-btn").click(function(event){
 {% block content %}
 
 {% include 'nav.html' %}
-<div class="container">
+
   <div class="row">
   <div class="col-md-6 well">
 
@@ -87,14 +87,16 @@ Tweets boijy @twittername</a>
 </div> -->
 {% if user.is_authenticated %}
 {% if user_info %}
-<div class="container">
-<br />
+
+
 <div class="alert alert-info" style="text-align:center;">you have had <strong>{{ instance.service_name }}</strong> since <strong>{{ user_info.date_created }}</strong> ({{ user_info.date_created | timesince }} ago) <strong><a href="{% url 'accounts:subscription_update' pk=user_info.id %}">edit 🔏</a></strong></div>
-</div>
+
 {% endif %}
 {% endif %}
 
 <hr>
+<div class="row">
+  <div class="container">
 <h2>subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
 {% cycle '<div class="row">' '' ''  %}
@@ -106,13 +108,14 @@ Tweets boijy @twittername</a>
 
 <br />
 
-
-
+</div>
+</div>
 
 <hr>
-<div class="container">
+
 <div class="row">
-<div class="col-md-8">
+  <div class="container">
+
 <h2>{{ instance.comments.count }} comment{{ instance.comments.count | pluralize }} 💬</h2>
 {% if user.is_authenticated %}
 <form method="POST" action="{% url 'services:service_detail' service_slug=instance.service_slug %}">
@@ -140,6 +143,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 
 <div class='comment-reply'>
   <br />
+
 <form method="POST" action=".">{% csrf_token %}
 
 {{ form | crispy }}
@@ -147,6 +151,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 <br />
 <input type="submit" value="reply ↩️" class="btn btn-default"></input>
 </form>
+
 </div>
 {% endif %}
 
@@ -177,10 +182,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 
 </div>
 
-
-
-</div>
-
 </div>
 </div>
+
 {% endblock %}

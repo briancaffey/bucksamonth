@@ -35,10 +35,11 @@
       </div>
     </nav>
 
-<div class="container">
-{% include 'messages.html' %}
-</div>
+{% if messages %}
 
+{% include 'messages.html' %}
+
+{% endif %}
 
 
 

@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
 
+	url(r'^$', views.all_tags, name="all_tags"),
 	url(r'^service/$', views.all_tags, name='all_tags'),
 
 

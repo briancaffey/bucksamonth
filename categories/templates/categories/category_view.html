@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'nav.html' %}
-<div style="text-align:center;" class="container">
-  <p><a style="text-decoration:none;" href="{% url 'categories:all_categories' %}"><span style="font-size:1.5em;">all categories 🗂🗃🗄</span></a></p>
-<h1>{{ category.category }}<br />{{ category.emoji }}</h1>
+
+  <span style="text-align:center"><p><a style="text-decoration:none;" href="{% url 'categories:all_categories' %}"><span style="font-size:1.5em;">all categories 🗂🗃🗄</span></a></p>
+<h1>{{ category.category }}<br />{{ category.emoji }}</h1></span>
 
 
 

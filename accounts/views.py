@@ -121,23 +121,23 @@ def register(request):
 
 def login_view(request):
 
-	next = request.GET.get('next')
+	next_ = request.GET.get('next')
 	form = UserLoginForm(request.POST or None)
 	print(request.GET)
-	print(next)
+	print(next_)
 	if form.is_valid():
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		user = authenticate(username=username, password=password)
 		login(request, user)
 		messages.success(request, 'Welcome back, ' + str(request.user) + '!')
-		print(next)
-		if next:
-			print(next)
-			return redirect(next.next)
+		print(next_)
+		if next_:
+			print(next_)
+			return redirect(next_.next_)
 		return redirect('accounts:profile')
 
-	return render(request, 'accounts/login.html', {'form':form})
+	return render(request, 'accounts/login.html', {'form':form, 'next': request.GET['next'] if request.GET and 'next' in request.GET else ''})
 
 def logout_view(request):
 	logout(request)
