@@ -113,9 +113,12 @@ Tweets boijy @twittername</a>
 
 <hr>
 
-<div class="row">
-  <div class="container">
 
+
+
+<div class="row">
+<div class="container">
+<div class="col-md-12">
 <h2>{{ instance.comments.count }} comment{{ instance.comments.count | pluralize }} 💬</h2>
 {% if user.is_authenticated %}
 <form method="POST" action="{% url 'services:service_detail' service_slug=instance.service_slug %}">
@@ -132,14 +135,13 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 <br /><br />
 
 
-
 {% for comment in comments %}
 {% if comment.is_parent %}
 <blockquote>
 <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=comment.user.username %}">{{ comment.user.username }} {{ comment.user.userprofile.emoji }}</a>&nbsp;&nbsp;said:</span></p>
 <p style="font-size:2em;">{{ comment.emoji }}</p>
 <p>{{comment.content | linebreaks }}</p>
-<small> on {{ comment.timestamp }} | <a href="{% url 'comments:flag_comment' pk=comment.pk %}">flag 🚩</a> | <a href="{% url 'comments:delete_comment' pk=comment.pk %}">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
+<small>{{ comment.timestamp | date:"M d, 'y" }} | <a href="{% url 'comments:flag_comment' pk=comment.pk %}">flag 🚩</a> | <a href="{% url 'comments:delete_comment' pk=comment.pk %}">delete 🗑</a>&nbsp;&nbsp;| <a class="comment-reply-btn" href="#">reply ↩️</a></small>
 
 <div class='comment-reply'>
   <br />
@@ -161,7 +163,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
   <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=reply.user.username %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
   <p style="font-size:2em;">{{ reply.emoji }}</p>
   <p>{{ reply.content }}</p>
-  <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | <a href="{% url 'comments:flag_comment' pk=reply.pk %}">flag 🚩</a> {% if user == reply.user %}| <a href="{% url 'comments:delete_comment' pk=reply.pk %}">delete 🗑</a>{% endif %}</small>
+  <small>{{ reply.timestamp  | date:"M d, 'y" }} ago | <a href="{% url 'comments:flag_comment' pk=reply.pk %}">flag 🚩</a> {% if user == reply.user %}| <a href="{% url 'comments:delete_comment' pk=reply.pk %}">delete 🗑</a>{% endif %}</small>
 
 </blockquote>
 
@@ -180,6 +182,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 
 {% endfor %}
 
+</div>
 </div>
 
 </div>
