@@ -18,5 +18,6 @@ def delete_comment(request, pk):
 def flag_comment(request, pk):
     comment = Comment.objects.get(pk=pk)
     comment.flag += 1
+    comment.save()
     messages.success(request, 'thank you for flagging this comment. moderators will review it immediately')
     return redirect(comment.content_object.get_absolute_url())
