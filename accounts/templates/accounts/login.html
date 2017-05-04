@@ -40,7 +40,7 @@
 <br />
 <br /> -->
 
-<form method="POST" action=".">
+<form method="POST" action="{{ request.GET.next }}">
 {% csrf_token %}
 <p>{{ form.username }}</p>
 <p>{{ form.password }}</p>
