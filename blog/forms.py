@@ -6,7 +6,15 @@ from .models import Post
 import datetime
 from django.forms.widgets import CheckboxSelectMultiple
 YEAR_CHOICES = tuple([2000+i for i in range(22)])
+# set_ = Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name')
+
+# Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name')
+
+# SERVICE_CHOICES = [(x, x.emoji) for x in set_]
+
 SERVICE_CHOICES = Service.objects.order_by('service_name').extra(select={'lower_name':'lower(service_name)'}).order_by('lower_name')
+
+
 
 class PostForm(forms.ModelForm):
 

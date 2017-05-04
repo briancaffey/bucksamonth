@@ -157,4 +157,13 @@ def update(request, slug):
 	return render(request, 'blog/post_update.html', context)
 
 def delete(request, slug):
-    pass
+    instance = get_object_or_404(Post, slug=slug)
+    user_author = instance.user
+
+    if request.user == user_author:
+        instance.delete()
+        messages.success(request, "your blog post was deleted")
+        return redirect('blog:author_view', username=user_author.username)
+    else:
+        messages.success(request, "you don't have permission to delete this post")
+        return redirect(instance.get_absolute_url())

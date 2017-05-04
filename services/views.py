@@ -2,22 +2,24 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseForbidden
 from django.urls import reverse
+
 from django.db.models import Count
 from django.contrib import messages
 
 from services.models import Service, Subscription
 from categories.models import Category
+from comments.models import Comment
+from accounts.models import UserProfile
+
+
 from django import forms
 from services.forms import AddServiceForm
 from accounts.forms import AddSubscriptionForm, AddSubscriptionFromDetailForm
 #from .forms import AddCommentForm
 from comments.forms import CommentForm
-from comments.models import Comment
-from accounts.models import UserProfile
 
 
 from django.db.models import Q
-
 
 from django.contrib.auth.decorators import login_required
 
@@ -35,11 +37,11 @@ class HomeView(View):
 		services = Service.objects.all()
 		categories = Category.objects.all()
 		cat_count = len(categories)
-		categories = categories[:9]
-		people = UserProfile.objects.all()[:9]
-		featured = Service.objects.filter(featured=True)
-		popular = Service.objects.annotate(num_users=Count('subscription_service')).order_by('-num_users')[:5]
-		new = Service.objects.order_by('-date_created')[:5]
+		categories = categories[:6]
+		people = UserProfile.objects.all()[:6]
+		featured = Service.objects.filter(featured=True)[:3]
+		popular = Service.objects.annotate(num_users=Count('subscription_service')).order_by('-num_users')[:3]
+		new = Service.objects.order_by('-date_created')[:3]
 		context = {
 			'featured':featured,
 			'popular':popular,
@@ -63,7 +65,7 @@ def services(request):
 			Q(description_short__icontains=query) |
 			Q(description_long__icontains=query) |
 			Q(emoji__icontains=query) |
-			Q(tags__name__in=[query]) 
+			Q(tags__name__in=[query])
 			).distinct()
 
 		context['services'] = queryset_list

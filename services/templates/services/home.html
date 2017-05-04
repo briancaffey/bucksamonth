@@ -38,14 +38,14 @@
   {% cycle '<div class="row">' '' ''  %}
   <div style="text-align:center; text-decoration:none !important" class="col-md-4">
     <a style="text-decoration:none;" href="{% url 'categories:category_view' slug=category.slug %}"><div class="col-md-11.5 well">
-      <h1 style="text-align:center; text-decoration:none !important"><span style="font-size:1.25em;">{{ category.emoji }}</span><br /><span style="font-size:.75em;">{{ category.category }}</span></h1>
+      <h2 style="text-align:center; text-decoration:none !important"><span style="font-size:1.25em;">{{ category.emoji }}</span><br /><span style="font-size:.75em;">{{ category.category }}</span></h2>
 
             <p style="font-size:1.25em; color:black;">{{ category.service_set.count }} 📊</p>
-      <blockquote>
+      <!-- <blockquote>
 
         <span style="color:black;">{{ category.description }}</span>
 
-      </blockquote>
+      </blockquote> -->
     </div>
   </a>
   </div>
