@@ -156,7 +156,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
   <p><span style="font-size:1em;"><a class="link-fancy" href="{% url 'users:view_profile' username=reply.user.username %}">{{ reply.user.username }} {{ reply.user.userprofile.emoji }}</a>&nbsp;&nbsp;replied:</span></p>
   <p style="font-size:2em;">{{ reply.emoji }}</p>
   <p>{{ reply.content }}</p>
-  <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | {% if user == reply.user %}<a href="#">delete 🗑</a>{% endif %}</small>
+  <small>via {{ reply.user }} | {{ reply.timestamp | timesince }} ago | <a href="{% url 'comments:flag_comment' pk=reply.pk %}">flag 🚩</a> {% if user == reply.user %}| <a href="{% url 'comments:delete_comment' pk=reply.pk %}">delete 🗑</a>{% endif %}</small>
 
 </blockquote>
 

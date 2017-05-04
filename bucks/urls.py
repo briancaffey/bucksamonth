@@ -27,6 +27,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    url(r'^api/blog/', include('blog.api.urls', namespace="api-posts")),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^faq/$', faq, name='FAQ'),
     url(r'^developers/$', developers.as_view(), name='developers'),

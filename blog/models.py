@@ -87,9 +87,9 @@ class Post(models.Model):
     #
 	# def get_like_url(self):
 	# 	return reverse("posts:like-toggle", kwargs={"slug":self.slug})
-    #
-	# def get_api_like_url(self):
-	# 	return reverse("posts:like-api-toggle", kwargs={"slug":self.slug})
+
+    def get_api_like_url(self):
+        return reverse("api-posts:like-api-toggle", kwargs={"slug":self.slug})
 
 def create_slug(instance, new_slug=None):
 	slug = slugify(instance.title)

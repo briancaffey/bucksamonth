@@ -11,7 +11,4 @@ urlpatterns = [
     url(r'^(?P<slug>.+)/delete/$', views.delete, name='delete'),
 	url(r'^(?P<slug>.+)/$', views.detail, name='detail'),
 
-
-
-
 ]
