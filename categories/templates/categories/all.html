@@ -7,9 +7,16 @@
 
 {% for category in categories %}
 {% cycle '<div class="row">' '' ''  %}
+
 <div style="text-align:center;" class="col-md-4">
-    <h2><a href="{% url 'categories:category_view' slug=category.slug %}">{{ category.category }} ({{ category.service_set.count }})<br />{{ category.emoji }}</a></h2>
+    <a style="text-decoration:none;" href="{% url 'categories:category_view' slug=category.slug %}">
+  <div class="col-md-11.5 well well-sm">
+    <h2>{{ category.emoji }}<br />{{ category.category }}</h2>
+    <p><strong>{{ category.service_set.count }} 📊</strong></p>
+  </div>
+</a>
 </div>
+
 {% cycle '' '' '</div>' %}
 {% endfor %}
 
