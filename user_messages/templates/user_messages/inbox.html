@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'nav.html' %}
-<div class="container">
+
 
 <h1 style="text-align:center;">{% if name %}📃📬<br />messages with {{ name }}<br />{{ name.userprofile.emoji }}{% else %}all messages<br />📃📬{% endif %}</h1>
     {% if not name %}<div style="text-align:center;"><a style="text-align:center;" class="btn btn-success" href="{% url 'accounts:new_message' %}">new message ✍️</a></div><br />
@@ -12,13 +12,10 @@
 
     {% include 'user_messages/partial_conversation.html' with conversations=conversations active=active %}
 
-
 </div>
-
 
 <div class="col-md-9">
   {% if name %}
-
   <form method="POST" action=".">
     {% csrf_token %}
     {{ form }}
@@ -34,5 +31,5 @@
     {% endfor %}
   </div>
 </div>
-</div>
+
 {% endblock %}

@@ -6,11 +6,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-
-
-
-
-
 class CommentManager(models.Manager):
 	def filter_by_instance(self, instance):
 		content_type = ContentType.objects.get_for_model(instance.__class__)
@@ -39,11 +34,6 @@ class Comment(models.Model):
 
 	def children(self):
 		return Comment.objects.filter(parent=self)
-
-	#
-	# def get_absolute_url(self):
-	# 	return reverse('comments:thread', kwargs={'pk':self.id})
-
 
 	@property
 	def is_parent(self):

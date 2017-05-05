@@ -17,10 +17,11 @@ from accounts.forms import (
 	AddSubscriptionForm,
 	MyAuthenticationForm,
 	UserLoginForm,
+
 )
 
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.forms import UserChangeForm, PasswordResetForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -156,26 +157,6 @@ def email_confirmed(request, uid):
 	return redirect('accounts:setup')
 
 
-# def login_(request):
-#
-# 	form = UserLoginForm(request.POST or None)
-# 	print("testing1")
-# 	print(form.is_valid())
-# 	if request.method == "POST":
-# 		form = MyAuthenticationForm(request.POST)
-# 		if form.is_valid():
-# 			login_form = form.save(commit = False)
-# 			print(login_form)
-#
-# 			logged_in_user = authenticate(username=form.cleaned_data.get('username'),
-# 									password=form.cleaned_data.get('password'))
-# 			login(request, logged_in_user)
-# 			return redirect('accounts:profile')
-# 	context = {
-# 			'form': form,
-# 	}
-# 	return render(request, 'accounts/login.html', context)
-
 @login_required
 def view_profile(request):
 
@@ -197,7 +178,6 @@ def view_profile(request):
 				'friends':friends,
 				'follower_count':follower_count,
 		}
-		#args = {'user': request.user, 'subscriptions':subscriptions, 'bucksamonth':bucksamonth}
 		return render(request, 'accounts/profile.html', args)
 
 	return redirect('accounts:setup')
@@ -283,12 +263,3 @@ def change_password(request):
 		form = PasswordChangeForm(user=request.user)
 		args = {'form':form}
 		return render(request, 'accounts/change_password.html', args)
-
-
-def password_reset(request, is_admin_site=False,
-            template_name='registration/password_reset_form.html',
-            email_template_name='registration/password_reset_email.html',
-            password_reset_form=PasswordResetForm,
-            token_generator=default_token_generator,
-            post_reset_redirect=None):
-	print("OK")

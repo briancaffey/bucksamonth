@@ -10,11 +10,8 @@
 <form method="POST" action="">
   {% csrf_token %}
   {{ form.as_p }}
-
   <input type="submit" value="send" class="btn btn-success"> - or - <a class="btn btn-default" href="{% url 'accounts:inbox' %}">cancel ❌</a>
 </form>
-
-
 
 </div>
 </div>

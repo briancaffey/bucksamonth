@@ -5,20 +5,6 @@ from friends.models import Friend
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-# def friend_list(request):
-#
-#     all_users = UserProfile.objects.all().exclude(user=request.user)
-#     context = {
-#             "all_users":all_users,
-#         }
-#     if request.user.is_authenticated():
-#         friend_object, created = Friend.objects.get_or_create(current_user=request.user.userprofile)
-#         if friend_object.users:
-#             friends = [friend for friend in friend_object.users.all() if friend != request.user.userprofile]
-#             context['friends'] = friends
-#
-#     return render(request, 'friends/friends_list.html', context)
-
 @login_required
 def add_or_remove_friends(request, username, verb):
     n_f = get_object_or_404(User, username=username)

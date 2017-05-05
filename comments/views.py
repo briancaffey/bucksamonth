@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from .models import Comment
 from django.contrib import messages
 
-# Create your views here
-
 def delete_comment(request, pk):
     comment = Comment.objects.get(pk=pk)
     if request.user == comment.user:

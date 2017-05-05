@@ -1,17 +1,19 @@
 from django.db import models
+from django.db.models import Sum
+from django.db.models.signals import pre_save
+
 from accounts.models import UserProfile
-#from django.contrib.auth.models import User
-from datetime import date
 from categories.models import Category
 from comments.models import Comment
+
+from datetime import date
+
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Sum
+
 from django.utils.text import slugify
 
-from django.db.models.signals import pre_save
 from taggit.managers import TaggableManager
 
-# Create your models here.
 # Create your models here.
 class Service(models.Model):
 	service_name 			= models.CharField(max_length=140)
@@ -48,8 +50,6 @@ class Service(models.Model):
 		qs = Comment.objects.filter_by_instance(instance)
 		return qs
 
-	# def similar_services(self):
-	#
 
 def create_slug(instance, new_slug=None):
 	slug = slugify(instance.service_name)
@@ -67,26 +67,7 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 	if not instance.service_slug:
 		instance.service_slug = create_slug(instance)
 
-	# if instance.content:
-	# 	html_sring = instance.get_markdown()
-	# 	read_time = get_read_time(html_sring)
-	# 	instance.read_time = read_time
-
 pre_save.connect(pre_save_post_receiver, sender=Service)
-
-# class Comment(models.Model):
-# 	service 				= models.ForeignKey(Service, on_delete=models.CASCADE)
-# 	user 					= models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="user_commenter")
-# 	text 					= models.CharField(max_length=1000)
-# 	date_created			= models.DateField(auto_now_add=True)
-# 	votes 					= models.IntegerField(default=0)
-# 	emoji 					= models.CharField(max_length=20, default='')
-#
-# 	class Meta:
-# 		ordering = ['-date_created']
-#
-# 	def __str__(self):
-# 		return str(self.emoji)
 
 class Subscription(models.Model):
 	service 				= models.ForeignKey(Service, on_delete=models.CASCADE, related_name='subscription_service')

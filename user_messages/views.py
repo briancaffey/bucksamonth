@@ -10,10 +10,7 @@ from .forms import MessageForm, ToUserMessageForm
 
 @login_required
 def all_messages(request):
-
-    context = {
-
-    }
+    context = {}
     return render(request, 'user_messages/all_messages.html', context)
 
 
@@ -25,16 +22,9 @@ def inbox(request):
 
     if conversations:
         conversation = conversations[0]
-        # print(conversation)
-        #active_conversation = conversation['user'].username
-        messages = UserMessage.objects.filter(  user=request.user,
-                                                # conversation=conversation['user']
-                                                )
+        messages = UserMessage.objects.filter(user=request.user,)
         messages.update(is_read=True)
 
-        # for conversation in conversations:
-        #     if conversation['user'].username == active_conversation:
-        #         conversation['unread'] = 0
 
     return render(request, 'user_messages/inbox.html', {
         'messages_':messages,
@@ -56,17 +46,11 @@ def new_message(request):
         to_user = User.objects.get(username=instance.user)
         instance.conversation = to_user
         instance.message = form.cleaned_data.get('message')
-
         instance.send_message(request.user, to_user, instance.message)
-        # if len(message.strip()) == 0:
-        #     messages.success(request, "you can't send an empty message")
-        #     return redirect('accounts:new_message')
         return redirect('accounts:messages', username=instance.user)
     else:
         conversations = UserMessage.get_conversations(user=request.user)
         return render(request, 'user_messages/new_message.html', {'conversations':conversations,'form':form})
-
-
 
 @login_required
 def messages(request, username):
@@ -100,68 +84,3 @@ def messages(request, username):
         'name':convo,
         'form':form,
         })
-
-
-# @login_required
-# def new_message(request):
-#     form = MessageForm(request.POST or None, user=request.user)
-#     if request.method == "POST":
-#         from_user = request.user
-#         to_user_username = request.POST.get("to")
-#         try:
-#             to_user = User.objects.get(username=to_user_username)
-#         except Exception:
-#             try:
-#                 to_user_username = to_user_username[
-#                     to_user_username.rfind('(')+1:len(to_user_username)-1]
-#                 to_user = User.objects.get(username=to_user_username)
-#             except Exception:
-#                 return redirect('accounts:new_message')
-#         message = request.POST.get('message')
-#         if len(message.strip()) == 0:
-#             messages.success(request, "you can't send an empty message")
-#             return redirect('accounts:new_message')
-#         if from_user != to_user:
-#             print("message not yet sent")
-#             UserMessage.send_message(from_user, to_user, message)
-#             print("message sent")
-#         return redirect('accounts:inbox')
-#     else:
-#         conversations = UserMessage.get_conversations(user=request.user)
-#         return render(request, 'user_messages/new_message.html', {'conversations':conversations,'form':form})
-#
-#     context = {
-#         'form':form,
-#     }
-#     return render(request, 'user_messages/new_message.html', context)
-#
-#
-
-# @login_required
-# def new_message(request):
-#     form = MessageForm(request.POST or None, user = request.user)
-#     print(form)
-#     print("here")
-#
-#     if form.is_valid():
-#         from_user = request.user
-#         to_user_username = form.cleaned_data.get('to_user')
-#         to_user = User.objects.get(username=to_user_username)
-#         message = form.cleaned_data.get('message')
-#         print("valid")
-#         if len(message.strip()) == 0:
-#             messages.success(request, "you can't send an empty message")
-#             return redirect('accounts:new_message')
-#
-#         if from_user != to_user:
-#             print("message not yet sent")
-#             UserMessage.send_message(from_user, to_user, message)
-#             print("message sent")
-#         return redirect('accounts:inbox')
-#
-#     else:
-#         conversations = UserMessage.get_conversations(user=request.user)
-#         return render(request, 'user_messages/new_message.html', {'conversations':conversations,'form':form})
-#
-#
-#

@@ -22,16 +22,14 @@
             {% if user.is_authenticated %}
             <li><a href="#">🔔</a></li>
             <li><a type="button" href="#logout" data-toggle="modal" data-target="#myModal-logout">logout 🔓</a></li>
-            <!-- <li><a href="{% url 'accounts:logout' %}">logout 🔓</a></li> -->
             <li><a href="{% url 'accounts:profile' %}">my subscriptions 📊</a></li>
 
             {% else %}
             <li><a href="{% url 'accounts:register' %}">sign up 🔏</a></li>
             <li><a href="{% url 'accounts:login' %}">login 🔑</a></li>
-<!--             <li><a href="#">Your subscriptions 📊<span class="sr-only">(current)</span></a></li> -->
             {% endif %}
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
 
@@ -40,7 +38,6 @@
 {% include 'messages.html' %}
 
 {% endif %}
-
 
 
 
@@ -56,12 +53,8 @@
           </div>
           <div style="text-align:center;" class="modal-body">
             <a  class="btn btn-danger" href="{% url 'accounts:logout' %}">logout 🔓</a>
-            <!-- <p>You can log back in at any time.</p> -->
           </div>
-          <!-- <div class="modal-footer">
-            <a class="btn btn-warning" href="{% url 'accounts:logout' %}">Logout</a>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          </div> -->
+
         </div>
 
       </div>

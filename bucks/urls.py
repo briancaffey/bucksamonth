@@ -23,23 +23,23 @@ from .sitemaps import *
 # Dictionary containing your sitemap classes
 sitemaps = {
    'products': ServiceSitemap(),
-
 }
 
 urlpatterns = [
-    url(r'^api/blog/', include('blog.api.urls', namespace="api-posts")),
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^faq/$', faq, name='FAQ'),
-    url(r'^developers/$', developers.as_view(), name='developers'),
-    url(r'^business/$', business.as_view(), name='business'),
+
+    url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^tags/', include('tags.urls', namespace='tags')),
+    url(r'^api/blog/', include('blog.api.urls', namespace="api-posts")),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^business/$', business.as_view(), name='business'),
     url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^comments/', include('comments.urls', namespace='comments')),
-    url(r'^account/', include('accounts.urls', namespace='accounts')),
+    url(r'^developers/$', developers.as_view(), name='developers'),
+    url(r'^faq/$', faq, name='FAQ'),
     url(r'^services/', include('services.urls', namespace='services')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^tags/', include('tags.urls', namespace='tags')),
     url(r'^users/', include('users.urls', namespace='users')),
-    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^$', HomeView.as_view(), name='home'),
 
 ]

@@ -1,7 +1,14 @@
 from django import forms
 from django.forms import Select
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from django.contrib.auth.forms import (
+	UserCreationForm,
+	UserChangeForm,
+	AuthenticationForm,
+	ReadOnlyPasswordHashField,
+	SetPasswordForm,
+)
+
 from services.models import Subscription, Service
 from accounts.models import UserProfile
 from django.contrib.auth import authenticate, login
@@ -200,6 +207,10 @@ class EditProfileForm(UserChangeForm):
 		'placeholder': "update your last name",
 		}))
 
+	password = ReadOnlyPasswordHashField(label="Password",
+		help_text="you can change your password "
+			"using <a href=\"/account/profile/password/\">this form</a>.")
+
 
 	class Meta:
 		model = User
@@ -208,7 +219,7 @@ class EditProfileForm(UserChangeForm):
 				# 'email',
 				'first_name',
 				'last_name',
-				'password',
+				# 'password',
 				)
 
 YEAR_CHOICES = tuple([2000+i for i in range(18)])

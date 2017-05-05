@@ -80,60 +80,7 @@
 	  <div class="tab-content">
 	    <div role="tabpanel" class="tab-pane active" id="subscriptions">
 <br />
-				<!-- <br /><br /><br /><br /><hr>
 
-
-
-				{% for item in subscriptions %}
-
-				<div class="thumbnail">
-					<div style="text-align:center;
-    align-items: center;" class="row">
-
-
-						<div style="display: inline-block;
-    vertical-align: middle;" class="col-md-4">
-
-									<a style="font-size:3em;" href="{% url 'services:service_detail' service_slug=item.service.service_slug %}">{{ item.service.emoji }}</a><br />
-
-								<a style="font-size:2em;" href="{% url 'services:service_detail' service_slug=item.service.service_slug %}">{{ item.service }}</a>
-
-									{% if item.private %}<a data-toggle="tooltip" title="PRIVATE">🙈</a>
-									{% endif %}
-
-						</div>
-						<div class="col-md-8">
-				<div style="text-align: center;" class="col-xs-3">
-					<span style="font-size:1.5em">💸📅</span><br />
-									<strong>${{ item.bucksamonth | floatformat:"0" }}</strong>
-
-				</div>
-				<div class="col-xs-3">
-					<span style="font-size:1.5em">▶️🗓</span><br />
-					<strong>{{ item.date_created | date:"M d, Y"  }}</strong>
-
-				</div>
-				<div class="col-xs-3">
-					<span style="font-size:1.5em">💳</span><br />
-					<strong>{{ item.cc_nickname }}</strong>
-				</div>
-				<div class="col-xs-3">
-					<a href="{% url 'accounts:subscription_update' pk=item.id %}"><span style="font-size:1.5em;">🔏</span><br />
-					edit</a>️
-				</div>
-</div>
-</div>
-</div>
-				{% endfor %}
-
-
-
-
-
-
-
-
-				<br /><br /><br /><br /> -->
 <h4>{{ user.username }}, you are spending {{ bucksamonth | floatformat:"0" }} bucks a month 💸 </h4>
 <br />
 				<table style="text-decoration:none; text-align:center;" class="table">

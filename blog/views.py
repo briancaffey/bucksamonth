@@ -1,22 +1,21 @@
 from urllib.parse import quote_plus
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from .models import Post
-from comments.models import Comment
-from .forms import PostForm
-from comments.forms import CommentForm
-from taggit.models import Tag
-
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-
 from django.utils.text import slugify
 
-from django.contrib.contenttypes.models import ContentType
+from .models import Post
+from taggit.models import Tag
+from comments.models import Comment
+
+from .forms import PostForm
+from comments.forms import CommentForm
 
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 
-# Create your views here.
 def index(request):
     queryset_list = Post.objects.all()
     authors = list(set([post.user for post in queryset_list]))
@@ -80,7 +79,6 @@ def detail(request, slug):
 
 @login_required
 def create(request):
-	# if not request.user.is_staff or not request.user.is_superuser:
 	if not request.user.is_authenticated:
 		raise Http404
 
@@ -96,7 +94,7 @@ def create(request):
 
 		#message success
 		messages.success(request, 'Successfully Created!')
-		return redirect('blog:index') #HttpResponseRedirect(instance.get_absolute_url())
+		return redirect('blog:index')
 	elif request.method=="POST":
 		messages.error(request, "not Successfully created")
 

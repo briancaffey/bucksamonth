@@ -10,8 +10,4 @@ urlpatterns = [
 	url(r'^(?P<service_slug>.+)/$', views.service_detail, name='service_detail'),
 	url(r'^$', views.services, name='services'),
 
-
-	#url(r'^(?P<service_slug>.+)/subscribers/$', ServiceSubscriberListView.as_view(), name='service_subscribers'),
-	#url(r'^comment/(?P<pk>[0-9]+)/delete/$', CommentDeleteView.as_view(), name='comment_delete'),
-
 ]

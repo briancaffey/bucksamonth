@@ -2,14 +2,9 @@
 
 {% block page_title %}💸📅&nbsp;&nbsp;bucksamonth{% endblock page_title %}
 
-
 {% block content %}
 
 {% include 'nav.html' %}
-
-
-
-
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
@@ -39,13 +34,7 @@
   <div style="text-align:center; text-decoration:none !important" class="col-md-4">
     <a style="text-decoration:none;" href="{% url 'categories:category_view' slug=category.slug %}"><div class="col-md-11.5 well well-sm">
       <h2 style="text-align:center; text-decoration:none !important"><span style="font-size:1.25em;">{{ category.emoji }}</span><br /><span style="font-size:.75em;">{{ category.category }}</span></h2>
-
             <p style="font-size:1.25em; color:black;">{{ category.service_set.count }} 📊</p>
-      <!-- <blockquote>
-
-        <span style="color:black;">{{ category.description }}</span>
-
-      </blockquote> -->
     </div>
   </a>
   </div>
@@ -76,7 +65,6 @@
 
       <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
 
-
     </div>
   </div>
 </div>
@@ -105,7 +93,6 @@
 
       <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
 
-
     </div>
   </div>
 </div>
@@ -114,17 +101,10 @@
 
 </div>
 
-
-
-
 <div class="col-md-4" style="text-align:center;">
 
 
-
-
 <h1>🆕📅<br />new</h1>
-
-
 
 {% for service in new %}
 
@@ -142,17 +122,11 @@
 
       <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
 
-
     </div>
   </div>
 </div>
 <hr>
 {% endfor %}
-
-
-
-
-
 
 
 </div>
@@ -165,16 +139,13 @@
   <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.48665955176094% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BTIq6EzhRL-/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">time to update your cloud storage? ☁️💽☁️ track your monthly subscription services w bucksamonth 💸📅👍🏻 #bucksamonth</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by 💸 bucksamonth 📅 (@bucksamonth) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-04-21T05:21:35+00:00">Apr 20, 2017 at 10:21pm PDT</time></p></div></blockquote>
   <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
 
-
 </div>
-
 
 <div class="col-md-4" style="text-align:center;">
 
   <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.48665955176094% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BTZ_FWZhdl8/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">get serious about running with advanced reporting and analytics from MapMyRun&#39;s MVP subscription 🏆 how else are you going to keep up with the competition?? 😂💸📅 #bucksamonth</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by 💸 bucksamonth 📅 (@bucksamonth) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-04-27T22:44:59+00:00">Apr 27, 2017 at 3:44pm PDT</time></p></div></blockquote>
   <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
 </div>
-
 
 <div class="col-md-4" style="text-align:center;">
 
@@ -190,9 +161,6 @@
   <div class="col-md-12">
     <div style="text-align:center;"><h2><span style="font-size:1.5em">👲🏼👱🏼👩🏻👮</span><br />people</h2></div>
 
-<!-- {% if 'iPhone' in request.META.HTTP_USER_AGENT %}test1{% else %}test2{% endif %}
-
- -->
     {% for person in people %}
     {% cycle '<div class="row">' '' ''  %}
     <div style="text-align:center; text-decoration:none !important" class="col-md-4">
@@ -206,13 +174,8 @@
     {% cycle '' '' '</div>' %}
     {% endfor %}
 
-
   </div>
 </div>
-
-
-
-
 
 
 {% endblock %}

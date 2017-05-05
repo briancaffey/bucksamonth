@@ -5,9 +5,6 @@
   <span style="text-align:center"><p><a style="text-decoration:none;" href="{% url 'categories:all_categories' %}"><span style="font-size:1.5em;">all categories 🗂🗃🗄</span></a></p>
 <h1>{{ category.category }}<br />{{ category.emoji }}</h1></span>
 
-
-
-
 {% for service in services %}
 {% cycle '<div class="row">' '' ''  %}
 <div style="text-align:center;" class="col-md-4">
@@ -19,7 +16,6 @@
 </a>
 </div>
 {% cycle '' '' '</div>' %}
-
 
 {% endfor %}
 </div>

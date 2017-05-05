@@ -13,10 +13,6 @@ class Category(models.Model):
     def __str__(self):
         return str(self.category)
 
-    # def cat_count(self):
-    #     count = Service.objects.filter(category=self.category)
-    #     return len(count)
-
 def create_slug(instance):
     slug = slugify(instance.category)
     return slug

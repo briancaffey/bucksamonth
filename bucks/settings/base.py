@@ -40,9 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'crispy_forms',
-
     'rest_framework',
-
     'services',
     'accounts',
     'users',
@@ -54,7 +52,6 @@ INSTALLED_APPS = [
     'friends',
     'user_messages',
     'tags',
-
 ]
 
 SITE_ID = 1
@@ -90,10 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bucks.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -101,8 +94,6 @@ DATABASES = {
     }
 }
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
 
 
 # Password validation
@@ -168,7 +159,7 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
 
-
+#email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_PASSWORD = 'bucksbucksbucks'
 EMAIL_HOST_USER = 'bucksamonth@gmail.com'
