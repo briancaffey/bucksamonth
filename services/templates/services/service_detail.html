@@ -97,6 +97,8 @@ Tweets boijy @twittername</a>
 <hr>
 <div class="row">
   <div class="container">
+
+
 <h2>subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>
 {% for subscriber in subscribers %}
 {% cycle '<div class="row">' '' ''  %}
@@ -104,12 +106,14 @@ Tweets boijy @twittername</a>
 <h2><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}<br />{{ subscriber.user.user.username }}</a></h2>
 </div>
 {% cycle '' '' '</div>' %}
+
+
 {% endfor %}
 
 <br />
+</div>
+</div>
 
-</div>
-</div>
 
 <hr>
 

@@ -8,6 +8,7 @@ from .forms import MessageForm, ToUserMessageForm
 
 # Create your views here.
 
+@login_required
 def all_messages(request):
 
     context = {

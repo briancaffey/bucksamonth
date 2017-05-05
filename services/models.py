@@ -48,6 +48,9 @@ class Service(models.Model):
 		qs = Comment.objects.filter_by_instance(instance)
 		return qs
 
+	# def similar_services(self):
+	#
+
 def create_slug(instance, new_slug=None):
 	slug = slugify(instance.service_name)
 	if new_slug is not None:
