@@ -3,7 +3,7 @@
 {% block content %}
 
 {% include 'nav.html' %}
-<div class="container">
+
 
 
 
@@ -138,12 +138,12 @@
 </table>
 </div>
 </div>
-
+</div>
 <br /><br />
-<div class="container">
+
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="container">
 <h4>{{ person.user.username }} is following {{ follower_count }} user{{ follower_count | pluralize }}</h4>
 	<br />
 {% for friend_ in user_friends %}
@@ -155,10 +155,11 @@
 {% endfor %}
 </div>
 </div>
-</div>
+
 <hr>
-<div class="container">
+
 <div class="row">
+	<div class="container">
 <h4>{{ person.user.username }} has {{ person.followers.count }} followers</h4>
 	<br />
 {% for follower in person.followers.all %}
@@ -170,6 +171,7 @@
 {% endfor %}
 </div>
 </div>
+
 </div>
 </div>
 {% endblock %}
