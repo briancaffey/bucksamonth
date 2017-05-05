@@ -6,11 +6,11 @@
 
 <div class="container">
 <div class="col-md-6 col-md-offset-3">
-<h2>Login to your bucksamonth account, or <a href="{% url 'accounts:register' %}">sign up</a> for a new account</h2>
+<h2>login to your bucksamonth account, or <a href="{% url 'accounts:register' %}">sign up</a> for a new account</h2>
 <br>
 
 {% if authentication_form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<p>your username and password didn't match. please try again.</p>
 {% endif %}
 
 {% if next %}
@@ -48,8 +48,8 @@
 <input class="btn btn-success" type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-
+<br />
+<p><a href="{% url 'accounts:reset_password' %}">forgot your password?</a></p>
 
 </div>
 </div>

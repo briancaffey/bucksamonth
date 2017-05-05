@@ -20,10 +20,11 @@ from accounts.forms import (
 )
 
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, PasswordResetForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.tokens import default_token_generator
 
 from django.views.generic import View, TemplateView, FormView, UpdateView
 from django.views.generic.edit import UpdateView
@@ -282,3 +283,12 @@ def change_password(request):
 		form = PasswordChangeForm(user=request.user)
 		args = {'form':form}
 		return render(request, 'accounts/change_password.html', args)
+
+
+def password_reset(request, is_admin_site=False,
+            template_name='registration/password_reset_form.html',
+            email_template_name='registration/password_reset_email.html',
+            password_reset_form=PasswordResetForm,
+            token_generator=default_token_generator,
+            post_reset_redirect=None):
+	print("OK")
