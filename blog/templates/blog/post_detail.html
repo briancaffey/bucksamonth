@@ -26,7 +26,7 @@ $(".comment-reply-btn").click(function(event){
 
 
 
-  <div class="col-md-8">  <!-- col-sm-6 col-sm-offset-3 -->
+ <!-- col-sm-6 col-sm-offset-3 -->
   	<p><a class="btn btn-default" href="{% url 'blog:index'%}">🔙&nbsp;&nbsp;to posts</a>   <a class="btn btn-success" href="{% url 'blog:create' %}">new blog post ➕</a></p>
   	<hr>
     <h1><span style="font-size:2em">{{ instance.emoji }}</span><br />{{ instance.title }} </h1>
@@ -50,7 +50,9 @@ $(".comment-reply-btn").click(function(event){
 
       <p><span style="font-size:1.25em; word-wrap:break-word;">{% for tag in instance.tags.all %}<a href="{% url 'blog:tag_view' slug=tag %}" class="label label-default" >🏷&nbsp;&nbsp;{{ tag }}</a> {% endfor %}</span></p>
       <p>{{ instance.views }} views 👀</p>
+      <blockquote>
   		<div class="post-detail-item">{{ instance.content | safe }}</div>
+    </blockquote>
       <br />
   		{% if request.user == instance.user %}<a class="btn btn-warning" href="{% url 'blog:update' slug=instance.slug %}">update ✏️</a> <a class="btn btn-danger" href="{% url 'blog:delete' slug=instance.slug %}">delete 🗑</a>{% endif %}
 
@@ -120,7 +122,7 @@ $(".comment-reply-btn").click(function(event){
       {% endfor %}
 
 
-  </div>
+
 
 
 

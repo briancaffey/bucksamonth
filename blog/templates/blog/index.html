@@ -3,14 +3,39 @@
 {% block content %}
 {% include 'nav.html' %}
 
+<div class="row">
+  <div class="col-md-12">
+<div class="jumbotron">
+  <h1>bucksamonth blog 🗞</h1>
+  <p>share thoughts and opinions on your subscriptions</p>
+  <p>
+    <a class="btn btn-lg btn-success" href="{% url 'blog:create' %}" role="button">contribute ✍️</a> <!--  &raquo; -->
+  </p>
+</div>
+</div>
+
+<!-- <div class="col-md-3">
+  <div class="">
+    subscribe
+  </div>
+</div> -->
+
+</div>
 
 
 
-<div class="col-md-8">
-  <h2>📰 bucksamonth blog ✍️</h2>
+<div class="row">
 
-  <a class="btn btn-success" href="{% url 'blog:create' %}">new blog post ➕</a>
-  <br /></br/>
+  <div  style="text-align:center;" class="container">
+
+  </div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-9 pull-right">
+  <h2 style="text-align:center;">📰 recent articles ✍️</h2>
 
 {% for object in object_list %}
 
@@ -38,13 +63,20 @@
 
 {% endfor %}
 </div>
-<div class="col-md-4">
-  <h4>popular authors</h4>
+<div  style="text-align:center;" class="col-md-3">
+  <h2>🤓 authors 📊</h2>
+  <ul class="list-group">
     {% for author in authors %}
-      <a href="{% url 'blog:author_view' username=author %}">{{ author }} | {{ author.userprofile.emoji }}</a></p>
+      <a style="font-size:1.5em" href="{% url 'blog:author_view' username=author %}">
+
+        <li class="list-group-item">
+        {{ author }} {{ author.userprofile.emoji }}
+      </li>
+      </a></p>
     {% endfor %}
+  </ul>
 </div>
 
-
+</div>
 
 {% endblock %}

@@ -2,11 +2,11 @@
 {% block content %}
 {% include 'nav.html' %}
 
-
+<div class="row">
 
 <div class="col-md-8">
   <p><a class="btn btn-default" href="{% url 'blog:index'%}">🔙&nbsp;&nbsp;all posts</a></p>
-  <h2>{{ posts.count }} post{{ posts.count | pluralize }} by <a href="{% url 'users:view_profile' username=author %}">{{ author }} | {{ author.userprofile.emoji }}</a></h2>
+  <h2>{{ posts.count }} post{{ posts.count | pluralize }} by <a href="{% url 'users:view_profile' username=author %}">{{ author }} {{ author.userprofile.emoji }}</a></h2>
 <br />
 
 
@@ -36,6 +36,7 @@
 
 
 
+</div>
 </div>
 
 
