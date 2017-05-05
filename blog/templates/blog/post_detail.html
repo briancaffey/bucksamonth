@@ -53,7 +53,7 @@ $(".comment-reply-btn").click(function(event){
       <blockquote>
   		<div class="post-detail-item">{{ instance.content | safe }}</div>
     </blockquote>
-      <br />
+
   		{% if request.user == instance.user %}<a class="btn btn-warning" href="{% url 'blog:update' slug=instance.slug %}">update ✏️</a> <a class="btn btn-danger" href="{% url 'blog:delete' slug=instance.slug %}">delete 🗑</a>{% endif %}
 
   		<hr>

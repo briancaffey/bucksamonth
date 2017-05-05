@@ -118,6 +118,7 @@ def service_detail(request, service_slug):
 	form = CommentForm(request.POST or None, initial=initial_data)
 	subscribers = Subscription.objects.filter(service=instance, private=False, wishlist=False)
 	subscribers_count = subscribers.distinct().count()
+	subscribers = subscribers[:6]
 	comments = instance.comments
 
 	context = {

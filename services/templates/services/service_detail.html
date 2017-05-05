@@ -100,17 +100,34 @@ Tweets boijy @twittername</a>
 
 
 <h2>subscribers (<a href="{% url 'services:service_subscribers' service_slug=instance.service_slug %}">{{ subscribers_count }}</a>)</h2>
+
+
+<ul class="list-group">
 {% for subscriber in subscribers %}
-{% cycle '<div class="row">' '' ''  %}
+{% cycle '<div class="row">' '' '' %}
 <div style="text-align:center;" class="col-md-4">
-<h2><a href="{% url 'users:view_profile' username=subscriber.user.user.username %}">{{ subscriber.user.emoji }}<br />{{ subscriber.user.user.username }}</a></h2>
+<a style="text-decoration:none;" href="{% url 'users:view_profile' username=subscriber.user.user.username %}">
+<li class="list-group-item">
+<h2>
+
+
+    <span style="font-size:1.25em;">{{ subscriber.user.emoji }}</span><br />{{ subscriber.user.user.username }}
+
+
+</h2>
+<p>
+<strong>{{ subscriber.bucksamonth | floatformat:"0" }} 💸📅</strong>
+</p>
+</li>
+</a>
+
 </div>
 {% cycle '' '' '</div>' %}
-
-
 {% endfor %}
+</ul>
 
-<br />
+
+
 </div>
 </div>
 

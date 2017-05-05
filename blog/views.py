@@ -8,6 +8,7 @@ from comments.forms import CommentForm
 from taggit.models import Tag
 
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from django.utils.text import slugify
 
@@ -77,7 +78,7 @@ def detail(request, slug):
 
     return render(request, 'blog/post_detail.html', context)
 
-
+@login_required
 def create(request):
 	# if not request.user.is_staff or not request.user.is_superuser:
 	if not request.user.is_authenticated:
