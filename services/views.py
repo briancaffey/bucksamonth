@@ -12,7 +12,6 @@ from categories.models import Category
 from comments.models import Comment
 from accounts.models import UserProfile
 
-
 from django import forms
 from services.forms import AddServiceForm
 from accounts.forms import AddSubscriptionForm, AddSubscriptionFromDetailForm

@@ -15,10 +15,14 @@ class UserProfile(models.Model):
 	description = models.CharField(max_length=100, default='')
 	twitter = models.CharField(max_length=100, default='')
 	emoji = models.CharField(max_length=10, default='')
+	facebook_url = models.URLField(max_length=400, blank=True)
+	linkedin_url = models.URLField(max_length=400, blank=True)
+	website = models.URLField(max_length=400, blank=True)
 	setup = models.BooleanField(default=False)
 	uid = models.CharField(default=uuid.uuid4, max_length=40)
 	email_valid = models.BooleanField(default=False)
 	followers = models.ManyToManyField('self')
+	join_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 	def __str__(self):
 		return self.user.username

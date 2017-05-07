@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY = '123' #os.environ['DJANGO_SECRET_KEY_1']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -160,9 +161,17 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
 
 #email
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-EMAIL_HOST_USER = 'bucksamonth@gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+if DEBUG==True:
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_PASSWORD = 'pswrd'
+    EMAIL_HOST_USER = 'bucksamonth@gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+else:
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+    EMAIL_HOST_USER = 'bucksamonth@gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

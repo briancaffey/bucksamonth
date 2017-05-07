@@ -17,8 +17,9 @@ from accounts.forms import (
 	AddSubscriptionForm,
 	MyAuthenticationForm,
 	UserLoginForm,
-
 )
+
+from django.contrib.auth import get_user_model
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordResetForm, PasswordChangeForm
@@ -32,6 +33,7 @@ from django.views.generic.edit import UpdateView
 
 from django.contrib import messages
 
+User = get_user_model()
 
 def faq(request):
 	print(request.get_host())
@@ -167,7 +169,7 @@ def view_profile(request):
 		bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
 		comments = Comment.objects.filter(user=request.user)
 		friend_object, created = Friend.objects.get_or_create(current_user=request.user.userprofile)
-
+		
 		friends = [friend for friend in friend_object.users.all() if friend != request.user.userprofile]
 		follower_count = len(friends)
 		args = {'user':request.user,
@@ -235,8 +237,6 @@ class UpdateUserInfoForm(UpdateView):
 		context['subscription'] = self.object
 		return context
 
-
-
 def edit_profile(request):
 	if request.method == 'POST':
 		form = EditProfileForm(request.POST, instance=request.user)
@@ -263,3 +263,14 @@ def change_password(request):
 		form = PasswordChangeForm(user=request.user)
 		args = {'form':form}
 		return render(request, 'accounts/change_password.html', args)
+
+@login_required
+def delete_subscription(request, pk):
+	subscription = Subscription.objects.get(pk=pk)
+	if request.user == subscription.user.user:
+		messages.success(request, "your subscription for " + str(subscription.service) + " has been deleted")
+		subscription.delete()
+		return redirect('accounts:profile')
+	else:
+		messages.success(request, 'you don\'t have permission to delete this')
+		return redirect('accounts:profile')

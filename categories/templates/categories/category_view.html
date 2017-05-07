@@ -11,7 +11,7 @@
 <a style="text-decoration:none;" href="{% url 'services:service_detail' service_slug=service.service_slug %}">
 <div class="col-md-11.5 well well-sm">
     <h2>{{ service.service_name }}<br />{{ service.emoji }}</h2>
-    <p><strong>{{ service.bucksamonth }} 💸📅</strong></p>
+    <p><strong>{{ service.bucksamonth | floatformat:"0" }} 💸📅</strong></p>
 </div>
 </a>
 </div>

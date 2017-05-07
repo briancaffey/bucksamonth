@@ -2,7 +2,7 @@
 {% load taggit_templatetags2_tags %}
 {% block content %}
 {% include 'nav.html' %}
-<div class="container">
+
 <h1 style="text-align:center;">tags<br />🏷🏷🏷</h1>
 {% get_taglist as blog_tags for 'blog' %}
 {% get_taglist as service_tags for 'services' %}
@@ -30,6 +30,6 @@
 {% endfor %}
 </div>
 </div>
-</div>
+
 <br /><br /><br />
 {% endblock %}

@@ -142,24 +142,43 @@ class EditPersonalInfoForm(forms.ModelForm):
 	#setup = forms.BooleanField(widget=forms.HiddenInput)
 	setup = forms.BooleanField(required=False, widget=forms.HiddenInput)
 
-	description = forms.CharField(widget=forms.TextInput(
+	description = forms.CharField(widget=forms.Textarea(
 		attrs={
+
 		'class':'form-control',
-		'placeholder': "say something about yourself...",
+		'rows':3,
+		'placeholder': "introduce yourself (required)",
 		}))
 
-	twitter = forms.CharField(widget=forms.TextInput(
+	twitter = forms.CharField(required=False, widget=forms.TextInput(
 		attrs={
 		'class':'form-control',
-		'placeholder': "your twitter handle",
+		'placeholder': "your twitter handle (optional)",
 		}))
 
-	emoji = forms.CharField(widget=forms.TextInput(
+	emoji = forms.CharField(required=True, widget=forms.TextInput(
 		attrs={
 		'class':'form-control',
-		'placeholder': "choose your emojis",
+		'placeholder': "choose your emojis (required)",
 		}))
 
+	facebook_url = forms.CharField(required=False, widget=forms.TextInput(
+		attrs={
+		'class':'form-control',
+		'placeholder': "facebook URL (optional)",
+		}))
+
+	linkedin_url = forms.CharField(required=False, widget=forms.TextInput(
+		attrs={
+		'class':'form-control',
+		'placeholder': "lnkedin URL (optional)",
+		}))
+
+	website = forms.CharField(required=False, widget=forms.TextInput(
+		attrs={
+		'class':'form-control',
+		'placeholder': "website URL (optional)",
+		}))
 
 
 
@@ -171,6 +190,9 @@ class EditPersonalInfoForm(forms.ModelForm):
 			'twitter',
 			'emoji',
 			'setup',
+			'facebook_url',
+			'linkedin_url',
+			'website',
 
 			)
 
