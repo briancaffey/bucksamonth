@@ -46,7 +46,7 @@ $(".comment-reply-btn").click(function(event){
 
   		<p>by <a href="{% url 'blog:author_view' username=instance.user.username %}">{{ instance.user.username }} {{ instance.user.userprofile.emoji }}</a>&nbsp;&nbsp;<small>on {{ instance.publish }}</small></p>
 
-      <p><span style="font-size:1.25em; word-wrap:break-word;">{% for tag in instance.tags.all %}<a href="{% url 'blog:tag_view' slug=tag %}" class="label label-default" >🏷&nbsp;&nbsp;{{ tag }}</a> {% endfor %}</span></p>
+      <p><span style="font-size:1.25em; word-wrap:break-word;">{% for tag in instance.tags.all %}<a href="{% url 'blog:tag_view' slug=tag.slug %}" class="label label-default" >🏷&nbsp;&nbsp;{{ tag }}</a> {% endfor %}</span></p>
       <p>{{ instance.views }} views 👀</p>
       <blockquote>
   		<div class="post-detail-item">{{ instance.content | safe }}</div>

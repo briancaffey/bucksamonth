@@ -13,6 +13,9 @@ class Category(models.Model):
     def __str__(self):
         return str(self.category)
 
+    class Meta:
+        ordering = ('category',)
+
 def create_slug(instance):
     slug = slugify(instance.category)
     return slug

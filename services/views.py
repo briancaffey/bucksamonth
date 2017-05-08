@@ -30,6 +30,7 @@ class HomeView(View):
 		services = Service.objects.all()
 		categories = Category.objects.all()
 		cat_count = len(categories)
+		categories = Category.objects.all().annotate(num_cats=Count('service')).order_by('-num_cats')
 		categories = categories[:6]
 		people = UserProfile.objects.all()[:6]
 		featured = Service.objects.filter(featured=True)[:3]

@@ -1,11 +1,11 @@
 from django.shortcuts import render
-
+from django.db.models import Count
 from services.models import Service
 from .models import Category
 # Create your views here.
 
 def all_categories(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().annotate(num_cats=Count('service')).order_by('-num_cats')
     context = {
         'categories':categories,
     }

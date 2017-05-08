@@ -169,7 +169,7 @@ def view_profile(request):
 		bucksamonth = sum([subscription.bucksamonth for subscription in subscriptions])
 		comments = Comment.objects.filter(user=request.user)
 		friend_object, created = Friend.objects.get_or_create(current_user=request.user.userprofile)
-		
+
 		friends = [friend for friend in friend_object.users.all() if friend != request.user.userprofile]
 		follower_count = len(friends)
 		args = {'user':request.user,
