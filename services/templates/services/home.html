@@ -63,7 +63,7 @@
     <hr>
     <div class="row">
 
-      <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+      <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=service.service_slug %}">add ✅</a>
 
     </div>
   </div>
@@ -91,7 +91,7 @@
     <hr>
     <div class="row">
 
-      <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+      <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=service.service_slug %}">add ✅</a>
 
     </div>
   </div>
@@ -120,7 +120,7 @@
     <hr>
     <div class="row">
 
-      <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="#">wishlist ⭐️</a>
+      <a href="{% url 'services:service_detail' service_slug=service.service_slug %}" class="btn btn-success">check it out 👀</a> <a class="btn btn-info" href="{% url 'services:add_service_from_detail_view' service_slug=service.service_slug %}">add ✅</a>
 
     </div>
   </div>

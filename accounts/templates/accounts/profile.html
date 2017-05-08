@@ -185,7 +185,7 @@
 	    <div role="tabpanel" class="tab-pane" id="following">
 				<br />
 				<div class="row">
-				<h4>you have {{ request.user.userprofile.followers.all.count }} follower{{ request.user.userprofile.followers.all.count | pluralize }}</h4>
+				<h4 style="text-align:center;">you have {{ request.user.userprofile.followers.all.count }} follower{{ request.user.userprofile.followers.all.count | pluralize }}</h4>
 				<br />
 				{% for friend_ in request.user.userprofile.followers.all %}
 				{% cycle '<div class="row">' '' '' ''  %}
@@ -195,7 +195,7 @@
 				{% cycle '' '' '' '</div>' %}
 				{% endfor %}
 				</div>
-				<h4>you are following {{ follower_count }} user{{ follower_count | pluralize }}</h4>
+				<h4 style="text-align:center;">you are following {{ follower_count }} user{{ follower_count | pluralize }}</h4>
 				<br />
 
 					{% for friend_ in friends %}

@@ -53,11 +53,11 @@
 	<div role="tabpanel" class="tab-pane active" id="info">
 		<div class="col-md-12">
 	<br />
-			<p><strong>{{ subscriptions.all.count }}</strong> subscriptions</p>
-			<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month</p>
-			<p>member since 🗓 March 8, 2017</p>
-			<p>account: <strong>basic</strong></p>
-			<p><a href="#">👑&nbsp;&nbsp;get bucksamonth premium 💰</a></p>
+			<p><strong>{{ subscriptions.all.count }}</strong> subscriptions 📊</p>
+			<p>spending <strong>{{ bucksamonth | floatformat:"0" }}</strong> bucks a month 💸📅</p>
+			<p>joined {{ person.join_date | date:"M Y" }}</p>
+			<p>number #️⃣&nbsp;&nbsp;{{ person.user.pk }}</p>
+			<!-- <p><a href="#">👑&nbsp;&nbsp;get bucksamonth premium 💰</a></p> -->
 		</div>
 
 
@@ -71,7 +71,7 @@
 		<p>twitter 🐦🗣&nbsp;&nbsp;<a href="https://twitter.com/{{ person.twitter }}">{{ person.user.userprofile.twitter }}</a>↗️</p>
 		<p>linkedin 🔗💼 &nbsp;&nbsp;<a href="{{ person.linkedin_url }}">LinkedIn</a>↗️</p>
 		<p>website 🌎🕸 &nbsp;&nbsp;<a href="{{ person.website }}">{{ person.website }}</a>↗️</p>
-		<p><a href='#'>📍&nbsp;&nbsp;Washington, D.C. 🗺</a></p>
+		<!-- <p><a href='#'>📍&nbsp;&nbsp;not set 🗺</a></p> -->
 		</div>
 
 </div>
@@ -152,7 +152,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-<h4>{{ person.user.username }} has {{ person.followers.count }} followers</h4>
+<h4 style="text-align:center;">{{ person.user.username }} has {{ person.followers.count }} followers</h4>
 	<br />
 {% for follower in person.followers.all %}
 {% cycle '<div class="row">' '' ''  %}

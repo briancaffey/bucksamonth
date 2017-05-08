@@ -28,7 +28,7 @@
             		<a href="http://www.reddit.com/submit?url={{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}&title={{ user.userprofile.description | urlify }}">👽👓 reddit</a>
                 <hr>
 
-                <span style="font-size:.6em;"><a href="{{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}">{{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}</a>
+                <span style="font-size:.5em;"><a href="http://{{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}">{{ request.get_host }}{% url 'users:view_profile' username=request.user.username %}</a>
                 </span>
 
 
