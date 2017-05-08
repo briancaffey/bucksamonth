@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% block page_title %}{{ person.emoji }} | {{ block.super }}{% endblock page_title %}
+
+
 {% block content %}
 
 {% include 'nav.html' %}

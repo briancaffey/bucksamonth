@@ -70,7 +70,7 @@ $(".comment-reply-btn").click(function(event){
       </form>
       </div>
       {% else %}
-      <p>Please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">sign up</a> to comment.</p>
+      <p>please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">sign up</a> to comment</p>
       {% endif %}
       <hr>
 
@@ -84,6 +84,7 @@ $(".comment-reply-btn").click(function(event){
 
       <div class='comment-reply'>
         <br />
+        {% if user.is_authenticated %}
       <form method="POST" action=".">{% csrf_token %}
 
       {{ form | crispy }}
@@ -91,6 +92,9 @@ $(".comment-reply-btn").click(function(event){
       <br />
       <input type="submit" value="reply ↩️" class="btn btn-default"></input>
       </form>
+      {% else %}
+      <p>please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">sign up</a> to leave a reply</p>
+      {% endif %}
       </div>
 
 

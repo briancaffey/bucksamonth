@@ -166,7 +166,7 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 
 <div class='comment-reply'>
   <br />
-
+{% if user.is_authenticated %}
 <form method="POST" action=".">{% csrf_token %}
 
 {{ form | crispy }}
@@ -176,6 +176,12 @@ please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accoun
 </form>
 
 </div>
+{% else %}
+<span>
+please <a href="{% url 'accounts:login' %}">login</a> or <a href="{% url 'accounts:register' %}">register</a> to leave a reply
+</span>
+{% endif %}
+
 {% endif %}
 
 {% for reply in comment.children %}

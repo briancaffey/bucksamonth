@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load urlify %}
 
-
+{% block page_title %}{{ user.userprofile.emoji }} | {{ block.super }}{% endblock page_title %}
 
 
 {% block content %}
