@@ -80,10 +80,16 @@ class Subscription(models.Model):
 
 
 	def emoji(self):
-		return self.service.emoji
+		return str(self.service.emoji)
 
 	def service_name(self):
-		return self.service.service_name
-		
+		return str(self.service.service_name)
+
+	def service_link(self):
+		return str(self.service.get_absolute_url)
+
+	def service_description(self):
+		return str(self.service.description_short)
+
 	def __str__(self):
 		return str(self.service)

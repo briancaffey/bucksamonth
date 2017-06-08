@@ -7,7 +7,10 @@ from services.models import Subscription
 
 class SubscriptionListSerializer(ModelSerializer):
     service_name = serializers.ReadOnlyField()
+    service_description = serializers.ReadOnlyField()
+    service_link = serializers.ReadOnlyField()
     emoji = serializers.ReadOnlyField()
+
     class Meta:
         model = Subscription
         fields = [
@@ -19,4 +22,7 @@ class SubscriptionListSerializer(ModelSerializer):
             # 'private',
             'emoji',
             'service_name',
+            'service_link',
+            'service_description', 
+
         ]
