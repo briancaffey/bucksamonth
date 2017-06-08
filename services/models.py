@@ -86,7 +86,7 @@ class Subscription(models.Model):
 		return str(self.service.service_name)
 
 	def service_link(self):
-		return str(self.service.get_absolute_url())
+		return 'http://www.bucksamonth.com/' + str(self.service.get_absolute_url())
 
 	def service_description(self):
 		return str(self.service.description_short)
