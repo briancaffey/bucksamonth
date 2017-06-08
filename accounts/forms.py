@@ -86,14 +86,14 @@ class RegistrationForm(UserCreationForm):
 		'placeholder': "pick a username for your public profile",
 		}))
 
-	first_name = forms.CharField(widget=forms.TextInput(
+	first_name = forms.CharField(required=False, widget=forms.TextInput(
 		attrs={
 		'class':'form-control',
 		'placeholder': "your name (optional)",
 
 		}))
 
-	last_name = forms.CharField(widget=forms.TextInput(
+	last_name = forms.CharField(required=False, widget=forms.TextInput(
 		attrs={
 		'class':'form-control',
 		'placeholder': "your last name (optional)",

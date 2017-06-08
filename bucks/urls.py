@@ -29,6 +29,7 @@ urlpatterns = [
 
     url(r'^account/', include('accounts.urls', namespace='accounts')),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/v1/', include('api.urls', namespace="api")),
     url(r'^api/blog/', include('blog.api.urls', namespace="api-posts")),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^business/$', business.as_view(), name='business'),

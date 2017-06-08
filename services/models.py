@@ -78,5 +78,12 @@ class Subscription(models.Model):
 	wishlist				= models.BooleanField(default=False)
 	private					= models.BooleanField(default=False)
 
+
+	def emoji(self):
+		return self.service.emoji
+
+	def service_name(self):
+		return self.service.service_name
+		
 	def __str__(self):
 		return str(self.service)
